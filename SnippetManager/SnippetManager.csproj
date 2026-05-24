@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <ApplicationIcon>Resources\Picture\ApplicationIcon.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.2026.1</AssemblyVersion>
+    <FileVersion>1.0.2026.1</FileVersion>
+    <Authors>MinimalWPF</Authors>
+    <Company>MinimalWPF</Company>
+    <Product>MinimalWPF</Product>
+    <Description>MinimalWPF NET10 V6 Template </Description>
+    <PackageId>MinimalWPF</PackageId>
+    <AssemblyName>SnippetManager</AssemblyName>
+    <AssemblyTitle>MinimalWPF</AssemblyTitle>
+    <RootNamespace>SnippetManager</RootNamespace>
+    <UseWindowsForms>True</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Picture\ApplicationIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Picture\ApplicationIcon.ico" />
+    <Resource Include="Resources\Picture\ApplicationIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Message\" />
+    <Folder Include="Core\Settings\" />
+    <Folder Include="Core\View\" />
+    <Folder Include="Resources\Style\" />
+    <Folder Include="Resources\Localization\" />
+    <Folder Include="TemplateCore\Services\" />
+  </ItemGroup>
+
+</Project>
