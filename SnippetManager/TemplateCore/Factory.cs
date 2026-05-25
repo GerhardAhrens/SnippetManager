@@ -15,7 +15,7 @@
         // Registrierungseintrag
         private sealed class Registration
         {
-            public required Func<object> FactoryMethod { get; init; }
+            public required Func<object, object> FactoryMethod { get; init; }
 
             public required Lifetime Lifetime { get; init; }
         }
@@ -37,12 +37,25 @@
         /// <summary>
         /// Registrierung als Transient
         /// </summary>
-        public static void RegisterTransient<TEnum>(TEnum id, Func<object> factory) where TEnum : struct, Enum
+        public static void RegisterTransient<TEnum>(TEnum id, Func<object,object> factory) where TEnum : struct, Enum
         {
             Register(id, factory, Lifetime.Transient);
         }
 
+        // Overload für parameterlose Factory (z.B. Singleton)
         private static void Register<TEnum>(TEnum id, Func<object> factory, Lifetime lifetime) where TEnum : struct, Enum
+        {
+            var key = (typeof(TEnum), (object)id);
+
+            _registrations[key] = new Registration
+            {
+                FactoryMethod = _ => factory(),
+                Lifetime = lifetime
+            };
+        }
+
+        // Overload für Factory mit Parameter (z.B. Transient)
+        private static void Register<TEnum>(TEnum id, Func<object, object> factory, Lifetime lifetime) where TEnum : struct, Enum
         {
             var key = (typeof(TEnum), (object)id);
 
@@ -56,13 +69,14 @@
         /// <summary>
         /// Liefert eine Instanz
         /// </summary>
-        public static T Get<T, TEnum>(TEnum id) where T : class where TEnum : struct, Enum
+        public static T Get<T, TEnum>(TEnum id, object parameter = null) where T : class where TEnum : struct, Enum
         {
             var key = (typeof(TEnum), (object)id);
 
             if (!_registrations.TryGetValue(key, out Registration registration))
             {
-                throw new InvalidOperationException($"Keine Registrierung für '{typeof(TEnum).Name}.{id}'.");
+                throw new InvalidOperationException(
+                    $"Keine Registrierung für '{typeof(TEnum).Name}.{id}'.");
             }
 
             object instance;
@@ -73,9 +87,7 @@
 
                     Lazy<object> lazy = _singletons.GetOrAdd(key, _ =>
                     {
-                        return new Lazy<object>(
-                            registration.FactoryMethod,
-                            isThreadSafe: true);
+                        return new Lazy<object>( () => registration.FactoryMethod(parameter), isThreadSafe: true);
                     });
 
                     instance = lazy.Value;
@@ -83,7 +95,7 @@
 
                 case Lifetime.Transient:
 
-                    instance = registration.FactoryMethod();
+                    instance = registration.FactoryMethod(parameter);
                     break;
 
                 default:
@@ -92,7 +104,8 @@
 
             if (instance is not T result)
             {
-                throw new InvalidCastException($"Instanz ist nicht vom Typ '{typeof(T).Name}'.");
+                throw new InvalidCastException(
+                    $"Instanz ist nicht vom Typ '{typeof(T).Name}'.");
             }
 
             return result;

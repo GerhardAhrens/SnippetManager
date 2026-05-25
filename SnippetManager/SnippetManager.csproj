@@ -33,10 +33,13 @@
 
   <ItemGroup>
     <Folder Include="Core\Message\" />
+    <Folder Include="Core\EventArgs\" />
+    <Folder Include="Core\DialogNavigation\" />
     <Folder Include="Core\Settings\" />
     <Folder Include="Core\View\" />
     <Folder Include="Resources\Style\" />
     <Folder Include="Resources\Localization\" />
+    <Folder Include="TemplateCore\EventAggregator\" />
     <Folder Include="TemplateCore\Services\" />
   </ItemGroup>
 

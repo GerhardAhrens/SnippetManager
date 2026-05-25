@@ -9,6 +9,8 @@
 
 Der Snippet Manager ist eine Anwendung, die es Benutzern ermöglicht, Code-Snippets zu erstellen, zu organisieren und zu verwalten. Es bietet eine benutzerfreundliche Oberfläche, um Snippets schnell zu speichern und wiederzuverwenden.
 
+<img src="MainWindow.png" style="width:650px;"/>
+
 # Features
 
 # Versionshistorie

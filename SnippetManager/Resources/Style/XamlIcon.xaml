@@ -12,6 +12,136 @@
 
 
     <!--#region Farbige Icon Symbole auf Basis von DrawingImage-->
+    <DrawingImage x:Key="IconImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Bilderrahmen  -->
+                <GeometryDrawing Brush="#FFF5F5F5">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="4"
+                            RadiusY="4"
+                            Rect="8,10,48,44" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF3A3A3A" Thickness="0" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Berge  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry Figures="M 14,46 L 28,30 L 36,38 L 46,24 L 56,46 Z" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Sonne  -->
+                <GeometryDrawing Brush="#FFFFC107">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="22,22"
+                            RadiusX="5"
+                            RadiusY="5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconGraphic">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Hintergrund-Kreis  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="32,32"
+                            RadiusX="28"
+                            RadiusY="28" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Diagramm / Grafik  -->
+                <GeometryDrawing Brush="{x:Null}">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Achsen  -->
+                            <LineGeometry StartPoint="16,46" EndPoint="48,46" />
+
+                            <LineGeometry StartPoint="16,46" EndPoint="16,18" />
+
+                            <!--  Kurve  -->
+                            <PathGeometry Figures="                             M 18,40                             C 24,34 28,36 32,28                             C 36,20 42,24 46,16" />
+
+                            <!--  Datenpunkte  -->
+                            <EllipseGeometry
+                                Center="24,34"
+                                RadiusX="2.2"
+                                RadiusY="2.2" />
+
+                            <EllipseGeometry
+                                Center="32,28"
+                                RadiusX="2.2"
+                                RadiusY="2.2" />
+
+                            <EllipseGeometry
+                                Center="46,16"
+                                RadiusX="2.2"
+                                RadiusY="2.2" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="White"
+                            EndLineCap="Round"
+                            LineJoin="Round"
+                            StartLineCap="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconCodeBraces">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="Transparent">
+                <GeometryDrawing.Geometry>
+                    <GeometryGroup>
+
+                        <!--  Linke geschweifte Klammer  -->
+                        <PathGeometry Figures="M 22,10 C 14,10 14,18 14,24 C 14,28 10,30 6,32 C 10,34 14,36 14,40 C 14,46 14,54 22,54" />
+
+                        <!--  Rechte geschweifte Klammer  -->
+                        <PathGeometry Figures="M 42,10 C 50,10 50,18 50,24 C 50,28 54,30 58,32 C 54,34 50,36 50,40 C 50,46 50,54 42,54" />
+
+                        <!--  X in der Mitte  -->
+                        <PathGeometry Figures="M 26,20 L 38,42 M 38,20 L 26,42" />
+
+                    </GeometryGroup>
+                </GeometryDrawing.Geometry>
+
+                <GeometryDrawing.Pen>
+                    <Pen
+                        Brush="Blue"
+                        EndLineCap="Round"
+                        LineJoin="Round"
+                        StartLineCap="Round"
+                        Thickness="3" />
+                </GeometryDrawing.Pen>
+
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="IconSnippetManager">
         <DrawingImage.Drawing>
             <DrawingGroup>
@@ -125,6 +255,642 @@
                             <RectangleGeometry Rect="20.2,17.6,1.3,0.8" />
 
                         </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconCopy">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Hinteres Dokument  -->
+                <GeometryDrawing Brush="#FFDCE6F2">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="7,4">
+
+                                <!--  Oben  -->
+                                <LineSegment Point="17,4" />
+
+                                <!--  Ecke  -->
+                                <LineSegment Point="20,7" />
+
+                                <!--  Rechts  -->
+                                <LineSegment Point="20,18" />
+
+                                <!--  Unten  -->
+                                <LineSegment Point="7,18" />
+
+                                <!--  Links  -->
+                                <LineSegment Point="7,4" />
+
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Vorderes Dokument  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="4,7">
+
+                                <!--  Oben  -->
+                                <LineSegment Point="14,7" />
+
+                                <!--  Ecke  -->
+                                <LineSegment Point="17,10" />
+
+                                <!--  Rechts  -->
+                                <LineSegment Point="17,21" />
+
+                                <!--  Unten  -->
+                                <LineSegment Point="4,21" />
+
+                                <!--  Links  -->
+                                <LineSegment Point="4,7" />
+
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Dokument-Ecken  -->
+                <GeometryDrawing Brush="#FFBFD9FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Hintere Ecke  -->
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="17,4">
+                                    <LineSegment Point="17,7" />
+                                    <LineSegment Point="20,7" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                            <!--  Vordere Ecke  -->
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="14,7">
+                                    <LineSegment Point="14,10" />
+                                    <LineSegment Point="17,10" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopier-Linien  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <RectangleGeometry Rect="7,12,7,1" />
+                            <RectangleGeometry Rect="7,15,5,1" />
+                            <RectangleGeometry Rect="7,18,6,1" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconDelete">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Papierkorb  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="7,7">
+
+                                <!--  Oben  -->
+                                <LineSegment Point="17,7" />
+
+                                <!--  Rechte Seite  -->
+                                <LineSegment Point="19,21" />
+
+                                <!--  Unten  -->
+                                <LineSegment Point="5,21" />
+
+                                <!--  Links  -->
+                                <LineSegment Point="7,7" />
+
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Deckel  -->
+                <GeometryDrawing Brush="#FF7FB3FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Deckel  -->
+                            <RectangleGeometry Rect="5,5,14,2" />
+
+                            <!--  Griff  -->
+                            <RectangleGeometry Rect="9,3,6,2" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Innenlinien  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <RectangleGeometry Rect="8,10,1.5,8" />
+                            <RectangleGeometry Rect="11.25,10,1.5,8" />
+                            <RectangleGeometry Rect="14.5,10,1.5,8" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Löschen-X  -->
+                <GeometryDrawing Brush="#FFFF5252">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Diagonale 1  -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="16,14">
+                                    <LineSegment Point="22,20" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                            <!--  Diagonale 2  -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="22,14">
+                                    <LineSegment Point="16,20" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconSaveData2">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Diskettenkörper  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="5,2">
+
+                                <!--  Oben  -->
+                                <LineSegment Point="17,2" />
+
+                                <!--  Ecke  -->
+                                <LineSegment Point="22,7" />
+
+                                <!--  Rechts  -->
+                                <LineSegment Point="22,22" />
+
+                                <!--  Unten  -->
+                                <LineSegment Point="2,22" />
+
+                                <!--  Links  -->
+                                <LineSegment Point="2,5" />
+
+                                <!--  Zurück  -->
+                                <LineSegment Point="5,2" />
+
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Metall-Shutter  -->
+                <GeometryDrawing Brush="#FFD9E1E8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,3,10,6" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Schreibschutz / Öffnung  -->
+                <GeometryDrawing Brush="#FF90A4AE">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="9,4.5,4,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Etikett  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,12,12,7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Linien auf Etikett  -->
+                <GeometryDrawing Brush="#FF7FB3FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <RectangleGeometry Rect="8,14,8,1" />
+                            <RectangleGeometry Rect="8,16.5,6,1" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Speichern-Indikator  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="18.5,18.5"
+                            RadiusX="2"
+                            RadiusY="2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Checkmark  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure StartPoint="17.5,18.5">
+                                <LineSegment Point="18.3,19.3" />
+                                <LineSegment Point="19.7,17.9" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconSaveData">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Datenbank  -->
+                <GeometryDrawing Brush="Gray">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Oberseite  -->
+                            <EllipseGeometry
+                                Center="12,5"
+                                RadiusX="7"
+                                RadiusY="3" />
+
+                            <!--  Körper  -->
+                            <RectangleGeometry Rect="5,5,14,12" />
+
+                            <!--  Unterseite  -->
+                            <EllipseGeometry
+                                Center="12,17"
+                                RadiusX="7"
+                                RadiusY="3" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Datenbanklinien  -->
+                <GeometryDrawing Brush="#FF7FB3FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <EllipseGeometry
+                                Center="12,9"
+                                RadiusX="7"
+                                RadiusY="3" />
+                            <EllipseGeometry
+                                Center="12,13"
+                                RadiusX="7"
+                                RadiusY="3" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Speichern-Symbol  -->
+                <GeometryDrawing Brush="WhiteSmoke">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+
+                            <!--  Pfeil nach unten  -->
+                            <PathFigure StartPoint="12,8">
+                                <LineSegment Point="12,14" />
+                            </PathFigure>
+
+                            <!--  Pfeilspitze  -->
+                            <PathFigure IsClosed="True" StartPoint="9,12">
+                                <LineSegment Point="12,15" />
+                                <LineSegment Point="15,12" />
+                            </PathFigure>
+
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Speicher-Indikator  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="18.5,18.5"
+                            RadiusX="2"
+                            RadiusY="2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Checkmark  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure StartPoint="17.5,18.5">
+                                <LineSegment Point="18.3,19.3" />
+                                <LineSegment Point="19.7,17.9" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconEditDialog">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Dialogfenster  -->
+                <GeometryDrawing Brush="#FFFFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="5,4">
+
+                                <!--  Oben  -->
+                                <LineSegment Point="19,4" />
+
+                                <!--  Rechte obere Rundung  -->
+                                <QuadraticBezierSegment Point1="21,4" Point2="21,6" />
+
+                                <!--  Rechts  -->
+                                <LineSegment Point="21,18" />
+
+                                <!--  Rechte untere Rundung  -->
+                                <QuadraticBezierSegment Point1="21,20" Point2="19,20" />
+
+                                <!--  Unten  -->
+                                <LineSegment Point="5,20" />
+
+                                <!--  Linke untere Rundung  -->
+                                <QuadraticBezierSegment Point1="3,20" Point2="3,18" />
+
+                                <!--  Links  -->
+                                <LineSegment Point="3,6" />
+
+                                <!--  Linke obere Rundung  -->
+                                <QuadraticBezierSegment Point1="3,4" Point2="5,4" />
+
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Titelleiste  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,4,18,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Textzeilen  -->
+                <GeometryDrawing Brush="#FF7FB3FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <RectangleGeometry Rect="7,11,9,1.3" />
+                            <RectangleGeometry Rect="7,14,7,1.3" />
+                            <RectangleGeometry Rect="7,17,5,1.3" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Bearbeiten-Stift  -->
+                <GeometryDrawing Brush="#FFFFA000">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+
+                            <!--  Stiftkörper  -->
+                            <PathFigure IsClosed="True" StartPoint="15,16">
+                                <LineSegment Point="20,11" />
+                                <LineSegment Point="22,13" />
+                                <LineSegment Point="17,18" />
+                            </PathFigure>
+
+                            <!--  Stiftspitze  -->
+                            <PathFigure IsClosed="True" StartPoint="14,19">
+                                <LineSegment Point="17,18" />
+                                <LineSegment Point="15,16" />
+                            </PathFigure>
+
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kleine Bearbeitungsmarkierung  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="20.5,11.5"
+                            RadiusX="1"
+                            RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconBackToMainMenu">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Haus / Hauptmenü  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Dach  -->
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="8,9">
+                                    <LineSegment Point="12,5" />
+                                    <LineSegment Point="16,9" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                            <!--  Hauskörper  -->
+                            <RectangleGeometry Rect="9,9,6,6" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Tür  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="11,11,2,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Zurück-Pfeil  -->
+                <GeometryDrawing Brush="#FF7FB3FF">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+
+                            <!--  Pfeillinie  -->
+                            <PathFigure StartPoint="20,12">
+                                <LineSegment Point="6,12" />
+                            </PathFigure>
+
+                            <!--  Pfeilspitze  -->
+                            <PathFigure IsClosed="True" StartPoint="9,8">
+                                <LineSegment Point="4,12" />
+                                <LineSegment Point="9,16" />
+                                <LineSegment Point="7.5,12" />
+                            </PathFigure>
+
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Menülinien  -->
+                <GeometryDrawing Brush="#FFBFD9FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <RectangleGeometry Rect="17,6,5,1.2" />
+                            <RectangleGeometry Rect="17,9,4,1.2" />
+                            <RectangleGeometry Rect="17,15,5,1.2" />
+                            <RectangleGeometry Rect="17,18,4,1.2" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconDialogList">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Dialogfenster  -->
+                <GeometryDrawing Brush="#FFFFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="5,4">
+
+                                <!--  Oben  -->
+                                <LineSegment Point="19,4" />
+
+                                <!--  Rechte obere Rundung  -->
+                                <QuadraticBezierSegment Point1="21,4" Point2="21,6" />
+
+                                <!--  Rechts  -->
+                                <LineSegment Point="21,18" />
+
+                                <!--  Rechte untere Rundung  -->
+                                <QuadraticBezierSegment Point1="21,20" Point2="19,20" />
+
+                                <!--  Unten  -->
+                                <LineSegment Point="5,20" />
+
+                                <!--  Linke untere Rundung  -->
+                                <QuadraticBezierSegment Point1="3,20" Point2="3,18" />
+
+                                <!--  Links  -->
+                                <LineSegment Point="3,6" />
+
+                                <!--  Linke obere Rundung  -->
+                                <QuadraticBezierSegment Point1="3,4" Point2="5,4" />
+
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Titelleiste  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,4,18,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Listenpunkte  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Punkt 1  -->
+                            <EllipseGeometry
+                                Center="7,11"
+                                RadiusX="1"
+                                RadiusY="1" />
+
+                            <!--  Punkt 2  -->
+                            <EllipseGeometry
+                                Center="7,15"
+                                RadiusX="1"
+                                RadiusY="1" />
+
+                            <!--  Punkt 3  -->
+                            <EllipseGeometry
+                                Center="7,19"
+                                RadiusX="1"
+                                RadiusY="1" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Listentext  -->
+                <GeometryDrawing Brush="#FF7FB3FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Zeile 1  -->
+                            <RectangleGeometry Rect="10,10.3,8,1.4" />
+
+                            <!--  Zeile 2  -->
+                            <RectangleGeometry Rect="10,14.3,6,1.4" />
+
+                            <!--  Zeile 3  -->
+                            <RectangleGeometry Rect="10,18.3,7,1.4" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Auswahlindikator  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure StartPoint="17,14.5">
+                                <LineSegment Point="18.5,16" />
+                                <LineSegment Point="21,13.5" />
+                            </PathFigure>
+                        </PathGeometry>
                     </GeometryDrawing.Geometry>
                 </GeometryDrawing>
 
@@ -1308,6 +2074,67 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
+    <DrawingImage x:Key="IconUserSettings">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="M10 4A4 4 0 0 0 6 8A4 4 0 0 0 10 12A4 4 0 0 0 14 8A4 4 0 0 0 10 4M10 6A2 2 0 0 1 12 8A2 2 0 0 1 10 10A2 2 0 0 1 8 8A2 2 0 0 1 10 6M17 12C16.84 12 16.76 12.08 16.76 12.24L16.5 13.5C16.28 13.68 15.96 13.84 15.72 14L14.44 13.5C14.36 13.5 14.2 13.5 14.12 13.6L13.16 15.36C13.08 15.44 13.08 15.6 13.24 15.68L14.28 16.5V17.5L13.24 18.32C13.16 18.4 13.08 18.56 13.16 18.64L14.12 20.4C14.2 20.5 14.36 20.5 14.44 20.5L15.72 20C15.96 20.16 16.28 20.32 16.5 20.5L16.76 21.76C16.76 21.92 16.84 22 17 22H19C19.08 22 19.24 21.92 19.24 21.76L19.4 20.5C19.72 20.32 20.04 20.16 20.28 20L21.5 20.5C21.64 20.5 21.8 20.5 21.8 20.4L22.84 18.64C22.92 18.56 22.84 18.4 22.76 18.32L21.72 17.5V16.5L22.76 15.68C22.84 15.6 22.92 15.44 22.84 15.36L21.8 13.6C21.8 13.5 21.64 13.5 21.5 13.5L20.28 14C20.04 13.84 19.72 13.68 19.4 13.5L19.24 12.24C19.24 12.08 19.08 12 19 12H17M10 13C7.33 13 2 14.33 2 17V20H11.67C11.39 19.41 11.19 18.77 11.09 18.1H3.9V17C3.9 16.36 7.03 14.9 10 14.9C10.43 14.9 10.87 14.94 11.3 15C11.5 14.36 11.77 13.76 12.12 13.21C11.34 13.08 10.6 13 10 13M18.04 15.5C18.84 15.5 19.5 16.16 19.5 17.04C19.5 17.84 18.84 18.5 18.04 18.5C17.16 18.5 16.5 17.84 16.5 17.04C16.5 16.16 17.16 15.5 18.04 15.5Z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="Green" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="AppWindowIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="#00FFFFFF">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <RectangleGeometry Rect="0,0,16,16" />
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="#F7DA8E" Geometry="M8.5,6.84v6.574C8.5,14.461,6.709,15.5,4.5,15.5S0.5,14.461,0.5,13.414V6.84">
+                        <GeometryDrawing.Pen>
+                            <Pen
+                                Brush="#E57428"
+                                EndLineCap="Round"
+                                MiterLimit="10"
+                                StartLineCap="Round"
+                                Thickness="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#F7DA8E">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <EllipseGeometry
+                                    Center="4.5,6.764"
+                                    RadiusX="4"
+                                    RadiusY="1.264" />
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen
+                                Brush="#E57428"
+                                EndLineCap="Round"
+                                MiterLimit="10"
+                                StartLineCap="Round"
+                                Thickness="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#C8C6C4" Geometry="M15.322,4.381h-1.19c-0.168,-0.715,-0.535,-1.358,-1.067,-1.865l0.61,-1.048c0.05,-0.087,0.021,-0.198,-0.065,-0.249l-1.19,-0.695c-0.085,-0.049,-0.193,-0.02,-0.242,0.065l-0.611,1.051c-0.345,-0.104,-0.703,-0.156,-1.066,-0.156s-0.721,0.053,-1.066,0.156L8.856,0.594c-0.049,-0.088,-0.158,-0.118,-0.244,-0.068l-1.19,0.695c-0.085,0.049,-0.114,0.159,-0.067,0.245l0.58,1.05c-0.49,0.468,-0.839,1.053,-1.022,1.702c0.741,0.146,1.485,0.386,2.059,0.776c0.124,-0.744,0.761,-1.312,1.528,-1.312c0.856,0,1.552,0.706,1.552,1.575S11.356,6.831,10.5,6.831c-0.175,0,-0.343,-0.031,-0.501,-0.086c0,0.007,0.001,0.013,0.001,0.019c0,0.013,0,0.027,0,0.04l0,0.036v2.153c0.165,0.022,0.332,0.035,0.5,0.035c0.363,0,0.721,-0.053,1.066,-0.156l0.612,1.083c0.049,0.087,0.158,0.117,0.243,0.067l1.19,-0.695c0.085,-0.05,0.115,-0.16,0.066,-0.247l-0.613,-1.084c0.531,-0.508,0.899,-1.151,1.067,-1.865h1.19c0.098,0,0.178,-0.081,0.178,-0.181V4.562C15.5,4.462,15.42,4.381,15.322,4.381z" />
+                    <GeometryDrawing Brush="#383838" Geometry="M10,7.266V6.84l0,-0.036c0,-0.013,0,-0.027,0,-0.04c0,-0.034,-0.001,-0.069,-0.003,-0.102l-0.007,-0.467c0.151,0.086,0.325,0.136,0.51,0.136c0.58,0,1.052,-0.482,1.052,-1.075c0,-0.593,-0.472,-1.075,-1.052,-1.075s-1.052,0.482,-1.052,1.075c0,0.06,0.006,0.119,0.015,0.176l-0.07,-0.092c-0.242,-0.245,-0.542,-0.445,-0.876,-0.61c0.231,-0.89,1.031,-1.549,1.982,-1.549c1.131,0,2.052,0.931,2.052,2.075c0,1.144,-0.92,2.075,-2.052,2.075C10.327,7.331,10.16,7.306,10,7.266zM15.322,3.881h-0.813c-0.178,-0.529,-0.457,-1.017,-0.823,-1.438l0.421,-0.724c0.189,-0.325,0.079,-0.743,-0.245,-0.932l-1.19,-0.695c-0.156,-0.091,-0.339,-0.116,-0.513,-0.07c-0.175,0.046,-0.322,0.158,-0.413,0.315l-0.423,0.727c-0.537,-0.107,-1.1,-0.107,-1.637,-0.002l-0.393,-0.71c-0.088,-0.159,-0.239,-0.278,-0.414,-0.326c-0.177,-0.049,-0.361,-0.024,-0.52,0.068L7.169,0.789c-0.317,0.185,-0.43,0.597,-0.252,0.919l0.403,0.728c-0.369,0.423,-0.65,0.913,-0.828,1.445h-0.813c-0.154,0,-0.296,0.052,-0.41,0.14c0.628,0.034,1.397,0.117,2.133,0.307c0.161,-0.552,0.462,-1.051,0.879,-1.451l0.279,-0.266l-0.617,-1.115l0.635,-0.371l0.614,1.11l0.386,-0.116c0.596,-0.179,1.249,-0.179,1.845,0l0.378,0.114l0.647,-1.113l0.636,0.371l-0.648,1.115l0.285,0.272c0.46,0.44,0.78,0.999,0.925,1.618l0.091,0.386H15v0.75h-1.265l-0.091,0.386c-0.145,0.619,-0.465,1.179,-0.925,1.618l-0.281,0.269l0.65,1.15l-0.636,0.371l-0.648,-1.146l-0.383,0.115c-0.458,0.138,-0.949,0.169,-1.422,0.095v1.009c0.438,0.052,0.886,0.037,1.318,-0.049l0.425,0.752c0.09,0.16,0.237,0.274,0.413,0.321c0.059,0.016,0.118,0.024,0.178,0.024c0.118,0,0.235,-0.031,0.34,-0.093l1.19,-0.695c0.32,-0.187,0.432,-0.601,0.249,-0.925l-0.43,-0.761c0.368,-0.422,0.648,-0.911,0.826,-1.442h0.813c0.374,0,0.678,-0.305,0.678,-0.681V4.562C16,4.186,15.696,3.881,15.322,3.881z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!--#endregion Farbige Icon Symbole-->
 
     <!--#region Statuszeile-->
@@ -1577,62 +2404,122 @@
     <!--#endregion Statuszeile-->
 
     <!--#region Application Logo Icon-->
-    <DrawingImage x:Key="AppWindowIcon2">
+    <DrawingImage x:Key="IconApplication">
         <DrawingImage.Drawing>
             <DrawingGroup>
-                <GeometryDrawing Brush="Transparent" Geometry="M10 4A4 4 0 0 0 6 8A4 4 0 0 0 10 12A4 4 0 0 0 14 8A4 4 0 0 0 10 4M10 6A2 2 0 0 1 12 8A2 2 0 0 1 10 10A2 2 0 0 1 8 8A2 2 0 0 1 10 6M17 12C16.84 12 16.76 12.08 16.76 12.24L16.5 13.5C16.28 13.68 15.96 13.84 15.72 14L14.44 13.5C14.36 13.5 14.2 13.5 14.12 13.6L13.16 15.36C13.08 15.44 13.08 15.6 13.24 15.68L14.28 16.5V17.5L13.24 18.32C13.16 18.4 13.08 18.56 13.16 18.64L14.12 20.4C14.2 20.5 14.36 20.5 14.44 20.5L15.72 20C15.96 20.16 16.28 20.32 16.5 20.5L16.76 21.76C16.76 21.92 16.84 22 17 22H19C19.08 22 19.24 21.92 19.24 21.76L19.4 20.5C19.72 20.32 20.04 20.16 20.28 20L21.5 20.5C21.64 20.5 21.8 20.5 21.8 20.4L22.84 18.64C22.92 18.56 22.84 18.4 22.76 18.32L21.72 17.5V16.5L22.76 15.68C22.84 15.6 22.92 15.44 22.84 15.36L21.8 13.6C21.8 13.5 21.64 13.5 21.5 13.5L20.28 14C20.04 13.84 19.72 13.68 19.4 13.5L19.24 12.24C19.24 12.08 19.08 12 19 12H17M10 13C7.33 13 2 14.33 2 17V20H11.67C11.39 19.41 11.19 18.77 11.09 18.1H3.9V17C3.9 16.36 7.03 14.9 10 14.9C10.43 14.9 10.87 14.94 11.3 15C11.5 14.36 11.77 13.76 12.12 13.21C11.34 13.08 10.6 13 10 13M18.04 15.5C18.84 15.5 19.5 16.16 19.5 17.04C19.5 17.84 18.84 18.5 18.04 18.5C17.16 18.5 16.5 17.84 16.5 17.04C16.5 16.16 17.16 15.5 18.04 15.5Z">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="Green" Thickness="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
 
-    <DrawingImage x:Key="AppWindowIcon">
-        <DrawingImage.Drawing>
-            <DrawingGroup>
-                <DrawingGroup>
-                    <GeometryDrawing Brush="#00FFFFFF">
-                        <GeometryDrawing.Geometry>
-                            <GeometryGroup>
-                                <RectangleGeometry Rect="0,0,16,16" />
-                            </GeometryGroup>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                </DrawingGroup>
-                <DrawingGroup>
-                    <GeometryDrawing Brush="#F7DA8E" Geometry="M8.5,6.84v6.574C8.5,14.461,6.709,15.5,4.5,15.5S0.5,14.461,0.5,13.414V6.84">
-                        <GeometryDrawing.Pen>
-                            <Pen
-                                Brush="#E57428"
-                                EndLineCap="Round"
-                                MiterLimit="10"
-                                StartLineCap="Round"
-                                Thickness="1" />
-                        </GeometryDrawing.Pen>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="#F7DA8E">
-                        <GeometryDrawing.Geometry>
-                            <GeometryGroup>
-                                <EllipseGeometry
-                                    Center="4.5,6.764"
-                                    RadiusX="4"
-                                    RadiusY="1.264" />
-                            </GeometryGroup>
-                        </GeometryDrawing.Geometry>
-                        <GeometryDrawing.Pen>
-                            <Pen
-                                Brush="#E57428"
-                                EndLineCap="Round"
-                                MiterLimit="10"
-                                StartLineCap="Round"
-                                Thickness="1" />
-                        </GeometryDrawing.Pen>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="#C8C6C4" Geometry="M15.322,4.381h-1.19c-0.168,-0.715,-0.535,-1.358,-1.067,-1.865l0.61,-1.048c0.05,-0.087,0.021,-0.198,-0.065,-0.249l-1.19,-0.695c-0.085,-0.049,-0.193,-0.02,-0.242,0.065l-0.611,1.051c-0.345,-0.104,-0.703,-0.156,-1.066,-0.156s-0.721,0.053,-1.066,0.156L8.856,0.594c-0.049,-0.088,-0.158,-0.118,-0.244,-0.068l-1.19,0.695c-0.085,0.049,-0.114,0.159,-0.067,0.245l0.58,1.05c-0.49,0.468,-0.839,1.053,-1.022,1.702c0.741,0.146,1.485,0.386,2.059,0.776c0.124,-0.744,0.761,-1.312,1.528,-1.312c0.856,0,1.552,0.706,1.552,1.575S11.356,6.831,10.5,6.831c-0.175,0,-0.343,-0.031,-0.501,-0.086c0,0.007,0.001,0.013,0.001,0.019c0,0.013,0,0.027,0,0.04l0,0.036v2.153c0.165,0.022,0.332,0.035,0.5,0.035c0.363,0,0.721,-0.053,1.066,-0.156l0.612,1.083c0.049,0.087,0.158,0.117,0.243,0.067l1.19,-0.695c0.085,-0.05,0.115,-0.16,0.066,-0.247l-0.613,-1.084c0.531,-0.508,0.899,-1.151,1.067,-1.865h1.19c0.098,0,0.178,-0.081,0.178,-0.181V4.562C15.5,4.462,15.42,4.381,15.322,4.381z" />
-                    <GeometryDrawing Brush="#383838" Geometry="M10,7.266V6.84l0,-0.036c0,-0.013,0,-0.027,0,-0.04c0,-0.034,-0.001,-0.069,-0.003,-0.102l-0.007,-0.467c0.151,0.086,0.325,0.136,0.51,0.136c0.58,0,1.052,-0.482,1.052,-1.075c0,-0.593,-0.472,-1.075,-1.052,-1.075s-1.052,0.482,-1.052,1.075c0,0.06,0.006,0.119,0.015,0.176l-0.07,-0.092c-0.242,-0.245,-0.542,-0.445,-0.876,-0.61c0.231,-0.89,1.031,-1.549,1.982,-1.549c1.131,0,2.052,0.931,2.052,2.075c0,1.144,-0.92,2.075,-2.052,2.075C10.327,7.331,10.16,7.306,10,7.266zM15.322,3.881h-0.813c-0.178,-0.529,-0.457,-1.017,-0.823,-1.438l0.421,-0.724c0.189,-0.325,0.079,-0.743,-0.245,-0.932l-1.19,-0.695c-0.156,-0.091,-0.339,-0.116,-0.513,-0.07c-0.175,0.046,-0.322,0.158,-0.413,0.315l-0.423,0.727c-0.537,-0.107,-1.1,-0.107,-1.637,-0.002l-0.393,-0.71c-0.088,-0.159,-0.239,-0.278,-0.414,-0.326c-0.177,-0.049,-0.361,-0.024,-0.52,0.068L7.169,0.789c-0.317,0.185,-0.43,0.597,-0.252,0.919l0.403,0.728c-0.369,0.423,-0.65,0.913,-0.828,1.445h-0.813c-0.154,0,-0.296,0.052,-0.41,0.14c0.628,0.034,1.397,0.117,2.133,0.307c0.161,-0.552,0.462,-1.051,0.879,-1.451l0.279,-0.266l-0.617,-1.115l0.635,-0.371l0.614,1.11l0.386,-0.116c0.596,-0.179,1.249,-0.179,1.845,0l0.378,0.114l0.647,-1.113l0.636,0.371l-0.648,1.115l0.285,0.272c0.46,0.44,0.78,0.999,0.925,1.618l0.091,0.386H15v0.75h-1.265l-0.091,0.386c-0.145,0.619,-0.465,1.179,-0.925,1.618l-0.281,0.269l0.65,1.15l-0.636,0.371l-0.648,-1.146l-0.383,0.115c-0.458,0.138,-0.949,0.169,-1.422,0.095v1.009c0.438,0.052,0.886,0.037,1.318,-0.049l0.425,0.752c0.09,0.16,0.237,0.274,0.413,0.321c0.059,0.016,0.118,0.024,0.178,0.024c0.118,0,0.235,-0.031,0.34,-0.093l1.19,-0.695c0.32,-0.187,0.432,-0.601,0.249,-0.925l-0.43,-0.761c0.368,-0.422,0.648,-0.911,0.826,-1.442h0.813c0.374,0,0.678,-0.305,0.678,-0.681V4.562C16,4.186,15.696,3.881,15.322,3.881z" />
-                </DrawingGroup>
+                <!--  Dokument  -->
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="5,3">
+
+                                <!--  Oben  -->
+                                <LineSegment Point="15,3" />
+
+                                <!--  Ecke gefaltet  -->
+                                <LineSegment Point="20,8" />
+
+                                <!--  Rechts  -->
+                                <LineSegment Point="20,20" />
+
+                                <!--  Unten  -->
+                                <LineSegment Point="5,20" />
+
+                                <!--  Links  -->
+                                <LineSegment Point="5,3" />
+
+                            </PathFigure>
+
+                            <!--  Gefaltete Ecke  -->
+                            <PathFigure IsClosed="True" StartPoint="15,3">
+                                <LineSegment Point="15,8" />
+                                <LineSegment Point="20,8" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Dokumentrahmen  -->
+                <GeometryDrawing Brush="WhiteSmoke">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Außenrahmen  -->
+                            <RectangleGeometry Rect="5,3,15,17" />
+
+                            <!--  Faltlinie  -->
+                            <RectangleGeometry Rect="15,3,1,5" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Code-Snippet Symbol  -->
+                <GeometryDrawing Brush="SteelBlue">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Linke Klammer  -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="8,11">
+                                    <LineSegment Point="6,13" />
+                                    <LineSegment Point="8,15" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                            <!--  Rechte Klammer  -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="14,11">
+                                    <LineSegment Point="16,13" />
+                                    <LineSegment Point="14,15" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                            <!--  Slash  -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="11,10">
+                                    <LineSegment Point="9,16" />
+                                </PathFigure>
+                            </PathGeometry>
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Verwaltungs-/Manager Symbol  -->
+                <GeometryDrawing Brush="#FF7FB3FF">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Kleine Liste  -->
+                            <RectangleGeometry Rect="7,6,8,1" />
+                            <RectangleGeometry Rect="7,8,6,1" />
+
+                            <!--  Zahnrad klein  -->
+                            <EllipseGeometry
+                                Center="18,18"
+                                RadiusX="2"
+                                RadiusY="2" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Zahnrad-Zähne  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <RectangleGeometry Rect="17.6,14.5,0.8,1.3" />
+                            <RectangleGeometry Rect="17.6,20.2,0.8,1.3" />
+                            <RectangleGeometry Rect="14.5,17.6,1.3,0.8" />
+                            <RectangleGeometry Rect="20.2,17.6,1.3,0.8" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>

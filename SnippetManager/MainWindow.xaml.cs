@@ -18,6 +18,8 @@ namespace SnippetManager
     using System.ComponentModel;
     using System.Windows;
 
+    using SnippetManager.Core;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -32,6 +34,8 @@ namespace SnippetManager
             this.SetVectorIcon("IconSnippetManager", 64);
 
             this.QuitCommand = new CommandBase(this.OnQuit, () => true);
+            this.SourceSnippetsCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
+            this.IconGrafikCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
 
             this.InformationCommand = new CommandBase(this.OnInformationPopup);
             this.SettingsCommand = new CommandBase(this.OnSettingsPopup);
@@ -46,6 +50,8 @@ namespace SnippetManager
         }
 
         public CommandBase QuitCommand { get; private set; }
+        public CommandBase SourceSnippetsCommand { get; private set; }
+        public CommandBase IconGrafikCommand { get; private set; }
 
         public CommandBase InformationCommand { get; private set; }
         public CommandBase SettingsCommand { get; private set; }
@@ -148,11 +154,21 @@ namespace SnippetManager
                 e.Cancel = true;
             }
         }
-    }
 
-    #region Message
-    /*
-    * https://stackoverflow.com/questions/18325239/how-to-set-the-font-in-different-styles-for-message-box-in-wpf
-    */
-    #endregion
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        private void ChangeView(object commandParam)
+        {
+            if (commandParam != null && commandParam is DialogView view)
+            {
+                if (view == DialogView.SourceSnippets)
+                {
+                }
+                else if (view == DialogView.XamlGrafik)
+                {
+                }
+            }
+        }
+
+
+    }
 }
