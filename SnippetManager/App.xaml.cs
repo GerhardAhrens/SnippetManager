@@ -16,6 +16,7 @@
 namespace SnippetManager
 {
     using System.Collections;
+    using System.Data.SQLite;
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
@@ -115,6 +116,8 @@ namespace SnippetManager
 
                 /* Initiale Benutzer Einstellungen speichern */
                 InitializeSettings();
+
+                InitializeDatabase();
             }
             catch (Exception ex)
             {
@@ -205,6 +208,39 @@ namespace SnippetManager
                 Settings = settings;
             }
             */
+        }
+
+        private static void InitializeDatabase()
+        {
+            string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Database", "SnippetManager.db");
+            if (Directory.Exists(Path.GetDirectoryName(databasePath)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(databasePath));
+            }
+
+            using (DatabaseService ds = new DatabaseService(databasePath))
+            {
+                ds.Create(CreateTableInDB);
+            }
+        }
+
+        private static void CreateTableInDB(SQLiteConnection sqliteConnection)
+        {
+            string sqlSnippet = "CREATE TABLE IF NOT EXISTS TAB_Snippet (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50),Beschreibung VARCHAR(500), SnippetContent TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
+            string sqlSnippetIndex = "CREATE INDEX idx_Snippet_GruppeTitel ON TAB_Snippet(Gruppe,Titel);";
+
+            string sqlXamlGrafik = "CREATE TABLE IF NOT EXISTS TAB_Xaml (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50), Content TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
+            string sqlXamlGrafikIndex = "CREATE INDEX idx_Xaml_GruppeTitel ON TAB_Xaml(Gruppe,Titel);";
+
+            string sqlGruppe = "CREATE TABLE IF NOT EXISTS TAB_Gruppe (Id VARCHAR(36), Name VARCHAR(50), Beschreibung VARCHAR(500), PRIMARY KEY (Id))";
+            string sqlGruppeIndex = "CREATE INDEX idx_Gruppe_Name ON TAB_Gruppe(Name);";
+
+            sqliteConnection.RecordSet<int>(sqlSnippet).Execute();
+            sqliteConnection.RecordSet<int>(sqlSnippetIndex).Execute();
+            sqliteConnection.RecordSet<int>(sqlXamlGrafik).Execute();
+            sqliteConnection.RecordSet<int>(sqlXamlGrafikIndex).Execute();
+            sqliteConnection.RecordSet<int>(sqlGruppe).Execute();
+            sqliteConnection.RecordSet<int>(sqlGruppeIndex).Execute();
         }
 
         /// <summary>

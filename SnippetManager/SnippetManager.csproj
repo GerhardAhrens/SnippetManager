@@ -34,10 +34,15 @@
   <ItemGroup>
     <Folder Include="Core\Message\" />
     <Folder Include="Core\Settings\" />
+    <Folder Include="Data\Core\" />
     <Folder Include="Resources\Style\" />
     <Folder Include="Resources\Localization\" />
     <Folder Include="TemplateCore\EventAggregator\" />
     <Folder Include="TemplateCore\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
   </ItemGroup>
 
   <ItemGroup>
