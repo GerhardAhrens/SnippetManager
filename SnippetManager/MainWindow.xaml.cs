@@ -178,7 +178,7 @@ namespace SnippetManager
         private void RegisterFactory()
         {
             Factory.RegisterSingleton<CommandButtons>(CommandButtons.Home, () => new HelloUC());
-            Factory.RegisterSingleton<CommandButtons>(CommandButtons.Help, () => new HelpUC());
+            Factory.RegisterTransient<CommandButtons>(CommandButtons.Help, (param) => new HelpUC((ChangeViewEventArgs)param!));
             Factory.RegisterSingleton<DialogView>(DialogView.SourceSnippets, () => new SourceSnippetsUC());
             Factory.RegisterSingleton<DialogView>(DialogView.XamlGrafik, () => new XamlGrafikUC());
         }

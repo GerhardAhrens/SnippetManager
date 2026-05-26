@@ -171,7 +171,7 @@
                     Command="{Binding Path=HelpCommand}"
                     CommandParameter="{x:Static core:CommandButtons.Help}"
                     DockPanel.Dock="Right"
-                    ToolTip="Info anzeigen">
+                    ToolTip="Hilfe zum anzeigen">
                     <Image Source="{StaticResource ResourceKey=IconHelp}" Stretch="Fill" />
                 </Button>
 

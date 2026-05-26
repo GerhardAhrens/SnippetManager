@@ -16,10 +16,12 @@
             WeakEventManager<UserControl, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
 
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
+            this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
         }
 
         #region Properties
         public CommandBase GoBackCommand { get; private set; }
+        public CommandBase HelpCommand { get; private set; }
 
         #endregion Properties
 
@@ -58,6 +60,26 @@
                 }
             }
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        private async void OnHelp(object commandParam)
+        {
+            if (commandParam != null && commandParam is CommandButtons button)
+            {
+                if (button == CommandButtons.Help)
+                {
+                    ChangeViewEventArgs args = new();
+                    args.MenuButton = button;
+                    args.FromPage = DialogView.SourceSnippets;
+
+                    if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(args);
+                    }
+                }
+            }
+        }
+
         #endregion Command Events
     }
 }

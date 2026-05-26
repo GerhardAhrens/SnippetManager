@@ -10,16 +10,19 @@
     /// </summary>
     public partial class HelpUC : UserControlBase
     {
-        public HelpUC() : base(typeof(HelpUC))
+        public HelpUC(ChangeViewEventArgs args) : base(typeof(HelpUC))
         {
             this.InitializeComponent();
             WeakEventManager<UserControl, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
+
+            this.CurrentCtorArgs = args;
 
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
         }
 
         #region Properties
         public CommandBase GoBackCommand { get; private set; }
+        private ChangeViewEventArgs CurrentCtorArgs { get; set; }
 
         #endregion Properties
 
@@ -49,8 +52,8 @@
                 if (button == CommandButtons.GoBack)
                 {
                     ChangeViewEventArgs args = new();
-                    args.MenuButton = button;
-
+                    args.MenuButton = this.CurrentCtorArgs.FromPage;
+                    args.FromPage = this.CurrentCtorArgs.MenuButton;
                     if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
                     {
                         await App.EventAgg.PublishAsync(args);

@@ -45,6 +45,18 @@
                     <Image Source="{StaticResource ResourceKey=IconBackToMainMenu}" Stretch="Uniform" />
                 </Button>
 
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    Command="{Binding Path=HelpCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.Help}"
+                    DockPanel.Dock="Right"
+                    ToolTip="Hilfe zum anzeigen">
+                    <Image Source="{StaticResource ResourceKey=IconHelp}" Stretch="Fill" />
+                </Button>
             </DockPanel>
         </GroupBox>
     </Grid>
