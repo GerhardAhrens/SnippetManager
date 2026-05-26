@@ -17,8 +17,10 @@ namespace SnippetManager
 {
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Input;
 
     using SnippetManager.Core;
+    using SnippetManager.View;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -31,65 +33,43 @@ namespace SnippetManager
             WeakEventManager<WindowBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
             WeakEventManager<WindowBase, CancelEventArgs>.AddHandler(this, "Closing", this.OnWindowClosing);
 
+            this.RegisterFactory();
+
+            this.WindowTitel = $"{LocalizationValue.Get("WindowsTitelZeile")} ({base.ApplicationVersion})";
             this.SetVectorIcon("IconSnippetManager", 64);
-
-            this.QuitCommand = new CommandBase(this.OnQuit, () => true);
-            this.SourceSnippetsCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
-            this.IconGrafikCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
-
-            this.InformationCommand = new CommandBase(this.OnInformationPopup);
-            this.SettingsCommand = new CommandBase(this.OnSettingsPopup);
-            this.CloseInformationPopupCommand = new CommandBase(this.OnCloseInformation);
-            this.CloseSettingsPopupCommand = new CommandBase(this.OnCloseSettingsPopup);
-
-            this.WindowTitel = LocalizationValue.Get("WindowsTitelZeile");
-            this.ApplikationVersion = base.ApplicationVersion.ToString();
-            this.LaufzeitVersion = base.RuntimeVersion;
-            this.WinVersion = base.WindowsVersion;
             this.DataContext = this;
         }
 
-        public CommandBase QuitCommand { get; private set; }
-        public CommandBase SourceSnippetsCommand { get; private set; }
-        public CommandBase IconGrafikCommand { get; private set; }
-
-        public CommandBase InformationCommand { get; private set; }
-        public CommandBase SettingsCommand { get; private set; }
-        public CommandBase CloseInformationPopupCommand { get; private set; }
-        public CommandBase CloseSettingsPopupCommand { get; private set; }
-        public CommandBase ShowMessageCommand { get; private set; }
-
+        #region Properties
         public string WindowTitel
         {
             get => base.GetValue<string>();
             set => base.SetValue(value);
         }
 
-        public string ApplikationVersion
+        public System.Windows.Controls.UserControl WorkContent
         {
-            get => base.GetValue<string>();
-            set => base.SetValue(value);
-        }
-
-        public string LaufzeitVersion
-        {
-            get => base.GetValue<string>();
-            set => base.SetValue(value);
-        }
-
-        public string WinVersion
-        {
-            get => base.GetValue<string>();
-            set => base.SetValue(value);
+            get { return base.GetValue<System.Windows.Controls.UserControl>(); }
+            set { base.SetValue(value); }
         }
 
         private MessageBase Message { get; } = new MessageBase();
+        #endregion Properties
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private async void OnLoaded(object sender, RoutedEventArgs e)
         {
+            App.EventAgg.Subscribe<ChangeViewEventArgs>(async (evt, ct) => this.ChangeControl(evt));
+            App.EventAgg.Subscribe<WindowsTitelEvent>(async (evt, ct) => this.OnUpdateWindowTitel(evt));
+            App.EventAgg.Subscribe<StatusEvent>(async (evt, ct) => this.OnUpdateStatusBar(evt));
+
             StatusbarMain.Statusbar.DatabaseInfo = "Keine";
             StatusbarMain.Statusbar.DatabaseInfoTooltip = "Keine Datenbank verbunden";
             StatusbarMain.Statusbar.Notification = "Bereit";
+
+            ChangeViewEventArgs args = new();
+            args.MenuButton = CommandButtons.Home;
+            args.FromPage = CommandButtons.Home;
+            this.ChangeControl(args);
         }
 
         private void OnCloseApplication(object sender, RoutedEventArgs e)
@@ -101,26 +81,6 @@ namespace SnippetManager
         {
             this.Tag = null;
             this.Close();
-        }
-
-        private void OnInformationPopup()
-        {
-            this.InformationPopup.SetValue(MaskLayerBehavior.IsOpenProperty, true);
-        }
-
-        private void OnCloseInformation()
-        {
-            this.InformationPopup.SetValue(MaskLayerBehavior.IsOpenProperty, false);
-        }
-
-        private void OnSettingsPopup()
-        {
-            this.SettingsPopup.SetValue(MaskLayerBehavior.IsOpenProperty, true);
-        }
-
-        private void OnCloseSettingsPopup()
-        {
-            this.SettingsPopup.SetValue(MaskLayerBehavior.IsOpenProperty, false);
         }
 
         private void OnWindowClosing(object sender, CancelEventArgs e)
@@ -156,9 +116,31 @@ namespace SnippetManager
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
-        private void ChangeView(object commandParam)
+        private void OnUpdateStatusBar(StatusEvent evt)
         {
-            if (commandParam != null && commandParam is DialogView view)
+            StatusbarMain.Statusbar.Notification = evt.Notification;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        private void OnUpdateWindowTitel(WindowsTitelEvent evt)
+        {
+            if (string.IsNullOrEmpty(evt.DialogTitel) == true)
+            {
+                this.WindowTitel = $"{LocalizationValue.Get("WindowsTitelZeile")} ({base.ApplicationVersion})";
+                return;
+            }
+            else
+            {
+                this.WindowTitel = $"{LocalizationValue.Get("WindowsTitelZeile")} ({base.ApplicationVersion}) [{evt.DialogTitel}]";
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        private async void ChangeControl(ChangeViewEventArgs commandParam)
+        {
+            this.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Wait);
+
+            if (commandParam != null && commandParam.MenuButton is DialogView view)
             {
                 if (view == DialogView.SourceSnippets)
                 {
@@ -167,8 +149,38 @@ namespace SnippetManager
                 {
                 }
             }
+            else if (commandParam != null && commandParam.MenuButton is CommandButtons button)
+            {
+                if (button == CommandButtons.AppQuit)
+                {
+                    this.OnQuit();
+                }
+                else if (button.In(CommandButtons.Home, CommandButtons.Help))
+                {
+                    this.WorkContent = null;
+                    this.WorkContent = (System.Windows.Controls.UserControl)Factory.Get<UserControlBase, CommandButtons>((CommandButtons)commandParam.MenuButton, commandParam);
+                }
+                else if (button.In(CommandButtons.GoBack))
+                {
+                    if (App.EventAgg.IsSubscription<WindowsTitelEvent>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(new WindowsTitelEvent(string.Empty));
+                    }
+
+                    this.WorkContent = null;
+                    this.WorkContent = (System.Windows.Controls.UserControl)Factory.Get<UserControlBase, CommandButtons>((CommandButtons)CommandButtons.Home, commandParam);
+                }
+            }
+
+            this.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Arrow);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        private void RegisterFactory()
+        {
+            Factory.RegisterSingleton<CommandButtons>(CommandButtons.Home, () => new HelloUC());
+            Factory.RegisterSingleton<CommandButtons>(CommandButtons.Help, () => new HelpUC());
+        }
 
     }
 }

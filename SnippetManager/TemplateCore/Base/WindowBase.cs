@@ -53,7 +53,7 @@
             }
         }
 
-#pragma warning disable CA1822
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         public Version ApplicationVersion
         {
             get
@@ -73,9 +73,8 @@
                 return assembly.GetName().Version ?? new Version(1, 0, DateTime.Now.Year, 0);
             }
         }
-#pragma warning restore CA1822
 
-#pragma warning disable CA1822
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         public string RuntimeVersion
         {
             get
@@ -85,9 +84,8 @@
                 return $"{netVersion} ({processArchitecture})";
             }
         }
-#pragma warning restore CA1822
 
-#pragma warning disable CA1822
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         public string WindowsVersion
         {
             get
@@ -96,9 +94,8 @@
                 return $"{osDescription} ({GetWindowsVersionName()})";
             }
         }
-#pragma warning restore CA1822
 
-#pragma warning disable CA1822
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         public void SetVectorIcon(string resourceKey, int size = 32, double dpi = 96)
         {
             if (size.In(32, 48, 64) == false)
@@ -116,9 +113,8 @@
                 throw new ArgumentException($"Die Ressource mit dem Schlüssel '{resourceKey}' wurde nicht gefunden oder ist kein DrawingImage.", nameof(resourceKey));
             }
         }
-#pragma warning restore CA1822
 
-#pragma warning disable CA1822
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public string GetCurrentMethod(int level = 1)
         {
@@ -127,7 +123,6 @@
 
             return sf.GetMethod().Name;
         }
-#pragma warning restore CA1822
 
         #region Get/Set Implementierung
         private T GetPropertyValueInternal<T>(string propertyName)

@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:System.Windows"
     xmlns:core="clr-namespace:SnippetManager.Core"
-    xmlns:coreView="clr-namespace:SnippetManager.Core.View"
+    xmlns:coreView="clr-namespace:SnippetManager.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SnippetManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,162 +17,30 @@
         <PathGeometry x:Key="IconClose" Figures="M754.782 212.596 512 455.368 269.218 212.596c-13.081-13.081-34.29-13.081-47.369 0-13.081 13.081-13.081 34.288 0 47.367l242.782 242.771L221.849 745.507c-13.081 13.081-13.081 34.288 0 47.367 13.081 13.081 34.29 13.081 47.369 0L512 550.103l242.782 242.771c13.081 13.081 34.289 13.081 47.37 0 13.081-13.081 13.081-34.288 0-47.367L559.37 502.735l242.782-242.771c13.081-13.081 13.081-34.288 0-47.367C789.07 199.517 767.862 199.517 754.782 212.596z" />
     </Window.Resources>
 
-    <Grid x:Name="gridMain">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="35" />
-        </Grid.RowDefinitions>
+    <Grid
+        x:Name="gridMain"
+        ColumnDefinitions="*"
+        RowDefinitions="*,35">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <!--#region Popup im MainWindow Dialog-->
-        <base:DialogPopup
-            x:Name="InformationPopup"
-            base:MaskLayerBehavior.Owner="{Binding Path=., RelativeSource={RelativeSource AncestorType=Window}}"
-            PopupAnimation="Fade"
-            Topmost="False">
-
-            <Grid
-                Width="700"
-                Height="400"
-                Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Border
-                    Grid.Row="0"
-                    Background="#FAFAFB"
-                    CornerRadius="5">
-                    <coreView:InformationUC DataContext="{Binding Path=., RelativeSource={RelativeSource AncestorType=Window}}" />
-                </Border>
-
-                <base:IconButton
-                    x:Name="btnClose"
-                    Grid.Column="1"
-                    Width="30"
-                    Margin="10,4,0,0"
-                    VerticalAlignment="Top"
-                    Background="Transparent"
-                    Command="{Binding Path=CloseInformationPopupCommand}"
-                    MouseOverBackground="Transparent"
-                    NormalPathColor="White"
-                    PathData="{StaticResource ResourceKey=IconClose}"
-                    PathWidth="18"
-                    PressedBackground="Transparent" />
-            </Grid>
-        </base:DialogPopup>
-
-        <base:DialogPopup
-            x:Name="SettingsPopup"
-            base:MaskLayerBehavior.Owner="{Binding Path=., RelativeSource={RelativeSource AncestorType=Window}}"
-            PopupAnimation="Fade"
-            Topmost="False">
-            <Grid
-                Width="700"
-                Height="400"
-                Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Border
-                    Grid.Row="0"
-                    Background="#FAFAFB"
-                    CornerRadius="5">
-                    <coreView:SettingsUC DataContext="{Binding Path=., RelativeSource={RelativeSource AncestorType=Window}}" />
-                </Border>
-
-                <base:IconButton
-                    Grid.Column="1"
-                    Width="30"
-                    Margin="10,4,0,0"
-                    VerticalAlignment="Top"
-                    Background="Transparent"
-                    Command="{Binding Path=CloseSettingsPopupCommand}"
-                    MouseOverBackground="Transparent"
-                    NormalPathColor="White"
-                    PathData="{StaticResource ResourceKey=IconClose}"
-                    PathWidth="18"
-                    PressedBackground="Transparent" />
-            </Grid>
-        </base:DialogPopup>
-        <!--#endregion Popup im MainWindow Dialog-->
-
-        <Border BorderBrush="DarkGray" BorderThickness="0,0,0,2">
-            <DockPanel Grid.Row="0" Grid.Column="0">
-                <Button
-                    Width="50"
-                    Height="50"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
-                    Command="{Binding Path=QuitCommand}"
-                    ToolTip="Demo beenden">
-                    <Image Source="{StaticResource ResourceKey=IconApplicationEnd}" Stretch="Uniform" />
-                </Button>
-
-                <Button
-                    Width="50"
-                    Height="50"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
-                    Command="{Binding Path=SourceSnippetsCommand}"
-                    CommandParameter="{x:Static core:DialogView.SourceSnippets}"
-                    ToolTip="Source Snippets anzeigen">
-                    <Image Source="{StaticResource ResourceKey=IconCodeBraces}" />
-                </Button>
-
-                <Button
-                    Width="50"
-                    Height="50"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
-                    Command="{Binding Path=IconGrafikCommand}"
-                    CommandParameter="{x:Static core:DialogView.XamlGrafik}"
-                    ToolTip="Icon Grafik anzeigen">
-                    <Image Source="{StaticResource ResourceKey=IconImage}" />
-                </Button>
-
-                <!--  Button für Settings und Information  -->
-                <Button
-                    Width="50"
-                    Height="50"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Right"
-                    Background="Transparent"
-                    Command="{Binding Path=InformationCommand}"
-                    DockPanel.Dock="Right"
-                    ToolTip="Info anzeigen">
-                    <Image Source="{StaticResource ResourceKey=IconApplicationInformation}" Stretch="None" />
-                </Button>
-
-                <Button
-                    Width="50"
-                    Height="50"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Right"
-                    Background="Transparent"
-                    Command="{Binding Path=SettingsCommand}"
-                    DockPanel.Dock="Right"
-                    ToolTip="Einstellungen bearbeiten">
-                    <Image Source="{StaticResource ResourceKey=ApplicationSettingsIcon}" Stretch="Fill" />
-                </Button>
-            </DockPanel>
-        </Border>
-
-        <TextBlock
-            Grid.Row="1"
+        <!--#region Contentbereich-->
+        <Border
+            Grid.Row="0"
             Grid.Column="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="24"
-            Text="{Binding Path=WindowTitel, FallbackValue=~WindowTitel}" />
+            Background="White"
+            BorderBrush="Black"
+            BorderThickness="0,1,0,1">
+            <ContentControl
+                x:Name="mainContent"
+                Margin="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="LightGray"
+                Content="{Binding Path=WorkContent, UpdateSourceTrigger=PropertyChanged}"
+                ScrollViewer.CanContentScroll="True"
+                VirtualizingPanel.IsVirtualizing="True"
+                Visibility="Visible" />
+        </Border>
+        <!--#endregion Contentbereich-->
 
         <!--#region Statuszeile-->
         <StatusBar

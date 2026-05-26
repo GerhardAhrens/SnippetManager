@@ -1,14 +1,14 @@
-﻿namespace SnippetManager.Core.View
+﻿namespace SnippetManager.View
 {
     using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaktionslogik für SettingsUC.xaml
+    /// Interaktionslogik für InformationUC.xaml
     /// </summary>
-    public partial class SettingsUC : UserControl
+    public partial class InformationUC : UserControl
     {
-        public SettingsUC()
+        public InformationUC()
         {
             this.InitializeComponent();
             WeakEventManager<UserControl, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);

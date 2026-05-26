@@ -9,6 +9,8 @@
     using System.Windows.Controls;
     using System.Windows.Media;
 
+    using Microsoft.Win32;
+
     [DebuggerStepThrough]
     [Serializable]
     [SupportedOSPlatform("windows")]
@@ -60,6 +62,47 @@
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        public Version ApplicationVersion
+        {
+            get
+            {
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+                if (string.IsNullOrWhiteSpace(fvi.FileVersion))
+                {
+                    return assembly.GetName().Version ?? new Version(1, 0, DateTime.Now.Year, 0);
+                }
+
+                if (Version.TryParse(fvi.FileVersion, out var parsed))
+                {
+                    return parsed;
+                }
+
+                return assembly.GetName().Version ?? new Version(1, 0, DateTime.Now.Year, 0);
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        public string RuntimeVersion
+        {
+            get
+            {
+                string netVersion = $"{System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription}";
+                string processArchitecture = $"{System.Runtime.InteropServices.RuntimeInformation.RuntimeIdentifier}";
+                return $"{netVersion} ({processArchitecture})";
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
+        public string WindowsVersion
+        {
+            get
+            {
+                string osDescription = $"{System.Runtime.InteropServices.RuntimeInformation.OSDescription}";
+                return $"{osDescription} ({GetWindowsVersionName()})";
+            }
+        }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -153,7 +196,36 @@
         }
         #endregion INotifyPropertyChanged Implementierung
 
-#pragma warning disable CA1822
+        #region Windows Productname ermittel
+        private static string GetWindowsVersionName()
+        {
+            try
+            {
+                var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+                string currentBuildStr = (string)reg.GetValue("CurrentBuild");
+                int currentBuild = int.Parse(currentBuildStr, System.Globalization.CultureInfo.CurrentCulture);
+                if (currentBuild >= 22_000)
+                {
+                    return "Windows 11";
+                }
+                else if (currentBuild >= 10_240 && currentBuild < 22_000)
+                {
+                    return "Windows 10";
+                }
+                else
+                {
+                    return "Windows 7";
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                throw;
+            }
+        }
+        #endregion Windows Productname ermittel
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public string GetCurrentMethod(int level = 1)
         {
@@ -162,6 +234,5 @@
 
             return sf.GetMethod().Name;
         }
-#pragma warning restore CA1822
     }
 }

@@ -72,6 +72,13 @@ namespace SnippetManager
         }
 
         /// <summary>
+        /// Bereitstellung des Event Aggregators als statische Eigenschaft, damit er in der gesamten Anwendung verwendet werden kann, 
+        /// um lose gekoppelte Kommunikation zwischen verschiedenen Komponenten zu ermöglichen, z.B. um Ereignisse zu veröffentlichen 
+        /// und zu abonnieren, ohne direkte Abhängigkeiten zwischen den Komponenten zu schaffen.
+        /// </summary>
+        public static EventAggregator EventAgg { get; } = new();
+
+        /// <summary>
         /// Statische Eigenschaft für die globalen Einstellungen der Anwendung, hier können alle Einstellungen gespeichert werden, 
         /// die in der gesamten Anwendung benötigt werden, z.B. Spracheinstellung, Benutzername, etc.
         /// </summary>
