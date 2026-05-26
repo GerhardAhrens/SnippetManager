@@ -1,9 +1,13 @@
 ﻿namespace System.Windows
 {
     using System;
-
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Versioning;
 
+    [DebuggerStepThrough]
+    [Serializable]
+    [SupportedOSPlatform("windows")]
     [SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Generic Singleton Pattern")]
     public abstract class SingletonBase<T> where T : class
     {

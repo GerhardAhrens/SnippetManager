@@ -40,4 +40,13 @@
     <Folder Include="TemplateCore\Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="ViewUC\XamlGrafikUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewUC\SourceSnippetsUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

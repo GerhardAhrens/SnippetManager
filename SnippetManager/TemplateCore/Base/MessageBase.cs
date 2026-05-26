@@ -15,6 +15,12 @@
 
 namespace System.Windows
 {
+    using System.Diagnostics;
+    using System.Runtime.Versioning;
+
+    [DebuggerStepThrough]
+    [Serializable]
+    [SupportedOSPlatform("windows")]
     public class MessageBase : IMessageBase
     {
         public Window CurrentOwner { get; private set; }

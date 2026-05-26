@@ -26,16 +26,20 @@ namespace System.Windows
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Versioning;
     using System.Text.Json;
     using System.Text.Json.Serialization;
 
     /// <summary>
     /// Base class for settings.
     /// </summary>
+    [DebuggerStepThrough]
+    [Serializable]
+    [SupportedOSPlatform("windows")]
     public abstract class SettingsBase : DisposableCoreBase
     {
 

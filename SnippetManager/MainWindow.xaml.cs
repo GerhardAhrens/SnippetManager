@@ -142,11 +142,10 @@ namespace SnippetManager
 
             if (commandParam != null && commandParam.MenuButton is DialogView view)
             {
-                if (view == DialogView.SourceSnippets)
+                if (view.In(DialogView.SourceSnippets, DialogView.XamlGrafik))
                 {
-                }
-                else if (view == DialogView.XamlGrafik)
-                {
+                    this.WorkContent = null;
+                    this.WorkContent = (System.Windows.Controls.UserControl)Factory.Get<UserControlBase, DialogView>((DialogView)commandParam.MenuButton, commandParam);
                 }
             }
             else if (commandParam != null && commandParam.MenuButton is CommandButtons button)
@@ -180,6 +179,8 @@ namespace SnippetManager
         {
             Factory.RegisterSingleton<CommandButtons>(CommandButtons.Home, () => new HelloUC());
             Factory.RegisterSingleton<CommandButtons>(CommandButtons.Help, () => new HelpUC());
+            Factory.RegisterSingleton<DialogView>(DialogView.SourceSnippets, () => new SourceSnippetsUC());
+            Factory.RegisterSingleton<DialogView>(DialogView.XamlGrafik, () => new XamlGrafikUC());
         }
 
     }

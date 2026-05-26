@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Runtime.Versioning;
     using System.Windows.Input;
     using System.Windows.Threading;
 
@@ -21,6 +22,10 @@
     /// this.QuitParamCommand.TryExecute();
     /// this.QuitParamCommand.RaiseCanExecuteChanged()
     /// </remarks>
+
+    [DebuggerStepThrough]
+    [Serializable]
+    [SupportedOSPlatform("windows")]
     public class CommandBase : ICommand
     {
         /// <summary>

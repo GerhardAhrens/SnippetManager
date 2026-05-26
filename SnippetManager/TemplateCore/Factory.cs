@@ -2,7 +2,12 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Diagnostics;
+    using System.Runtime.Versioning;
 
+    [DebuggerStepThrough]
+    [Serializable]
+    [SupportedOSPlatform("windows")]
     public static class Factory
     {
         // Registrierung:
@@ -75,8 +80,7 @@
 
             if (!_registrations.TryGetValue(key, out Registration registration))
             {
-                throw new InvalidOperationException(
-                    $"Keine Registrierung für '{typeof(TEnum).Name}.{id}'.");
+                throw new InvalidOperationException($"Keine Registrierung für '{typeof(TEnum).Name}.{id}'.");
             }
 
             object instance;

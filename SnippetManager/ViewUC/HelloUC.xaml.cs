@@ -161,15 +161,31 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
-        private void ChangeView(object commandParam)
+        private async void ChangeView(object commandParam)
         {
             if (commandParam != null && commandParam is DialogView view)
             {
                 if (view == DialogView.SourceSnippets)
                 {
+                    ChangeViewEventArgs args = new();
+                    args.MenuButton = DialogView.SourceSnippets;
+                    args.FromPage = CommandButtons.Home;
+
+                    if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(args);
+                    }
                 }
                 else if (view == DialogView.XamlGrafik)
                 {
+                    ChangeViewEventArgs args = new();
+                    args.MenuButton = DialogView.XamlGrafik;
+                    args.FromPage = CommandButtons.Home;
+
+                    if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(args);
+                    }
                 }
             }
         }
