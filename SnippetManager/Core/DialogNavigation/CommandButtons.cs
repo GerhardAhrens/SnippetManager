@@ -14,5 +14,7 @@
         Help = 3,
         [Description("Zurück zur vorherigen Seite")]
         GoBack = 4,
+        [Description("XAML-Icon exportieren")]
+        ExportXamlIcon = 5,
     }
 }

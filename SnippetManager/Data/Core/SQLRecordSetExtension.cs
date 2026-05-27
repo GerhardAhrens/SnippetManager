@@ -16,6 +16,7 @@ namespace System.Data.SQLite
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Reflection;
     using System.Text.RegularExpressions;
     using System.Windows.Data;
@@ -137,7 +138,7 @@ namespace System.Data.SQLite
                     }
 
                     int? result = cmd.ExecuteNonQuery();
-                    getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T));
+                    getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T), CultureInfo.CurrentCulture);
                 }
             }
             catch (SQLiteException ex)
@@ -263,11 +264,11 @@ namespace System.Data.SQLite
                     var result = cmd.ExecuteScalar();
                     if (result != DBNull.Value)
                     {
-                        getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T));
+                        getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T), CultureInfo.CurrentCulture);
                     }
                     else
                     {
-                        getAs = (T)Convert.ChangeType(0, typeof(T));
+                        getAs = (T)Convert.ChangeType(0, typeof(T), CultureInfo.CurrentCulture);
                     }
                 }
             }
@@ -611,21 +612,21 @@ namespace System.Data.SQLite
                                         {
                                             if (columnValue != DBNull.Value)
                                             {
-                                                itemProperty.SetValue(instance, Convert.ToInt64(columnValue), null);
+                                                itemProperty.SetValue(instance, Convert.ToInt64(columnValue, CultureInfo.CurrentCulture), null);
                                             }
                                         }
                                         else if (itemProperty.PropertyType == typeof(decimal))
                                         {
                                             if (columnValue != DBNull.Value)
                                             {
-                                                itemProperty.SetValue(instance, Convert.ToDecimal(columnValue), null);
+                                                itemProperty.SetValue(instance, Convert.ToDecimal(columnValue, CultureInfo.CurrentCulture), null);
                                             }
                                         }
                                         else if (itemProperty.PropertyType == typeof(double))
                                         {
                                             if (columnValue != DBNull.Value)
                                             {
-                                                itemProperty.SetValue(instance, Convert.ToDouble(columnValue), null);
+                                                itemProperty.SetValue(instance, Convert.ToDouble(columnValue, CultureInfo.CurrentCulture), null);
                                             }
                                         }
                                         else if (itemProperty.PropertyType == typeof(DateTime))
@@ -683,7 +684,7 @@ namespace System.Data.SQLite
                 throw;
             }
 
-            return (T)Convert.ChangeType(result, typeof(T));
+            return (T)Convert.ChangeType(result, typeof(T), CultureInfo.CurrentCulture);
         }
 
         private static T GetListOfTNonGeneric<T>(SQLiteConnection connection, string sql, Dictionary<string, object> parameterCollection)
@@ -745,11 +746,11 @@ namespace System.Data.SQLite
                                     string valueName = dr.GetName(0);
                                     if (genericType == typeof(Guid))
                                     {
-                                        result.Add(Convert.ChangeType(new Guid(dr[0].ToString()), genericType));
+                                        result.Add(Convert.ChangeType(new Guid(dr[0].ToString()), genericType, CultureInfo.CurrentCulture));
                                     }
                                     else
                                     {
-                                        result.Add(Convert.ChangeType(dr[0], genericType));
+                                        result.Add(Convert.ChangeType(dr[0], genericType, CultureInfo.CurrentCulture));
                                     }
                                 }
                             }
@@ -768,7 +769,7 @@ namespace System.Data.SQLite
                 throw;
             }
 
-            return (T)Convert.ChangeType(result, typeof(T));
+            return (T)Convert.ChangeType(result, typeof(T), CultureInfo.CurrentCulture);
         }
 
         private static T GetDictionary<T>(SQLiteConnection connection, string sql, Dictionary<string, object> parameterCollection)
@@ -867,7 +868,7 @@ namespace System.Data.SQLite
                 throw;
             }
 
-            return (T)Convert.ChangeType(result, typeof(T));
+            return (T)Convert.ChangeType(result, typeof(T), CultureInfo.CurrentCulture);
         }
         #endregion GET, Lesen von Daten in verschiedene Typen
 
@@ -997,7 +998,7 @@ namespace System.Data.SQLite
                     }
 
                     int? result = cmd.ExecuteNonQuery();
-                    getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T));
+                    getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T), CultureInfo.CurrentCulture);
                 }
             }
             catch (SQLiteException ex)
@@ -1053,7 +1054,7 @@ namespace System.Data.SQLite
                     }
 
                     int? result = cmd.ExecuteNonQuery();
-                    getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T));
+                    getAs = result == null ? default(T) : (T)Convert.ChangeType(result, typeof(T), CultureInfo.CurrentCulture);
                 }
             }
             catch (SQLiteException ex)
@@ -1085,11 +1086,11 @@ namespace System.Data.SQLite
                     ma = ma.NextMatch();
                 }
 
-                return tables.FirstOrDefault().ToUpper();
+                return tables.FirstOrDefault().ToUpper(CultureInfo.CurrentCulture);
             }
             catch (Exception)
             {
-                return $"TAB{DateTime.Now.ToString("yyyyMMdd")}";
+                return $"TAB{DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture)}";
             }
         }
 

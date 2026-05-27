@@ -16,6 +16,7 @@ namespace System.Data
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
     using System.Reflection;
 
@@ -183,7 +184,7 @@ namespace System.Data
             }
             catch (Exception ex)
             {
-                throw new Exception("Sort: \n" + ex.Message);
+                throw new InvalidOperationException("Sortieren der DataTable ist fehlgeschlagen.", ex);
             }
 
             return dataTableOut;
@@ -213,7 +214,7 @@ namespace System.Data
             }
             catch (Exception ex)
             {
-                throw new Exception("Sort: \n" + ex.Message);
+                throw new InvalidOperationException("Sortieren der DataTable ist fehlgeschlagen.", ex);
             }
 
             return dataTableOut;
@@ -230,9 +231,9 @@ namespace System.Data
 
                 foreach (DataColumn item in @this.Columns)
                 {
-                    if (item.ColumnName.ToLower() == "flags")
+                    if (item.ColumnName.ToLower(CultureInfo.CurrentCulture).Equals("flags", StringComparison.OrdinalIgnoreCase) == true)
                     {
-                        columnNames.Add(item.ColumnName, string.Format("{{{{{0}}}}}", item.ColumnName));
+                        columnNames.Add(item.ColumnName, string.Format(CultureInfo.CurrentCulture, "{{{{{0}}}}}", item.ColumnName));
                     }
                     else
                     {
@@ -278,7 +279,7 @@ namespace System.Data
                         try
                         {
                             PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-                            propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
+                            propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType, CultureInfo.CurrentCulture), null);
                         }
                         catch
                         {
@@ -307,7 +308,7 @@ namespace System.Data
             }
             catch (Exception ex)
             {
-                throw new Exception("GetColumnDataType: \n" + ex.Message);
+                throw new InvalidOperationException($"Fehler beim Ermitteln des Datentyps der Spalte '{ColumnName}'.", ex);
             }
         }
 
@@ -319,7 +320,7 @@ namespace System.Data
             }
             catch (Exception ex)
             {
-                throw new Exception("GetColumnDataType: \n" + ex.Message);
+                throw new InvalidOperationException($"Fehler beim Ermitteln des Datentyps der Spalte an Index {ColumnIndex}.", ex);
             }
         }
 
@@ -331,7 +332,7 @@ namespace System.Data
             try
             {
                 object column = tbl.Rows[RowInd][ColInd];
-                return column == DBNull.Value ? default(T) : (T)Convert.ChangeType(column, typeof(T));
+                return column == DBNull.Value ? default(T) : (T)Convert.ChangeType(column, typeof(T), CultureInfo.CurrentCulture);
             }
             catch
             {
@@ -344,7 +345,7 @@ namespace System.Data
             try
             {
                 object column = tbl.Rows[RowInd][ColumnName];
-                return column == DBNull.Value ? default(T) : (T)Convert.ChangeType(column, typeof(T));
+                return column == DBNull.Value ? default(T) : (T)Convert.ChangeType(column, typeof(T), CultureInfo.CurrentCulture);
 
             }
             catch

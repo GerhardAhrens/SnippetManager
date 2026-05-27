@@ -15,12 +15,13 @@ namespace System.Data.SQLite
 {
     using System;
     using System.Data;
+    using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
 
     public class DatabaseService : IDisposable
     {
-        private bool classIsDisposed = false;
+        private bool classIsDisposed;
 
         public DatabaseService(string fullPath)
         {
@@ -216,7 +217,7 @@ namespace System.Data.SQLite
                     FileInfo fi = new FileInfo(this.FullName);
                     if (string.IsNullOrEmpty(targetBackup) == true)
                     {
-                        targetBackup = $"{Path.GetDirectoryName(this.FullName)}\\{Path.GetFileNameWithoutExtension(this.FullName)}_{DateTime.Now.ToString("yyyyMMdd")}{Path.GetExtension(this.FullName)}";
+                        targetBackup = $"{Path.GetDirectoryName(this.FullName)}\\{Path.GetFileNameWithoutExtension(this.FullName)}_{DateTime.Now.ToString("yyyyMMdd",CultureInfo.CurrentCulture)}{Path.GetExtension(this.FullName)}";
                     }
 
                     var result = this.CopyFileAsync(this.FullName, targetBackup);
@@ -313,13 +314,13 @@ namespace System.Data.SQLite
                     sqliteConnection.Open();
                     this.IsOpen = true;
                     var cmd = sqliteConnection.CreateCommand();
-                    cmd.CommandText = string.Format($"PRAGMA table_info({tableName})");
+                    cmd.CommandText = string.Format(CultureInfo.CurrentCulture, $"PRAGMA table_info({tableName})");
 
                     var reader = cmd.ExecuteReader();
                     int nameIndex = reader.GetOrdinal("Name");
                     while (reader.Read())
                     {
-                        if (reader.GetString(nameIndex).Equals(columnName))
+                        if (reader.GetString(nameIndex).Equals(columnName, StringComparison.OrdinalIgnoreCase))
                         {
                             return true;
                         }
@@ -473,6 +474,7 @@ namespace System.Data.SQLite
             return meta;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private string ConnectStringToText(string databasePath)
         {
             SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
@@ -490,6 +492,7 @@ namespace System.Data.SQLite
             return conString.ToString();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async Task CopyFileAsync(string sourcePath, string destinationPath)
         {
             using (Stream source = File.Open(sourcePath, FileMode.Open))

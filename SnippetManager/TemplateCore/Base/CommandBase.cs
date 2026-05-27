@@ -78,8 +78,7 @@
         /// </summary>
         /// <param name="execute">Delegieren Sie die Ausführung, wenn „Execute“ für den Befehl aufgerufen wird.</param>
         /// <exception cref="ArgumentNullException">Das Ausführungsargument darf nicht null sein.</exception>
-        public CommandBase(Action<object> execute)
-            : this(execute, (Func<object, bool>)null)
+        public CommandBase(Action<object> execute) : this(execute, (Func<object, bool>)null)
         {
         }
 
