@@ -8,6 +8,7 @@
     /// <summary>
     /// Interaktionslogik für HelpUC.xaml
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
     public partial class HelpUC : UserControlBase
     {
         public HelpUC(ChangeViewEventArgs args) : base(typeof(HelpUC))
@@ -44,7 +45,6 @@
         #endregion Windows Events
 
         #region Command Events
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void OnGoBack(object commandParam)
         {
             if (commandParam != null && commandParam is CommandButtons button)

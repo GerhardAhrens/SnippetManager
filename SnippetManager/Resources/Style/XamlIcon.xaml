@@ -10,8 +10,326 @@
     -->
     <!--#endregion XAML Icon Quelle-->
 
+    <!--#region Farbige Icon Symbole auf Basis von ViewBox-->
+    <Viewbox x:Key="IconExportDataVB">
+        <Canvas
+            Width="16"
+            Height="16"
+            Background="Transparent">
+            <Path Data="M3 3.5C3 2.075 5.149 1 8 1C10.851 1 13 2.075 13 3.5V10.0853C12.9792 10.0928 12.9585 10.1006 12.938 10.109C12.76 10.182 12.598 10.289 12.462 10.425C12.317 10.563 12.2 10.73 12.121 10.915C12.041 11.1 12 11.299 12 11.5V5.021C10.7859 5.71872 9.39905 6.05816 8 6C6.60095 6.05816 5.21405 5.71872 4 5.021V12.5C4 13.111 5.558 14 8 14C8.02866 14 8.0572 13.9999 8.08562 13.9996C8.15945 14.2087 8.27938 14.4008 8.439 14.561C8.62342 14.7448 8.85018 14.8759 9.09635 14.9447C8.74557 14.981 8.37899 15 8 15C5.149 15 3 13.925 3 12.5V3.5ZM12 3.5C12 2.888 10.441 2 8 2C5.558 2 4 2.888 4 3.5C4 4.112 5.559 5 8 5C10.441 5 12 4.112 12 3.5Z" Fill="#3487C7" />
+            <Path Data="M12 12V11.5C12.001 11.67 12.03 11.839 12.086 12H12Z" Fill="#3487C7" />
+            <Path Data="M13.85 15.85C13.805 15.897 13.751 15.935 13.69 15.961C13.63 15.987 13.565 16 13.5 16C13.435 16 13.37 15.987 13.31 15.961C13.25 15.935 13.196 15.897 13.15 15.85C13.103 15.805 13.065 15.751 13.039 15.69C13.013 15.63 13 15.565 13 15.5C13 15.435 13.013 15.37 13.039 15.31C13.065 15.25 13.103 15.196 13.15 15.15L14.29 14H9.5C9.367 14 9.24 13.947 9.146 13.854C9.052 13.761 9 13.633 9 13.5C9 13.367 9.053 13.24 9.146 13.146C9.24 13.052 9.367 13 9.5 13H14.29L13.15 11.85C13.059 11.757 13.008 11.631 13.009 11.501C13.009 11.371 13.062 11.246 13.154 11.153C13.246 11.061 13.371 11.009 13.502 11.008C13.632 11.008 13.758 11.058 13.851 11.149L15.851 13.149C15.898 13.194 15.936 13.248 15.962 13.309C15.988 13.369 16.001 13.434 16.001 13.499C16.001 13.564 15.988 13.629 15.962 13.689C15.936 13.749 15.898 13.803 15.851 13.849L13.85 15.85Z" Fill="#006CBF" />
+        </Canvas>
+    </Viewbox>
+    <!--#endregion Farbige Icon Symbole auf Basis von ViewBox-->
 
     <!--#region Farbige Icon Symbole auf Basis von DrawingImage-->
+    <DrawingImage x:Key="IconSaveEntry">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Diskette  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="12,10,40,44" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="Transparent"
+                            LineJoin="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Oberer Bereich  -->
+                <GeometryDrawing Brush="#FFECECEC">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="18,16,20,10" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Schreibschutz-Ecke  -->
+                <GeometryDrawing Brush="#FF2F2F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="40,16,6,12" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Dokumentbereich  -->
+                <GeometryDrawing Brush="#FFFFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="18,32,28,16" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Zeilen  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="22,36,18,2" />
+                            <RectangleGeometry Rect="22,41,14,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconCopyToClipboard">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Zwischenablage  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="4"
+                            RadiusY="4"
+                            Rect="18,12,28,40" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="LightGray"
+                            LineJoin="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Klammer oben  -->
+                <GeometryDrawing Brush="#FFE0E0E0">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="26,8,12,8" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF404040" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Dokumentzeilen  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="24,24,16,2" />
+                            <RectangleGeometry Rect="24,30,16,2" />
+                            <RectangleGeometry Rect="24,36,12,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopier-Symbol  -->
+                <GeometryDrawing Brush="#FF1976D2">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Horizontal  -->
+                            <RectangleGeometry Rect="42,40,12,4" />
+
+                            <!--  Vertikal  -->
+                            <RectangleGeometry Rect="46,36,4,12" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconCopyEntry">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Hinteres Dokument  -->
+                <GeometryDrawing Brush="#FFECECEC">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="20,14,24,34" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="Black"
+                            LineJoin="Round"
+                            Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Vorderes Dokument  -->
+                <GeometryDrawing Brush="#FFFFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="12,20,24,34" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="LightGray"
+                            LineJoin="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Zeilen  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="18,30,12,2" />
+                            <RectangleGeometry Rect="18,36,12,2" />
+                            <RectangleGeometry Rect="18,42,8,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopier-Symbol  -->
+                <GeometryDrawing Brush="#FF1976D2">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Horizontal  -->
+                            <RectangleGeometry Rect="40,40,12,4" />
+
+                            <!--  Vertikal  -->
+                            <RectangleGeometry Rect="44,36,4,12" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconDeleteEntry">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="14,10,28,40" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="LightGray"
+                            LineJoin="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Dokumentzeilen  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="20,20,16,2" />
+                            <RectangleGeometry Rect="20,26,16,2" />
+                            <RectangleGeometry Rect="20,32,12,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Lösch-Kreis  -->
+                <GeometryDrawing Brush="#FFD32F2F">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="46,46"
+                            RadiusX="10"
+                            RadiusY="10" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Minus  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="41,44,10,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconNewEntry">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="14,10,28,40" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="LightGray"
+                            LineJoin="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Dokumentzeilen  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="20,20,16,2" />
+                            <RectangleGeometry Rect="20,26,16,2" />
+                            <RectangleGeometry Rect="20,32,12,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Plus-Kreis  -->
+                <GeometryDrawing Brush="#FF28A745">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="46,46"
+                            RadiusX="10"
+                            RadiusY="10" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Plus  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Horizontal  -->
+                            <RectangleGeometry Rect="41,44,10,4" />
+
+                            <!--  Vertikal  -->
+                            <RectangleGeometry Rect="44,41,4,10" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="IconExportData">
         <DrawingImage.Drawing>
             <DrawingGroup>
@@ -24,18 +342,6 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-
-    <Viewbox x:Key="IconExportDataVB">
-        <Canvas
-            Width="16"
-            Height="16"
-            Background="Transparent">
-            <Path Data="M3 3.5C3 2.075 5.149 1 8 1C10.851 1 13 2.075 13 3.5V10.0853C12.9792 10.0928 12.9585 10.1006 12.938 10.109C12.76 10.182 12.598 10.289 12.462 10.425C12.317 10.563 12.2 10.73 12.121 10.915C12.041 11.1 12 11.299 12 11.5V5.021C10.7859 5.71872 9.39905 6.05816 8 6C6.60095 6.05816 5.21405 5.71872 4 5.021V12.5C4 13.111 5.558 14 8 14C8.02866 14 8.0572 13.9999 8.08562 13.9996C8.15945 14.2087 8.27938 14.4008 8.439 14.561C8.62342 14.7448 8.85018 14.8759 9.09635 14.9447C8.74557 14.981 8.37899 15 8 15C5.149 15 3 13.925 3 12.5V3.5ZM12 3.5C12 2.888 10.441 2 8 2C5.558 2 4 2.888 4 3.5C4 4.112 5.559 5 8 5C10.441 5 12 4.112 12 3.5Z" Fill="#3487C7" />
-            <Path Data="M12 12V11.5C12.001 11.67 12.03 11.839 12.086 12H12Z" Fill="#3487C7" />
-            <Path Data="M13.85 15.85C13.805 15.897 13.751 15.935 13.69 15.961C13.63 15.987 13.565 16 13.5 16C13.435 16 13.37 15.987 13.31 15.961C13.25 15.935 13.196 15.897 13.15 15.85C13.103 15.805 13.065 15.751 13.039 15.69C13.013 15.63 13 15.565 13 15.5C13 15.435 13.013 15.37 13.039 15.31C13.065 15.25 13.103 15.196 13.15 15.15L14.29 14H9.5C9.367 14 9.24 13.947 9.146 13.854C9.052 13.761 9 13.633 9 13.5C9 13.367 9.053 13.24 9.146 13.146C9.24 13.052 9.367 13 9.5 13H14.29L13.15 11.85C13.059 11.757 13.008 11.631 13.009 11.501C13.009 11.371 13.062 11.246 13.154 11.153C13.246 11.061 13.371 11.009 13.502 11.008C13.632 11.008 13.758 11.058 13.851 11.149L15.851 13.149C15.898 13.194 15.936 13.248 15.962 13.309C15.988 13.369 16.001 13.434 16.001 13.499C16.001 13.564 15.988 13.629 15.962 13.689C15.936 13.749 15.898 13.803 15.851 13.849L13.85 15.85Z" Fill="#006CBF" />
-        </Canvas>
-    </Viewbox>
-
 
     <DrawingImage x:Key="IconCheck">
         <DrawingImage.Drawing>
@@ -180,7 +486,7 @@
                             <LineGeometry StartPoint="16,46" EndPoint="16,18" />
 
                             <!--  Kurve  -->
-                            <PathGeometry Figures="                             M 18,40                             C 24,34 28,36 32,28                             C 36,20 42,24 46,16" />
+                            <PathGeometry Figures="M 18,40 C 24,34 28,36 32,28 C 36,20 42,24 46,16" />
 
                             <!--  Datenpunkte  -->
                             <EllipseGeometry
@@ -828,7 +1134,6 @@
     <DrawingImage x:Key="IconBackToMainMenu">
         <DrawingImage.Drawing>
             <DrawingGroup>
-
                 <!--  Haus / Hauptmenü  -->
                 <GeometryDrawing Brush="#FF4A90E2">
                     <GeometryDrawing.Geometry>

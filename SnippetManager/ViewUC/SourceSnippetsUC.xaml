@@ -41,8 +41,56 @@
                     Background="Transparent"
                     Command="{Binding Path=GoBackCommand}"
                     CommandParameter="{x:Static core:CommandButtons.GoBack}"
-                    ToolTip="Demo beenden">
+                    ToolTip="Zurück zum Hauptmenü">
                     <Image Source="{StaticResource ResourceKey=IconBackToMainMenu}" Stretch="Uniform" />
+                </Button>
+
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=NewEntryCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.NewEntry}"
+                    ToolTip="Neuer Eintrag erstellen">
+                    <Image Source="{StaticResource ResourceKey=IconNewEntry}" Stretch="Uniform" />
+                </Button>
+
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=DeleteEntryCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.DeleteEntry}"
+                    ToolTip="Eintrag löschen">
+                    <Image Source="{StaticResource ResourceKey=IconDeleteEntry}" Stretch="Uniform" />
+                </Button>
+
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=CopyEntryCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.CopyEntry}"
+                    ToolTip="Eintrag kopieren">
+                    <Image Source="{StaticResource ResourceKey=IconCopyEntry}" Stretch="Uniform" />
+                </Button>
+
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=CopyToClipboardCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.CopyEntryToClipboard}"
+                    ToolTip="Eintrag in Zwischenablage kopieren">
+                    <Image Source="{StaticResource ResourceKey=IconCopyToClipboard}" Stretch="Uniform" />
                 </Button>
 
                 <Button

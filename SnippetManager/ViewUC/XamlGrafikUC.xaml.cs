@@ -1,12 +1,27 @@
-﻿namespace SnippetManager.View
+﻿//-----------------------------------------------------------------------
+// <copyright file="XamlGrafikUC.xaml.cs" company="Lifeprojects.de">
+//     Class: XamlGrafikUC
+//     Copyright © Lifeprojects.de GmbH 2026
+// </copyright>
+//
+// <author>Gerhard Ahrens - Lifeprojects.de</author>
+// <email>developer@lifeprojects.de</email>
+// <date>25.05.2026</date>
+//
+// <summary>
+// Code Behinde für die XamlGrafikUC.xaml
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace SnippetManager.View
 {
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Media;
     using System.Windows.Markup;
+    using System.Windows.Media;
     using System.Xml;
 
     using SnippetManager.Core;
@@ -34,9 +49,15 @@
         public CommandBase ImageDoubleClickCommand { get; private set; }
         public CommandBase HelpCommand { get; private set; }
 
-        public ObservableCollection<XamlTileItem> XamlItemSource
+        public ObservableCollection<XamlTileItem> XamlItemAlleSource
         {
             get => base.GetValue<ObservableCollection<XamlTileItem>>();
+            set => base.SetValue(value);
+        }
+
+        public FilteredObservableCollection<XamlTileItem> XamlItemSource
+        {
+            get => base.GetValue<FilteredObservableCollection<XamlTileItem>>();
             set => base.SetValue(value);
         }
 
@@ -44,6 +65,12 @@
         {
             get => base.GetValue<XamlTileItem>();
             set => base.SetValue(value);
+        }
+
+        public string FilterText
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value,this.RefreshData);
         }
 
         private int CountSelectedItem { get; set; }
@@ -61,8 +88,8 @@
                 await App.EventAgg.PublishAsync(new WindowsTitelEvent("XamlGrafik Übersicht"));
             }
 
-            this.XamlItemSource = new ObservableCollection<XamlTileItem>();
-            this.XamlItemSource.CollectionChanged += (s, ev) =>
+            this.XamlItemAlleSource = new ObservableCollection<XamlTileItem>();
+            this.XamlItemAlleSource.CollectionChanged += (s, ev) =>
             {
                 if (ev.NewItems != null)
                 {
@@ -77,7 +104,7 @@
                                 {
                                     if (App.EventAgg.IsSubscription<StatusEvent>() == true)
                                     {
-                                        await App.EventAgg.PublishAsync(new StatusEvent($"Bereit: Anzahl der XAML-Icons: {this.XamlItemSource.Count} / Ausgewählt: {this.CountSelectedItem}"));
+                                        await App.EventAgg.PublishAsync(new StatusEvent($"Bereit: Anzahl der XAML-Icons: {this.XamlItemAlleSource.Count} / Ausgewählt: {this.CountSelectedItem}"));
                                     }
 
                                     this.ExportXamlIconCommand.RaiseCanExecuteChanged();
@@ -86,7 +113,7 @@
                                 {
                                     if (App.EventAgg.IsSubscription<StatusEvent>() == true)
                                     {
-                                        await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + this.XamlItemSource.Count));
+                                        await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + this.XamlItemAlleSource.Count));
                                     }
 
                                     this.ExportXamlIconCommand.RaiseCanExecuteChanged();
@@ -106,14 +133,45 @@
                 var value = this.ResourcesDic.Cast<DictionaryEntry>().FirstOrDefault(f => f.Key.ToString().Equals(key, StringComparison.OrdinalIgnoreCase)).Value;
                 if (value is DrawingImage drawingImage)
                 {
-                    XamlItemSource.Add(new XamlTileItem() { Title = key, ImageContent = drawingImage });
+                    this.XamlItemAlleSource.Add(new XamlTileItem() { Key = key, Title = $"{key}", ImageContent = drawingImage, XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})" });
+                }
+                else if (value is Viewbox viewBox)
+                {
+                    if (double.IsNaN(viewBox.Width) == false && double.IsNaN(viewBox.Height) == false)
+                    {
+                        DrawingImage img = ConvertViewboxToDrawingImage(viewBox);
+                        if (img.Height > 0 && img.Width > 0)
+                        {
+                            this.XamlItemAlleSource.Add(new XamlTileItem() {Key = key, Title = $"{key}", ImageContent = img , XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})" });
+                        }
+                    }
                 }
             }
 
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
-                await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + this.XamlItemSource.Count));
+                await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + this.XamlItemAlleSource.Count));
             }
+
+            XamlItemSource = new FilteredObservableCollection<XamlTileItem>(this.XamlItemAlleSource, this.DataDefaultFilter);
+            this.XamlItemSource.Filter = this.DataDefaultFilter;
+        }
+
+        private bool DataDefaultFilter(XamlTileItem item)
+        {
+            if (string.IsNullOrEmpty(this.FilterText) == true)
+            {
+                return true;
+            }
+            
+            bool isInKey = item.Key.Contains(this.FilterText, StringComparison.CurrentCultureIgnoreCase);
+
+            return isInKey || item.Title.Contains(this.FilterText);
+        }
+
+        private void RefreshData(string arg1, string arg2)
+        {
+            this.XamlItemSource.Refilter();
         }
 
         private static List<string> GetResourceKeys(ResourceDictionary dictionary)
@@ -170,12 +228,34 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private void OnExportXamlIcon(object commandParam)
         {
+            StringBuilder exportXaml = new StringBuilder();
+            if (this.XamlItemSource != null && this.XamlItemSource.Count > 0)
+            {
+                exportXaml.AppendLine("<ResourceDictionary xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">");
+                exportXaml.AppendLine($"\n");
+                exportXaml.AppendLine("<!--#region Farbige Icon Symbole auf Basis von DrawingImage-->");
+                exportXaml.AppendLine($"\n");
+
+                foreach (var item in this.XamlItemSource.Where(x => x.IsSelectedItem == true))
+                {
+                    if (item.ImageContent is DrawingImage drawingImage)
+                    {
+                        string xamlSource = GetXamlSourceFromKey(this.ResourcesDic, item.Key);
+                        xamlSource = xamlSource.Replace("xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"", $"x:Key=\"{item.Key}\"");
+                        exportXaml.Append( xamlSource );
+                        exportXaml.AppendLine($"\n");
+                    }
+                }
+
+                exportXaml.AppendLine("</ResourceDictionary>");
+                Clipboard.SetText(exportXaml.ToString());
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private void OnImageDoubleClick(object commandParam)
         {
-            string key = SelectedXamlItem.Title;
+            string key = SelectedXamlItem.Key;
 
             string xamlSource = GetXamlSourceFromKey(this.ResourcesDic, key);
             xamlSource = xamlSource.Replace("xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"", $"x:Key=\"{key}\"");
@@ -209,5 +289,24 @@
             return $"Key '{key}' nicht gefunden.";
         }
 
+        private static DrawingImage ConvertViewboxToDrawingImage(Viewbox viewbox)
+        {
+            // 1. Größe der Viewbox auslesen
+            double width = viewbox.Width;
+            double height = viewbox.Height;
+
+            // 2. VisualBrush für den Inhalt der Viewbox erstellen
+            VisualBrush visualBrush = new VisualBrush(viewbox.Child);
+
+            // 3. DrawingVisual instanziieren und den Brush zeichnen
+            DrawingVisual drawingVisual = new DrawingVisual();
+            using (DrawingContext context = drawingVisual.RenderOpen())
+            {
+                context.DrawRectangle(visualBrush, null, new Rect(0, 0, width, height));
+            }
+
+            // 4. Das DrawingImage erzeugen
+            return new DrawingImage(drawingVisual.Drawing);
+        }
     }
 }

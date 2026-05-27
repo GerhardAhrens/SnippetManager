@@ -25,6 +25,7 @@ namespace SnippetManager
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
     public partial class MainWindow : WindowBase
     {
         public MainWindow()
@@ -115,13 +116,11 @@ namespace SnippetManager
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private void OnUpdateStatusBar(StatusEvent evt)
         {
             StatusbarMain.Statusbar.Notification = evt.Notification;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private void OnUpdateWindowTitel(WindowsTitelEvent evt)
         {
             if (string.IsNullOrEmpty(evt.DialogTitel) == true)
@@ -135,14 +134,13 @@ namespace SnippetManager
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void ChangeControl(ChangeViewEventArgs commandParam)
         {
             this.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Wait);
 
             if (commandParam != null && commandParam.MenuButton is DialogView view)
             {
-                if (view.In(DialogView.SourceSnippets, DialogView.XamlGrafik))
+                if (view.In(DialogView.SourceSnippets, DialogView.XamlGrafik, DialogView.SourceSnippetsDetail))
                 {
                     this.WorkContent = null;
                     this.WorkContent = (System.Windows.Controls.UserControl)Factory.Get<UserControlBase, DialogView>((DialogView)commandParam.MenuButton, commandParam);
@@ -180,6 +178,7 @@ namespace SnippetManager
             Factory.RegisterSingleton<CommandButtons>(CommandButtons.Home, () => new HelloUC());
             Factory.RegisterTransient<CommandButtons>(CommandButtons.Help, (param) => new HelpUC((ChangeViewEventArgs)param!));
             Factory.RegisterSingleton<DialogView>(DialogView.SourceSnippets, () => new SourceSnippetsUC());
+            Factory.RegisterTransient<DialogView>(DialogView.SourceSnippetsDetail, (param) => new SourceSnippetsDetailUC((ChangeViewEventArgs)param!));
             Factory.RegisterSingleton<DialogView>(DialogView.XamlGrafik, () => new XamlGrafikUC());
         }
 

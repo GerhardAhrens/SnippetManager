@@ -14,7 +14,7 @@
         x:Name="gridMain"
         Background="WhiteSmoke"
         ColumnDefinitions="*"
-        RowDefinitions="Auto,35,*">
+        RowDefinitions="Auto,45,*">
         <GroupBox
             x:Name="SourceSnippetsMenubar"
             Grid.Row="0"
@@ -71,6 +71,39 @@
             </DockPanel>
         </GroupBox>
 
+        <GroupBox
+            x:Name="ItemFilter"
+            Grid.Row="1"
+            Margin="5"
+            Padding="5">
+            <GroupBox.Template>
+                <ControlTemplate TargetType="GroupBox">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="4">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </GroupBox.Template>
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Filter:" />
+
+                <TextBox
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+
+
         <Grid Grid.Row="2" Grid.Column="0">
             <ListView
                 Background="White"
@@ -120,7 +153,8 @@
                                     VerticalAlignment="Top"
                                     RenderOptions.BitmapScalingMode="LowQuality"
                                     Source="{Binding Path=ImageContent}"
-                                    Stretch="Uniform">
+                                    Stretch="Uniform"
+                                    ToolTip="{Binding Path=Tooltip}">
                                     <Image.InputBindings>
                                         <MouseBinding Command="{Binding Path=DataContext.ImageDoubleClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" MouseAction="LeftDoubleClick" />
                                     </Image.InputBindings>
@@ -132,7 +166,8 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     FontWeight="Bold"
-                                    Text="{Binding Path=Title}" />
+                                    Text="{Binding Path=Title}"
+                                    ToolTip="{Binding Path=Tooltip}" />
                             </Grid>
                         </Border>
                     </DataTemplate>

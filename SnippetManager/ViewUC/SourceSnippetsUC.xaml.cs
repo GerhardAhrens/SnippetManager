@@ -8,6 +8,7 @@
     /// <summary>
     /// Interaktionslogik für SourceSnippetsUC.xaml
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
     public partial class SourceSnippetsUC : UserControlBase
     {
         public SourceSnippetsUC() : base(typeof(SourceSnippetsUC))
@@ -16,11 +17,19 @@
             WeakEventManager<UserControl, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
 
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
+            this.NewEntryCommand = new CommandBase(commandParam => this.OnNewEntry(commandParam), () => true);
+            this.DeleteEntryCommand = new CommandBase(commandParam => this.OnDeleteEntry(commandParam), () => true);
+            this.CopyEntryCommand = new CommandBase(commandParam => this.OnCopyEntry(commandParam), () => true);
+            this.CopyToClipboardCommand = new CommandBase(commandParam => this.OnCopyToClipboard(commandParam), () => true);
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
         }
 
         #region Properties
         public CommandBase GoBackCommand { get; private set; }
+        public CommandBase NewEntryCommand { get; private set; }
+        public CommandBase DeleteEntryCommand { get; private set; }
+        public CommandBase CopyEntryCommand { get; private set; }
+        public CommandBase CopyToClipboardCommand { get; private set; } 
         public CommandBase HelpCommand { get; private set; }
 
         #endregion Properties
@@ -43,7 +52,6 @@
         #endregion Windows Events
 
         #region Command Events
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void OnGoBack(object commandParam)
         {
             if (commandParam != null && commandParam is CommandButtons button)
@@ -61,7 +69,6 @@
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void OnHelp(object commandParam)
         {
             if (commandParam != null && commandParam is CommandButtons button)
@@ -78,6 +85,37 @@
                     }
                 }
             }
+        }
+
+        private async void OnNewEntry(object commandParam)
+        {
+            if (commandParam != null && commandParam is CommandButtons button)
+            {
+                if (button == CommandButtons.NewEntry)
+                {
+                    ChangeViewEventArgs args = new();
+                    args.MenuButton = DialogView.SourceSnippetsDetail;
+                    args.FromPage = DialogView.SourceSnippets;
+                    args.EntityId = Guid.CreateVersion7();
+
+                    if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(args);
+                    }
+                }
+            }
+        }
+
+        private void OnDeleteEntry(object commandParam)
+        {
+        }
+
+        private void OnCopyToClipboard(object commandParam)
+        {
+        }
+
+        private void OnCopyEntry(object commandParam)
+        {
         }
 
         #endregion Command Events

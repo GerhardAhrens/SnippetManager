@@ -46,6 +46,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ViewUC\SourceSnippetsDetailUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ViewUC\XamlGrafikUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

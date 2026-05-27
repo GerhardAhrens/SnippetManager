@@ -16,5 +16,15 @@
         GoBack = 4,
         [Description("XAML-Icon exportieren")]
         ExportXamlIcon = 5,
+        [Description("Neuer Eintrag")]
+        NewEntry = 6,
+        [Description("Eintrag löschen")]
+        DeleteEntry = 7,
+        [Description("Eintrag kopieren")]
+        CopyEntry = 8,
+        [Description("Eintrag in die Zwischenablage kopieren")]
+        CopyEntryToClipboard = 9,
+        [Description("Eintrag speichern")]
+        SaveEntry = 10,
     }
 }
