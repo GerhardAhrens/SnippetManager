@@ -133,7 +133,7 @@ namespace SnippetManager.View
                 var value = this.ResourcesDic.Cast<DictionaryEntry>().FirstOrDefault(f => f.Key.ToString().Equals(key, StringComparison.OrdinalIgnoreCase)).Value;
                 if (value is DrawingImage drawingImage)
                 {
-                    this.XamlItemAlleSource.Add(new XamlTileItem() { Key = key, Title = $"{key}", ImageContent = drawingImage, XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})" });
+                    this.XamlItemAlleSource.Add(new XamlTileItem() { Key = key, Title = $"{key}", ImageContent = drawingImage, XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})", Quelle = "Resources\\Style\\XamlIcon.xaml   " });
                 }
                 else if (value is Viewbox viewBox)
                 {
@@ -142,7 +142,7 @@ namespace SnippetManager.View
                         DrawingImage img = ConvertViewboxToDrawingImage(viewBox);
                         if (img.Height > 0 && img.Width > 0)
                         {
-                            this.XamlItemAlleSource.Add(new XamlTileItem() {Key = key, Title = $"{key}", ImageContent = img , XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})" });
+                            this.XamlItemAlleSource.Add(new XamlTileItem() {Key = key, Title = $"{key}", ImageContent = img , XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})", Quelle = "Resources\\Style\\XamlIcon.xaml" });
                         }
                     }
                 }
