@@ -84,7 +84,7 @@
 
         public string Tooltip
         {
-            get => this.toolTip;
+            get => $"Name: {this.Title}\n XamlTyp: {this.XamlTyp}\n Quelle: {this.Quelle}";
             set
             {
                 if (this.toolTip != value)
@@ -106,6 +106,11 @@
                     this.OnPropertyChanged();
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return $"Name: {this.Title}; XamlTyp: {this.XamlTyp}; Quelle: {this.Quelle}";
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
