@@ -11,9 +11,173 @@
     <!--#endregion XAML Icon Quelle-->
 
     <!--#region Farbige Icon Symbole auf Basis von ViewBox-->
+    <Viewbox
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Key="IconStatusFlagVB"
+        Width="64"
+        Height="64">
+        <Viewbox.Clip>
+            <RectangleGeometry Rect="0,0,64,64" />
+        </Viewbox.Clip>
+        <Canvas
+            Width="256"
+            Height="256"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="#00FFFFFF">
+            <Viewbox
+                Canvas.Left="37.7"
+                Canvas.Top="13.086"
+                Width="180.6"
+                Height="229.828"
+                Panel.ZIndex="1"
+                Clip="{x:Null}">
+                <Canvas Width="180.6" Height="229.828">
+                    <Canvas>
+                        <Canvas>
+                            <Path Data="M180.6,131.828C128.601,74.228 76.6,189.429 24.6,131.828 24.6,93.428 24.6,55.028 24.6,16.628 76.6,74.228 128.601,-40.972 180.6,16.628 180.6,55.028 180.6,93.428 180.6,131.828z" Fill="#FFD34B31" />
+                            <Path Data="M20.4,229.828L0,229.828 0,7.628 20.4,7.628 20.4,229.828z" Fill="#FF5A545B" />
+                        </Canvas>
+                    </Canvas>
+                </Canvas>
+            </Viewbox>
+        </Canvas>
+    </Viewbox>
+
+    <DrawingImage x:Key="IconStatusFlagDI">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Skalierung von Originalgröße 256x256 auf 64x64  -->
+                <DrawingGroup.Transform>
+                    <ScaleTransform ScaleX="0.25" ScaleY="0.25" />
+                </DrawingGroup.Transform>
+
+                <!--  Flagge  -->
+                <GeometryDrawing Brush="#FFD34B31">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry Figures="M180.6,131.828C128.601,74.228 76.6,189.429 24.6,131.828 24.6,93.428 24.6,55.028 24.6,16.628 76.6,74.228 128.601,-40.972 180.6,16.628 180.6,55.028 180.6,93.428 180.6,131.828z" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Mast  -->
+                <GeometryDrawing Brush="#FF5A545B">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry Figures="M20.4,229.828L0,229.828 0,7.628 20.4,7.628 20.4,229.828z" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!--#endregion Farbige Icon Symbole auf Basis von ViewBox-->
 
     <!--#region Farbige Icon Symbole auf Basis von DrawingImage-->
+    <DrawingImage x:Key="IconExport">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Transform>
+                    <ScaleTransform ScaleX="0.25" ScaleY="0.25" />
+                </DrawingGroup.Transform>
+
+                <GeometryDrawing Brush="#FFEFC979" Geometry="F1M162.701,0.16L162.701,50.271 212.814,50.271 162.701,0.16z" />
+                <GeometryDrawing Brush="#FFEFC979" Geometry="F1M155.096,0L33.332,0 33.332,216.73 212.744,216.73 212.744,57.879 155.096,57.879 155.096,0z" />
+                <GeometryDrawing Brush="#FF1388B1" Geometry="F1M1.73,104.859L64.349,52.523C66.656,50.594,68.544,51.478,68.544,54.484L68.544,86.452 149.358,86.452C152.366,86.452,154.827,88.913,154.827,91.92L154.827,125.95C154.827,128.958,152.366,131.418,149.358,131.418L68.544,131.418 68.544,162.247C68.544,165.254,66.656,166.136,64.349,164.208L1.73,111.875C-0.577,109.946,-0.577,106.787,1.73,104.859z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+
+    <DrawingImage x:Key="IconConvert">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Linkes Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="10,16,18,26" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF404040"
+                            LineJoin="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Rechtes Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="36,22,18,26" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF404040"
+                            LineJoin="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Zeilen links  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="14,24,10,2" />
+                            <RectangleGeometry Rect="14,29,10,2" />
+                            <RectangleGeometry Rect="14,34,7,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Zeilen rechts  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="40,30,10,2" />
+                            <RectangleGeometry Rect="40,35,10,2" />
+                            <RectangleGeometry Rect="40,40,7,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Konvertierungs-Pfeile  -->
+                <GeometryDrawing Brush="#FF28A745">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Oberer Pfeil  -->
+                            <PathGeometry Figures="M 26,22 L 36,22 L 33,19 M 36,22 L 33,25" />
+
+                            <!--  Unterer Pfeil  -->
+                            <PathGeometry Figures="M 38,40 L 28,40 L 31,37 M 28,40 L 31,43" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF28A745"
+                            EndLineCap="Round"
+                            LineJoin="Round"
+                            StartLineCap="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="IconStatusFlag1">
         <DrawingImage.Drawing>
             <DrawingGroup>
@@ -353,7 +517,7 @@
     </DrawingImage>
 
 
-    <DrawingImage x:Key="IconExport">
+    <DrawingImage x:Key="IconExport2">
         <DrawingImage.Drawing>
             <DrawingGroup>
 

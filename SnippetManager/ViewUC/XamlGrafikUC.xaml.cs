@@ -17,6 +17,7 @@ namespace SnippetManager.View
 {
     using System.Collections;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
@@ -24,11 +25,13 @@ namespace SnippetManager.View
     using System.Windows.Media;
     using System.Xml;
 
+    using SnippetManager.Converter;
     using SnippetManager.Core;
 
     /// <summary>
     /// Interaktionslogik für XamlGrafikUC.xaml
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
     public partial class XamlGrafikUC : UserControlBase
     {
         public XamlGrafikUC() : base(typeof(XamlGrafikUC))
@@ -39,6 +42,7 @@ namespace SnippetManager.View
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
             this.ExportXamlIconCommand = new CommandBase(commandParam => this.OnExportXamlIcon(commandParam), this.OnCanExportXamlIcon);
             this.ImageDoubleClickCommand = new CommandBase(commandParam => this.OnImageDoubleClick(commandParam), () => true);
+            this.ConvertCommand = new CommandBase(commandParam => this.OnConvert(commandParam), () => true);
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
 
         }
@@ -47,6 +51,7 @@ namespace SnippetManager.View
         public CommandBase GoBackCommand { get; private set; }
         public CommandBase ExportXamlIconCommand { get; private set; }
         public CommandBase ImageDoubleClickCommand { get; private set; }
+        public CommandBase ConvertCommand { get; private set; }
         public CommandBase HelpCommand { get; private set; }
 
         public ObservableCollection<XamlTileItem> XamlItemAlleSource
@@ -182,7 +187,6 @@ namespace SnippetManager.View
         #endregion Windows Events
 
         #region Command Events
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void OnGoBack(object commandParam)
         {
             if (commandParam != null && commandParam is CommandButtons button)
@@ -200,7 +204,6 @@ namespace SnippetManager.View
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void OnHelp(object commandParam)
         {
             if (commandParam != null && commandParam is CommandButtons button)
@@ -219,13 +222,11 @@ namespace SnippetManager.View
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private bool OnCanExportXamlIcon()
         {
             return this.CountSelectedItem > 0;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private void OnExportXamlIcon(object commandParam)
         {
             StringBuilder exportXaml = new StringBuilder();
@@ -252,7 +253,6 @@ namespace SnippetManager.View
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private void OnImageDoubleClick(object commandParam)
         {
             string key = SelectedXamlItem.Key;
@@ -261,7 +261,34 @@ namespace SnippetManager.View
             xamlSource = xamlSource.Replace("xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"", $"x:Key=\"{key}\"");
             Clipboard.SetText(xamlSource);
         }
+
+        private void OnConvert(object commandParam)
+        {
+            const string DATEIFILTER = "XAML-Dateien (*.xaml)|*.xaml|Textdateien (*.txt)|*.txt|Alle Dateien (*.*)|*.*";
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.AddExtension = true;
+            dlg.CheckPathExists = true;
+            dlg.CheckFileExists = true;
+            dlg.DefaultExt = ".xaml";
+            dlg.Title = "Datei mit XAML - Icons auswählen";
+            dlg.Filter = DATEIFILTER;
+
+            if (dlg.ShowDialog() == true)
+            {
+                this.LoadFileToConvert(dlg.FileName);
+            }
+        }
         #endregion Command Events
+
+        public void LoadFileToConvert(string path)
+        {
+            string sourceXaml = File.ReadAllText(path);
+            if (string.IsNullOrEmpty(sourceXaml) == false)
+            {
+                string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml,Path.GetFileNameWithoutExtension(path));
+                Clipboard.SetText(xamlConvert);
+            }
+        }
 
         private static string GetXamlSourceFromKey(ResourceDictionary dictionary, string key)
         {
