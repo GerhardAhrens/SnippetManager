@@ -330,8 +330,13 @@ namespace SnippetManager.View
             }
         }
 
-        private void ImportXaml(SQLiteConnection connection)
+        private void ImportXaml(SQLiteConnection sqliteConnection)
         {
+            /*
+             string sqlXamlGrafik = "CREATE TABLE IF NOT EXISTS TAB_Xaml (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50), Content TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
+             */
+            string sqlText = "INSERT INTO TAB_Contact (Id, Name, Birthday, Age) \r\nVALUES\r\n ('c8487801-19d4-41f9-901a-a56768d68e9b', 'Gerhard', '1960-06-28 00:00:00', '64')";
+            sqliteConnection.RecordSet<int>(sqlText).Execute();
         }
 
         public void LoadFileToConvert(string path)
