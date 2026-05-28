@@ -63,15 +63,13 @@
                 sb.AppendLine(CultureInfo.CurrentCulture, $@"<DrawingImage x:Key=""{key.Replace("VB", "DI")}"">");
             }
 
-            sb.AppendLine("    <DrawingImage.Drawing>");
-            sb.AppendLine("        <DrawingGroup>");
+            sb.AppendLine($"\t<DrawingImage.Drawing>");
+            sb.AppendLine($"\t\t<DrawingGroup>");
 
             // Transform
-            sb.AppendLine("            <DrawingGroup.Transform>");
-            sb.AppendLine(CultureInfo.CurrentCulture,
-                $"                <ScaleTransform ScaleX=\"{scaleX.ToString(CultureInfo.InvariantCulture)}\" " +
-                $"ScaleY=\"{scaleY.ToString(CultureInfo.InvariantCulture)}\" />");
-            sb.AppendLine("            </DrawingGroup.Transform>");
+            sb.AppendLine($"\t\t\t<DrawingGroup.Transform>");
+            sb.AppendLine(CultureInfo.CurrentCulture, $"\t\t\t\t<ScaleTransform ScaleX=\"{scaleX.ToString(CultureInfo.InvariantCulture)}\" " + $"ScaleY=\"{scaleY.ToString(CultureInfo.InvariantCulture)}\" />");
+            sb.AppendLine($"\t\t\t</DrawingGroup.Transform>");
             sb.AppendLine();
 
             // GeometryDrawings erzeugen
@@ -85,14 +83,14 @@
                     continue;
                 }
 
-                sb.AppendLine(CultureInfo.CurrentCulture, $"<GeometryDrawing Brush=\"{fill}\" Geometry=\"{EscapeXml(data)}\" />");
+                sb.AppendLine(CultureInfo.CurrentCulture, $"\t\t\t<GeometryDrawing Brush=\"{fill}\" Geometry=\"{EscapeXml(data)}\" />");
 
             }
 
             sb.AppendLine();
 
-            sb.AppendLine("        </DrawingGroup>");
-            sb.AppendLine("    </DrawingImage.Drawing>");
+            sb.AppendLine($"\t\t</DrawingGroup>");
+            sb.AppendLine($"\t</DrawingImage.Drawing>");
             sb.AppendLine("</DrawingImage>");
 
             return sb.ToString();

@@ -14,6 +14,7 @@
         private string toolTip;
         private string quelle;
         private ImageSource imageContent;
+        private string xamlContent;
         private bool isSelectedItem;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -51,6 +52,19 @@
                 if (this.imageContent != value)
                 {
                     this.imageContent = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+
+        public string XamlContent
+        {
+            get => this.xamlContent;
+            set
+            {
+                if (this.xamlContent  != value)
+                {
+                    this.xamlContent = value;
                     this.OnPropertyChanged();
                 }
             }

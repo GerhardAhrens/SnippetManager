@@ -17,10 +17,12 @@ namespace SnippetManager.View
 {
     using System.Collections;
     using System.Collections.ObjectModel;
+    using System.Data.SQLite;
     using System.IO;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Xml;
@@ -41,6 +43,7 @@ namespace SnippetManager.View
 
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
             this.ExportXamlIconCommand = new CommandBase(commandParam => this.OnExportXamlIcon(commandParam), this.OnCanExportXamlIcon);
+            this.ImportXamlIconCommand = new CommandBase(commandParam => this.OnImportXamlIcon(commandParam), this.OnCanImportXamlIcon);
             this.ImageDoubleClickCommand = new CommandBase(commandParam => this.OnImageDoubleClick(commandParam), () => true);
             this.ConvertCommand = new CommandBase(commandParam => this.OnConvert(commandParam), () => true);
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
@@ -50,6 +53,7 @@ namespace SnippetManager.View
         #region Properties
         public CommandBase GoBackCommand { get; private set; }
         public CommandBase ExportXamlIconCommand { get; private set; }
+        public CommandBase ImportXamlIconCommand { get; private set; }
         public CommandBase ImageDoubleClickCommand { get; private set; }
         public CommandBase ConvertCommand { get; private set; }
         public CommandBase HelpCommand { get; private set; }
@@ -138,7 +142,7 @@ namespace SnippetManager.View
                 var value = this.ResourcesDic.Cast<DictionaryEntry>().FirstOrDefault(f => f.Key.ToString().Equals(key, StringComparison.OrdinalIgnoreCase)).Value;
                 if (value is DrawingImage drawingImage)
                 {
-                    this.XamlItemAlleSource.Add(new XamlTileItem() { Key = key, Title = $"{key}", ImageContent = drawingImage, XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})", Quelle = "Resources\\Style\\XamlIcon.xaml   " });
+                    this.XamlItemAlleSource.Add(new XamlTileItem() { Key = key, Title = $"{key}", ImageContent = drawingImage, XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})", Quelle = "Resources\\Style\\XamlIcon.xaml" });
                 }
                 else if (value is Viewbox viewBox)
                 {
@@ -253,6 +257,28 @@ namespace SnippetManager.View
             }
         }
 
+        private bool OnCanImportXamlIcon()
+        {
+            return true;
+        }
+
+        private void OnImportXamlIcon(object commandParam)
+        {
+            const string DATEIFILTER = "XAML-Dateien (*.xaml)|*.xaml|Textdateien (*.txt)|*.txt|Alle Dateien (*.*)|*.*";
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.AddExtension = true;
+            dlg.CheckPathExists = true;
+            dlg.CheckFileExists = true;
+            dlg.DefaultExt = ".xaml";
+            dlg.Title = "Datei mit XAML - Icons auswählen";
+            dlg.Filter = DATEIFILTER;
+
+            if (dlg.ShowDialog() == true)
+            {
+                this.LoadFileToImport(dlg.FileName);
+            }
+        }
+
         private void OnImageDoubleClick(object commandParam)
         {
             string key = SelectedXamlItem.Key;
@@ -279,6 +305,34 @@ namespace SnippetManager.View
             }
         }
         #endregion Command Events
+
+        private void LoadFileToImport(string path)
+        {
+            string sourceXaml = File.ReadAllText(path);
+            if (string.IsNullOrEmpty(sourceXaml) == false)
+            {
+                string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml, Path.GetFileNameWithoutExtension(path));
+
+                XamlTileItem importXaml = new XamlTileItem();
+                importXaml.Key = Path.GetFileNameWithoutExtension(path);
+                importXaml.Title = Path.GetFileNameWithoutExtension(path);
+                importXaml.XamlContent = xamlConvert;
+                importXaml.XamlTyp = "DrawingImage";
+                importXaml.Tooltip = $"{importXaml.Key}\n({importXaml.XamlTyp}";
+                importXaml.Quelle = "Import";
+
+                string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
+                using (DatabaseService ds = new DatabaseService(databasePath))
+                {
+                    ds.Insert(this.ImportXaml);
+                }
+
+            }
+        }
+
+        private void ImportXaml(SQLiteConnection connection)
+        {
+        }
 
         public void LoadFileToConvert(string path)
         {
