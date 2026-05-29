@@ -5,6 +5,7 @@
     xmlns:base="clr-namespace:System.Windows"
     xmlns:core="clr-namespace:SnippetManager.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:doc="clr-namespace:System.Windows.Documents"
     xmlns:local="clr-namespace:SnippetManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -65,7 +66,7 @@
             BorderBrush="Gray"
             BorderThickness="2"
             Header="Snippet Details">
-            <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto">
+            <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,*">
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
@@ -74,7 +75,8 @@
                     FontWeight="Medium"
                     Text="Titel" />
 
-                <ComboBox x:Name="GruppenFilter"
+                <ComboBox
+                    x:Name="GruppenFilter"
                     Grid.Row="0"
                     Grid.Column="1"
                     Width="300"
@@ -93,6 +95,12 @@
                     VerticalAlignment="Center"
                     FontWeight="Medium"
                     Text="Beschreibung" />
+
+                <doc:TextEditor
+                    x:Name="Editor"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2" />
             </Grid>
         </GroupBox>
     </Grid>
