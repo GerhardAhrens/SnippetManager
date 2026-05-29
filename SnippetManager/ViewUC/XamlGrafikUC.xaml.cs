@@ -17,12 +17,12 @@ namespace SnippetManager.View
 {
     using System.Collections;
     using System.Collections.ObjectModel;
+    using System.Data;
     using System.Data.SQLite;
     using System.IO;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Xml;
@@ -157,6 +157,16 @@ namespace SnippetManager.View
                 }
             }
 
+            /* Weitere XAML-Icons aus anderen Quellen können hier geladen und der XamlItemAlleSource hinzugefügt werden */
+            string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
+            string sql = "SELECT Id, Gruppe, Titel, XamlContent, CreatedOn, CreatedBy FROM TAB_Xaml WHERE Gruppe = 'Import'";
+            using (DatabaseService ds = new DatabaseService(databasePath))
+            {
+                SQLiteConnection connection = ds.OpenConnection();
+                DataTable dtSeletWhere = connection.RecordSet<DataTable>(sql).Get().Result;
+            }
+
+
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
                 await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + this.XamlItemAlleSource.Count));
@@ -231,7 +241,7 @@ namespace SnippetManager.View
             return this.CountSelectedItem > 0;
         }
 
-        private void OnExportXamlIcon(object commandParam)
+        private async void OnExportXamlIcon(object commandParam)
         {
             StringBuilder exportXaml = new StringBuilder();
             if (this.XamlItemSource != null && this.XamlItemSource.Count > 0)
@@ -254,6 +264,11 @@ namespace SnippetManager.View
 
                 exportXaml.AppendLine("</ResourceDictionary>");
                 Clipboard.SetText(exportXaml.ToString());
+
+                if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                {
+                    await App.EventAgg.PublishAsync(new StatusEvent("XAML-Icons in Zwischenablage kopiert"));
+                }
             }
         }
 
@@ -279,13 +294,18 @@ namespace SnippetManager.View
             }
         }
 
-        private void OnImageDoubleClick(object commandParam)
+        private async void OnImageDoubleClick(object commandParam)
         {
             string key = SelectedXamlItem.Key;
 
             string xamlSource = GetXamlSourceFromKey(this.ResourcesDic, key);
             xamlSource = xamlSource.Replace("xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"", $"x:Key=\"{key}\"");
             Clipboard.SetText(xamlSource);
+
+            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+            {
+                await App.EventAgg.PublishAsync(new StatusEvent("XAML-Icons in Zwischenablage kopiert"));
+            }
         }
 
         private void OnConvert(object commandParam)
@@ -324,75 +344,121 @@ namespace SnippetManager.View
                 string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
                 using (DatabaseService ds = new DatabaseService(databasePath))
                 {
-                    ds.Insert(this.ImportXaml);
+                    ds.Insert(this.ImportXaml, importXaml);
                 }
-
             }
         }
 
-        private void ImportXaml(SQLiteConnection sqliteConnection)
+        private void ImportXaml(SQLiteConnection sqliteConnection, object importXaml)
         {
-            /*
-             string sqlXamlGrafik = "CREATE TABLE IF NOT EXISTS TAB_Xaml (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50), Content TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
-             */
-            string sqlText = "INSERT INTO TAB_Contact (Id, Name, Birthday, Age) \r\nVALUES\r\n ('c8487801-19d4-41f9-901a-a56768d68e9b', 'Gerhard', '1960-06-28 00:00:00', '64')";
-            sqliteConnection.RecordSet<int>(sqlText).Execute();
+            XamlTileItem import = importXaml as XamlTileItem;
+
+            try
+            {
+                string sqlText = "INSERT INTO TAB_Xaml (Id, Gruppe, Titel, XamlContent,CreatedOn,CreatedBy) VALUES (@Id, @Gruppe, @Titel, @XamlContent,@CreatedOn,@CreatedBy)";
+                Dictionary<string, object> parameterCollection = new();
+                parameterCollection.Add("@Id", Guid.NewGuid().ToString());
+                parameterCollection.Add("@Gruppe", "Import");
+                parameterCollection.Add("@Titel", import.Title);
+                parameterCollection.Add("@XamlContent", import.XamlContent);
+                parameterCollection.Add("@CreatedOn", DateTime.Now);
+                parameterCollection.Add("@CreatedBy", Environment.UserName);
+                sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute();
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
+            }
         }
 
-        public void LoadFileToConvert(string path)
+        public async void LoadFileToConvert(string path)
         {
-            string sourceXaml = File.ReadAllText(path);
-            if (string.IsNullOrEmpty(sourceXaml) == false)
+            try
             {
-                string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml,Path.GetFileNameWithoutExtension(path));
-                Clipboard.SetText(xamlConvert);
+                string sourceXaml = File.ReadAllText(path);
+                if (string.IsNullOrEmpty(sourceXaml) == false)
+                {
+                    string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml, Path.GetFileNameWithoutExtension(path));
+                    Clipboard.SetText(xamlConvert);
+
+                    if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(new StatusEvent("XAML-Icons in Zwischenablage kopiert"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
             }
         }
 
         private static string GetXamlSourceFromKey(ResourceDictionary dictionary, string key)
         {
-            // 1. Objekt aus dem ResourceDictionary laden
-            if (dictionary.Contains(key))
+            try
             {
-                object resource = dictionary[key];
-
-                // 2. Objekt in XAML-String konvertieren
-                XmlWriterSettings settings = new XmlWriterSettings
+                // 1. Objekt aus dem ResourceDictionary laden
+                if (dictionary.Contains(key))
                 {
-                    Indent = true,
-                    OmitXmlDeclaration = true
-                };
+                    object resource = dictionary[key];
 
-                StringBuilder sb = new StringBuilder();
-                using (XmlWriter writer = XmlWriter.Create(sb, settings))
-                {
-                    XamlWriter.Save(resource, writer);
+                    // 2. Objekt in XAML-String konvertieren
+                    XmlWriterSettings settings = new XmlWriterSettings
+                    {
+                        Indent = true,
+                        OmitXmlDeclaration = true
+                    };
+
+                    StringBuilder sb = new StringBuilder();
+                    using (XmlWriter writer = XmlWriter.Create(sb, settings))
+                    {
+                        XamlWriter.Save(resource, writer);
+                    }
+
+                    return sb.ToString();
                 }
 
-                return sb.ToString();
+                return $"Key '{key}' nicht gefunden.";
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
             }
 
-            return $"Key '{key}' nicht gefunden.";
+            return string.Empty;
         }
 
         private static DrawingImage ConvertViewboxToDrawingImage(Viewbox viewbox)
         {
-            // 1. Größe der Viewbox auslesen
-            double width = viewbox.Width;
-            double height = viewbox.Height;
-
-            // 2. VisualBrush für den Inhalt der Viewbox erstellen
-            VisualBrush visualBrush = new VisualBrush(viewbox.Child);
-
-            // 3. DrawingVisual instanziieren und den Brush zeichnen
-            DrawingVisual drawingVisual = new DrawingVisual();
-            using (DrawingContext context = drawingVisual.RenderOpen())
+            try
             {
-                context.DrawRectangle(visualBrush, null, new Rect(0, 0, width, height));
+                // 1. Größe der Viewbox auslesen
+                double width = viewbox.Width;
+                double height = viewbox.Height;
+
+                // 2. VisualBrush für den Inhalt der Viewbox erstellen
+                VisualBrush visualBrush = new VisualBrush(viewbox.Child);
+
+                // 3. DrawingVisual instanziieren und den Brush zeichnen
+                DrawingVisual drawingVisual = new DrawingVisual();
+                using (DrawingContext context = drawingVisual.RenderOpen())
+                {
+                    context.DrawRectangle(visualBrush, null, new Rect(0, 0, width, height));
+                }
+
+                // 4. Das DrawingImage erzeugen
+                return new DrawingImage(drawingVisual.Drawing);
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
             }
 
-            // 4. Das DrawingImage erzeugen
-            return new DrawingImage(drawingVisual.Drawing);
+            return null ;
         }
     }
 }

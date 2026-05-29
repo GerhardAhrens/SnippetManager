@@ -229,7 +229,7 @@ namespace SnippetManager
             string sqlSnippet = "CREATE TABLE IF NOT EXISTS TAB_Snippet (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50),Beschreibung VARCHAR(500), SnippetContent TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
             string sqlSnippetIndex = "CREATE INDEX idx_Snippet_GruppeTitel ON TAB_Snippet(Gruppe,Titel);";
 
-            string sqlXamlGrafik = "CREATE TABLE IF NOT EXISTS TAB_Xaml (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50), Content TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
+            string sqlXamlGrafik = "CREATE TABLE IF NOT EXISTS TAB_Xaml (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50), XamlContent TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
             string sqlXamlGrafikIndex = "CREATE INDEX idx_Xaml_GruppeTitel ON TAB_Xaml(Gruppe,Titel);";
 
             string sqlGruppe = "CREATE TABLE IF NOT EXISTS TAB_Gruppe (Id VARCHAR(36), Name VARCHAR(50), Beschreibung VARCHAR(500), PRIMARY KEY (Id))";
@@ -248,7 +248,8 @@ namespace SnippetManager
         /// </summary>
         /// <param name="ex">Die Exception, die angezeigt werden soll.</param>
         /// <param name="message">Eine optionale Nachricht, die zusammen mit der Exception angezeigt wird.</param>
-        public static void ErrorMessage(Exception ex, string message = "")
+        /// <param name="cancelByException">Gibt an, ob die Anwendung bei dieser Exception abgebrochen werden soll.</param>
+        public static void ErrorMessage(Exception ex, string message = "", bool cancelByException = true)
         {
             string expMsg = ex.Message;
             var aex = ex as AggregateException;
@@ -277,6 +278,12 @@ namespace SnippetManager
                 MessageBoxTitle,
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
+
+            if (cancelByException == true)
+            {
+                Application.Current.Shutdown();
+                Process.GetCurrentProcess().Kill();
+            }
         }
 
         /// <summary>

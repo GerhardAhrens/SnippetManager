@@ -11,10 +11,15 @@
             this.DatabaseInfoTooltip = databaseInfoTooltip;
         }
 
-        public StatusEvent(string notification)
+        public StatusEvent(string notification, bool withSound = false)
         {
             this.Id = Guid.CreateVersion7();
             this.Notification = notification;
+
+            if (withSound == true)
+            {
+                System.Media.SystemSounds.Beep.Play();
+            }
         }
 
         public Guid Id { get; private set; }

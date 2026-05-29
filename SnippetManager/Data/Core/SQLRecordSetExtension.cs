@@ -972,7 +972,18 @@ namespace System.Data.SQLite
             {
                 if (typeof(T).IsGenericType == false && typeof(T).IsPrimitive == true && typeof(T).Namespace == "System")
                 {
-                    resultValue = ExecuteNonQuery<T>(@this.Connection, @this.SQL, @this.SQLiteParameter);
+                    if (@this.ParameterCollection != null && @this.ParameterCollection.Count > 0)
+                    {
+                        resultValue = ExecuteNonQuery<T>(@this.Connection, @this.SQL, @this.ParameterCollection);
+                    }
+                    else if (@this.SQLiteParameter != null && @this.SQLiteParameter.Length > 0)
+                    {
+                        resultValue = ExecuteNonQuery<T>(@this.Connection, @this.SQL, @this.SQLiteParameter);
+                    }
+                    else
+                    {
+                        resultValue = ExecuteNonQuery<T>(@this.Connection, @this.SQL, (SQLiteParameter[])null);
+                    }
                 }
             }
             catch (Exception)
