@@ -273,6 +273,8 @@ namespace SnippetManager
                 }
             }
 
+            CustomSounds.SoundFailure.Play();
+
             MessageBox.Show(
                 message + $"{expMsg}\n{ex.Message}\n{errorText.ToString()}",
                 MessageBoxTitle,
