@@ -42,7 +42,11 @@
                     Command="{Binding Path=GoBackCommand}"
                     CommandParameter="{x:Static core:CommandButtons.GoBack}"
                     ToolTip="Zurück zum vorherigen Dialog">
-                    <Image Source="{StaticResource ResourceKey=IconBackToMainMenu}" Stretch="Uniform" Width="32" Height="32"/>
+                    <Image
+                        Width="32"
+                        Height="32"
+                        Source="{StaticResource ResourceKey=IconBackToMainMenu}"
+                        Stretch="Uniform" />
                 </Button>
 
                 <Button
@@ -53,7 +57,11 @@
                     Background="Transparent"
                     Command="{Binding Path=ExportXamlIconCommand}"
                     ToolTip="XAML-Icon exportieren">
-                    <Image Source="{StaticResource ResourceKey=IconExport}" Stretch="Uniform" Width="32" Height="32" />
+                    <Image
+                        Width="32"
+                        Height="32"
+                        Source="{StaticResource ResourceKey=IconExport}"
+                        Stretch="Uniform" />
                 </Button>
 
                 <Button
@@ -64,7 +72,11 @@
                     Background="Transparent"
                     Command="{Binding Path=ImportXamlIconCommand}"
                     ToolTip="XAML-Icon importieren">
-                    <Image Source="{StaticResource ResourceKey=IconImport}" Stretch="Uniform" Width="32" Height="32" />
+                    <Image
+                        Width="32"
+                        Height="32"
+                        Source="{StaticResource ResourceKey=IconImport}"
+                        Stretch="Uniform" />
                 </Button>
 
                 <Button
@@ -130,8 +142,8 @@
             <ListView
                 Background="White"
                 BorderThickness="0"
-                ItemsSource="{Binding Path=XamlItemSource}"
-                SelectedItem="{Binding Path=SelectedXamlItem}"
+                ItemsSource="{Binding Path=XamlItemSource, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding Path=SelectedXamlItem, UpdateSourceTrigger=PropertyChanged}"
                 VirtualizingPanel.IsVirtualizing="True"
                 VirtualizingPanel.VirtualizationMode="Recycling">
 

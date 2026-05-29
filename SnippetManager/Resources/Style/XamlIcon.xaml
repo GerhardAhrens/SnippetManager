@@ -112,7 +112,7 @@
                         <GeometryGroup>
 
                             <!--  Oberer Pfeil  -->
-                            <PathGeometry Figures="M 26,22 L 36,22 L 33,19 M 36,22 L 33,25" />
+                            <PathGeometry Figures="M 26,22 L 36,22 L 33,19 M 36,22 L 33,25"/>
 
                             <!--  Unterer Pfeil  -->
                             <PathGeometry Figures="M 38,40 L 28,40 L 31,37 M 28,40 L 31,43" />

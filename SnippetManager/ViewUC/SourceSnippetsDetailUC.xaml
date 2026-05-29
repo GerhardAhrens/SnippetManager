@@ -85,6 +85,14 @@
                     IsTextSearchEnabled="False"
                     ItemsSource="{Binding Path=GruppenSource}"
                     Text="{Binding Path=SelectedGruppeText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    Text="Beschreibung" />
             </Grid>
         </GroupBox>
     </Grid>

@@ -21,6 +21,7 @@ namespace SnippetManager.View
     using System.Data.SQLite;
     using System.IO;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Markup;
@@ -159,11 +160,19 @@ namespace SnippetManager.View
 
             /* Weitere XAML-Icons aus anderen Quellen können hier geladen und der XamlItemAlleSource hinzugefügt werden */
             string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
-            string sql = "SELECT Id, Gruppe, Titel, XamlContent, CreatedOn, CreatedBy FROM TAB_Xaml WHERE Gruppe = 'Import'";
+            string sql = "SELECT Id, Gruppe, Titel, XamlContent FROM TAB_Xaml";
             using (DatabaseService ds = new DatabaseService(databasePath))
             {
                 SQLiteConnection connection = ds.OpenConnection();
                 DataTable dtSeletWhere = connection.RecordSet<DataTable>(sql).Get().Result;
+                foreach (DataRow row in dtSeletWhere.Rows)
+                {
+                    string key = row["Titel"].ToString();
+                    string xamlContent = row["XamlContent"].ToString();
+                    XamlTileItem item = new XamlTileItem() { Key = key, Title = key, XamlContent = xamlContent, XamlTyp = "DrawingImage", Tooltip = $"{key} (DrawingImage)", Quelle = "Import" };
+                    item.ImageContent = LoadDrawingImage(xamlContent);
+                    this.XamlItemAlleSource.Add(item);
+                }
             }
 
 
@@ -172,7 +181,7 @@ namespace SnippetManager.View
                 await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + this.XamlItemAlleSource.Count));
             }
 
-            XamlItemSource = new FilteredObservableCollection<XamlTileItem>(this.XamlItemAlleSource, this.DataDefaultFilter);
+            this.XamlItemSource = new FilteredObservableCollection<XamlTileItem>(this.XamlItemAlleSource, this.DataDefaultFilter);
             this.XamlItemSource.Filter = this.DataDefaultFilter;
         }
 
@@ -185,7 +194,7 @@ namespace SnippetManager.View
             
             bool isInKey = item.Key.Contains(this.FilterText, StringComparison.CurrentCultureIgnoreCase);
 
-            return isInKey || item.Title.Contains(this.FilterText);
+            return isInKey || item.Title.Contains(this.FilterText, StringComparison.CurrentCultureIgnoreCase);
         }
 
         private void RefreshData(string arg1, string arg2)
@@ -298,9 +307,17 @@ namespace SnippetManager.View
         {
             string key = SelectedXamlItem.Key;
 
-            string xamlSource = GetXamlSourceFromKey(this.ResourcesDic, key);
-            xamlSource = xamlSource.Replace("xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"", $"x:Key=\"{key}\"");
-            Clipboard.SetText(xamlSource);
+            if (this.SelectedXamlItem.Quelle == "Resources\\Style\\XamlIcon.xaml")
+            {
+                string xamlSource = GetXamlSourceFromKey(this.ResourcesDic, key);
+                xamlSource = xamlSource.Replace("xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"", $"x:Key=\"{key}\"");
+                Clipboard.SetText(xamlSource);
+            }
+            else
+            {
+                string xamlContent = SelectedXamlItem.XamlContent;
+                Clipboard.SetText(xamlContent);
+            }
 
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
@@ -328,28 +345,42 @@ namespace SnippetManager.View
 
         private void LoadFileToImport(string path)
         {
-            string sourceXaml = File.ReadAllText(path);
-            if (string.IsNullOrEmpty(sourceXaml) == false)
+            try
             {
-                string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml, Path.GetFileNameWithoutExtension(path));
-
-                XamlTileItem importXaml = new XamlTileItem();
-                importXaml.Key = Path.GetFileNameWithoutExtension(path);
-                importXaml.Title = Path.GetFileNameWithoutExtension(path);
-                importXaml.XamlContent = xamlConvert;
-                importXaml.XamlTyp = "DrawingImage";
-                importXaml.Tooltip = $"{importXaml.Key}\n({importXaml.XamlTyp}";
-                importXaml.Quelle = "Import";
-
-                string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
-                using (DatabaseService ds = new DatabaseService(databasePath))
+                string sourceXaml = File.ReadAllText(path);
+                if (string.IsNullOrEmpty(sourceXaml) == false)
                 {
-                    ds.Insert(this.ImportXaml, importXaml);
+                    string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml, Path.GetFileNameWithoutExtension(path));
+
+                    XamlTileItem importXaml = new XamlTileItem();
+                    importXaml.Key = Path.GetFileNameWithoutExtension(path);
+                    importXaml.Title = Path.GetFileNameWithoutExtension(path);
+                    importXaml.XamlContent = xamlConvert;
+                    importXaml.XamlTyp = "DrawingImage";
+                    importXaml.Tooltip = $"{importXaml.Key}\n({importXaml.XamlTyp}";
+                    importXaml.Quelle = "Import";
+
+                    string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
+                    using (DatabaseService ds = new DatabaseService(databasePath))
+                    {
+                        ds.Insert(this.ImportXaml, importXaml);
+                    }
+
+                    ObservableCollection<XamlTileItem> tempCollection = new ObservableCollection<XamlTileItem>(this.XamlItemAlleSource);
+                    importXaml.ImageContent = LoadDrawingImage(importXaml.XamlContent);
+                    tempCollection.Add(importXaml);
+
+                    this.XamlItemSource = new FilteredObservableCollection<XamlTileItem>(tempCollection, this.DataDefaultFilter);
                 }
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
             }
         }
 
-        private void ImportXaml(SQLiteConnection sqliteConnection, object importXaml)
+        private async void ImportXaml(SQLiteConnection sqliteConnection, object importXaml)
         {
             XamlTileItem import = importXaml as XamlTileItem;
 
@@ -363,12 +394,19 @@ namespace SnippetManager.View
                 parameterCollection.Add("@XamlContent", import.XamlContent);
                 parameterCollection.Add("@CreatedOn", DateTime.Now);
                 parameterCollection.Add("@CreatedBy", Environment.UserName);
-                sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute();
+                int insertedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
+                if (insertedRows > 0)
+                {
+                    if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(new StatusEvent($"XAML-Icon '{import.Title}' erfolgreich importiert"));
+                    }
+                }
             }
             catch (Exception ex)
             {
                 string errorText = ex.Message;
-                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
+                App.ErrorMessage(ex, "Fehler beim Insert des XAML-Icons in die Tabelle.");
             }
         }
 
@@ -459,6 +497,17 @@ namespace SnippetManager.View
             }
 
             return null ;
+        }
+
+        public static DrawingImage LoadDrawingImage(string xaml)
+        {
+            string cleanedXaml = Regex.Replace(xaml, @"\s+x:Key\s*=\s*""[^""]*""", " xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
+            using StringReader stringReader = new(cleanedXaml);
+            using XmlReader xmlReader = XmlReader.Create(stringReader);
+
+            object obj = XamlReader.Load(xmlReader);
+
+            return obj as DrawingImage ?? throw new InvalidOperationException("Kein DrawingImage.");
         }
     }
 }
