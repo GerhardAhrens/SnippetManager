@@ -42,6 +42,18 @@
             set => base.SetValue(value);
         }
 
+        public string Beschreibung
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+
+        public string SnippetContent
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+
         #endregion Properties
 
         #region Windows Events
@@ -123,6 +135,7 @@
 
         private async void OnSaveEntry(object commandParam)
         {
+            var aa = this.SnippetContent;
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
                 await App.EventAgg.PublishAsync(new StatusEvent("letzte Änderung gespeichert"));

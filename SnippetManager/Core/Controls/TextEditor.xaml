@@ -62,25 +62,6 @@
                             <MenuItem Command="ApplicationCommands.Paste" Header="Einfügen" />
 
                             <Separator />
-                            
-                            <MenuItem
-                                Click="LoadFile_Click"
-                                Header="Markdown Dokument Info"
-                                InputGestureText="Strg+O" />
-
-                            <Separator />
-                            
-                            <MenuItem
-                                Click="LoadFile_Click"
-                                Header="Datei laden"
-                                InputGestureText="Strg+O" />
-
-                            <MenuItem
-                                Click="SaveFile_Click"
-                                Header="Datei speichern"
-                                InputGestureText="Strg+S" />
-
-                            <Separator />
 
                             <MenuItem
                                 Click="InsertCurrentDate_Click"
@@ -90,55 +71,17 @@
                             <Separator />
 
                             <MenuItem
-                                Click="InsertHeader_Click"
-                                Header="Überschrift (1-3)"
+                                Click="WrapWithStar_Click"
+                                Header="Platzhalter einfügen"
                                 InputGestureText="Strg+H"
-                                Tag="#" />
-
-                            <MenuItem
-                                Click="InsertHeader_Click"
-                                Header="Zitat"
-                                Tag=">" />
+                                Tag="[[,]]" />
 
                             <MenuItem
                                 Click="WrapWithStar_Click"
-                                Header="Fett"
-                                InputGestureText="Strg+F"
-                                Tag="*" />
+                                Header="Kommentar einfügen"
+                                InputGestureText="Strg+K"
+                                Tag="/*,*/" />
 
-                            <MenuItem
-                                Click="WrapWithStar_Click"
-                                Header="Italic"
-                                InputGestureText="Strg+I"
-                                Tag="**" />
-
-                            <MenuItem
-                                Click="WrapWithStar_Click"
-                                Header="Fett + Italic"
-                                InputGestureText="Strg+J"
-                                Tag="***" />
-
-                            <Separator />
-
-                            <MenuItem
-                                Click="InsertOnPosition_Click"
-                                Header="URL einfügen"
-                                Tag="url" />
-
-                            <MenuItem
-                                Click="InsertOnPosition_Click"
-                                Header="Bild einfügen (als Datei oder URL)"
-                                Tag="bildfile" />
-
-                            <MenuItem
-                                Click="InsertOnPosition_Click"
-                                Header="Bild einfügen (aus WPF Resource)"
-                                Tag="bildres" />
-
-                            <MenuItem
-                                Click="InsertOnPosition_Click"
-                                Header="Tabelle einfügen"
-                                Tag="tab" />
                         </ContextMenu>
                     </TextBox.ContextMenu>
                 </TextBox>

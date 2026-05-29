@@ -11,6 +11,8 @@
 
     using Microsoft.Win32;
 
+    using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
     /// <summary>
     /// Interaktionslogik für TextEditor.xaml
     /// </summary>
@@ -32,6 +34,7 @@
                 }));
             
 
+            /*
             InputBindings.Add(new KeyBinding(
             new EditorRelayCommand(o => OpenFileDialog()),
             new KeyGesture(Key.O, ModifierKeys.Control)));
@@ -39,30 +42,47 @@
             InputBindings.Add(new KeyBinding(
                     new EditorRelayCommand(o => this.Save()),
                     new KeyGesture(Key.S, ModifierKeys.Control)));
-
+            */
             InputBindings.Add(new KeyBinding(
                         new EditorRelayCommand(o => this.InsertCurrentDate(),null),
                         new KeyGesture(Key.D, ModifierKeys.Control)));
 
             InputBindings.Add(new KeyBinding(
-            new EditorRelayCommand(o => this.InsertHeader("#"), null),
-            new KeyGesture(Key.H, ModifierKeys.Control)));
+                        new EditorRelayCommand(o => this.InsertPlaceholder(), null),
+                        new KeyGesture(Key.P, ModifierKeys.Control)));
 
             InputBindings.Add(new KeyBinding(
-                        new EditorRelayCommand(o => this.WrapSelection("*"),null),
-                        new KeyGesture(Key.F, ModifierKeys.Control)));
+                        new EditorRelayCommand(o => this.WrapSelection("[[", "]]"), null),
+                        new KeyGesture(Key.H, ModifierKeys.Control)));
 
             InputBindings.Add(new KeyBinding(
-                        new EditorRelayCommand(o => this.WrapSelection("**"), null),
-                        new KeyGesture(Key.I, ModifierKeys.Control)));
-
-            InputBindings.Add(new KeyBinding(
-                        new EditorRelayCommand(o => this.WrapSelection("***"), null),
-                        new KeyGesture(Key.J, ModifierKeys.Control)));
+                        new EditorRelayCommand(o => this.WrapSelection("/*", "*/"), null),
+                        new KeyGesture(Key.K, ModifierKeys.Control)));
         }
 
         public string FileName { get; private set; }
         public bool IsModified { get; private set; }
+
+        public static readonly DependencyProperty TextProperty =
+                DependencyProperty.Register(
+                    nameof(Text),
+                    typeof(string),
+                    typeof(TextEditor),
+                    new PropertyMetadata("", OnTextChanged));
+
+        public string Text
+        {
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
+        }
+
+        private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            TextEditor editor = (TextEditor)d;
+            editor.Text = e.NewValue as string;
+            editor.UpdateEditorVisuals();
+        }
+
 
         private void Editor_Loaded(object sender, RoutedEventArgs e)
         {
@@ -86,6 +106,7 @@
         {
             this.IsModified = true;
             this.UpdateEditorVisuals();
+            this.Text = Editor.Text;
         }
 
         private void Editor_SelectionChanged(object sender, RoutedEventArgs e)
@@ -113,11 +134,16 @@
             int selection = Editor.SelectionLength;
             this.StatusSelection.Text = $"Sel: {selection}";
 
-            int utfPos = caret;
+            int asciiCode = 0;
+            if (caret > 0 && caret <= Editor.Text.Length)
+            {
+                char zeichen = Editor.Text[caret-1];
+                asciiCode = (int)zeichen;
+            }
 
             int bytePos = Encoding.UTF8.GetByteCount(Editor.Text.AsSpan(0, caret));
 
-            this.StatusUtf.Text = $"UTF: {utfPos}  Bytes: {bytePos}";
+            this.StatusUtf.Text = $"ASCII: {asciiCode}  Bytes: {bytePos}";
 
             string name = string.IsNullOrEmpty(FileName) ? "Neue Datei" : Path.GetFileName(FileName);
 
@@ -235,50 +261,9 @@
         #endregion Text per Doppelklick markieren
 
         #region Bereich für Kontextmenü
-        private void LoadFile_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-
-            dlg.Filter = DATEIFILTER;
-
-            if (dlg.ShowDialog() == true)
-            {
-                this.LoadFile(dlg.FileName);
-            }
-        }
-
-        private void SaveFile_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog dlg = new SaveFileDialog();
-
-            dlg.Filter = DATEIFILTER;
-
-            if (dlg.ShowDialog() == true)
-            {
-                this.SaveFile(dlg.FileName);
-            }
-        }
-
         private void InsertCurrentDate_Click(object sender, RoutedEventArgs e)
         {
             this.InsertCurrentDate();
-        }
-
-        private void InsertHeader_Click(object sender, RoutedEventArgs e)
-        {
-            MenuItem menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                string parameter = menuItem.Tag.ToString();
-                if (parameter == "#")
-                {
-                    this.InsertHeader(parameter);
-                }
-                else if (parameter == ">")
-                {
-                    this.InsertZitat(parameter);
-                }
-            }
         }
 
         private void WrapWithStar_Click(object sender, RoutedEventArgs e)
@@ -287,100 +272,11 @@
             if (menuItem != null)
             {
                 string parameter = menuItem.Tag.ToString();
-                this.WrapSelection(parameter);
+                string left = parameter.Split(',')[0];
+                string right = parameter.Split(',')[1];
+                this.WrapSelection(left, right);
             }
         }
-
-        private void InsertOnPosition_Click(object sender, RoutedEventArgs e)
-        {
-            MenuItem menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                string parameter = menuItem.Tag.ToString().ToLower(CultureInfo.CurrentCulture);
-                if (parameter == "url")
-                {
-                    this.InsertOnPosition("[AlternateText](WebSeiten-Url)");
-                }
-                else if (parameter == "bildfile")
-                {
-                    this.InsertOnPosition("![AlternateText](Bildname.png=BreitexHöhe)");
-                }
-                else if (parameter == "bildres")
-                {
-                    this.InsertOnPosition("![AlternateText](res:Resources/Picture/_PreviewImage.png=BreitexHöhe)");
-                }
-                else if (parameter == "tab")
-                {
-                    this.InsertOnPosition($"| Spalte1 | Spalte2 | Spalte3 |\n|------|------:|------|\n| Text | Zahl | Text |\n");
-                }
-            }
-        }
-
-        public void LoadFile(string path)
-        {
-            Editor.Text = File.ReadAllText(path);
-
-            FileName = path;
-            IsModified = false;
-            this.UpdateStatus();
-        }
-
-        public void SaveFile(string path)
-        {
-            File.WriteAllText(path, Editor.Text);
-
-            this.FileName = path;
-            this.IsModified = false;
-            this.UpdateStatus();
-        }
-
-        public void Save()
-        {
-            if (string.IsNullOrEmpty(FileName))
-            {
-                SaveFileDialog dlg = new SaveFileDialog();
-
-                dlg.Filter = DATEIFILTER;
-
-                if (dlg.ShowDialog() == true)
-                {
-                    this.SaveFile(dlg.FileName);
-                }
-            }
-            else
-            {
-                this.SaveFile(FileName);
-            }
-        }
-
-        private void OpenFileDialog()
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-
-            dlg.Filter = DATEIFILTER;
-
-            if (dlg.ShowDialog() == true)
-            {
-                this.LoadFile(dlg.FileName);
-            }
-        }
-
-        private void InsertOnPosition(string parameter)
-        {
-            string dataText = parameter;
-
-            int caret = Editor.CaretIndex;
-
-            if (Editor.SelectionLength > 0)
-            {
-                caret = Editor.SelectionStart;
-                Editor.Text = Editor.Text.Remove(Editor.SelectionStart, Editor.SelectionLength);
-            }
-
-            Editor.Text = Editor.Text.Insert(caret, dataText);
-            Editor.CaretIndex = caret + dataText.Length;
-        }
-
 
         private void InsertCurrentDate()
         {
@@ -398,21 +294,23 @@
             Editor.CaretIndex = caret + dateText.Length;
         }
 
-        private void InsertHeader(string parameter)
+        private void InsertPlaceholder()
         {
-            string headerText = $"{parameter} Titel";
-            Editor.Text = Editor.Text.Insert(0, headerText);
-            Editor.CaretIndex = 0 + headerText.Length;
+            string dateText = "[[placeholder]]";
+
+            int caret = Editor.CaretIndex;
+
+            if (Editor.SelectionLength > 0)
+            {
+                caret = Editor.SelectionStart;
+                Editor.Text = Editor.Text.Remove(Editor.SelectionStart, Editor.SelectionLength);
+            }
+
+            Editor.Text = Editor.Text.Insert(caret, dateText);
+            Editor.CaretIndex = caret + dateText.Length;
         }
 
-        private void InsertZitat(string parameter)
-        {
-            string headerText = $"{parameter} ";
-            Editor.Text = Editor.Text.Insert(0, headerText);
-            Editor.CaretIndex = 0 + headerText.Length;
-        }
-
-        private void WrapSelection(string wrapper)
+        private void WrapSelection(string wrapperLeft, string wrapperRight)
         {
             int start = Editor.SelectionStart;
             int length = Editor.SelectionLength;
@@ -423,8 +321,15 @@
             }
 
             string selectedText = Editor.SelectedText;
-
-            string newText = wrapper + selectedText + wrapper;
+            string newText = string.Empty;
+            if (wrapperLeft == "/*" && wrapperRight == "*/")
+            {
+                newText = $"{wrapperLeft}\n{selectedText}\n{wrapperRight}";
+            }
+            else
+            {
+                newText = $"{wrapperLeft}{selectedText}{wrapperRight}";
+            }
 
             Editor.Text = Editor.Text.Remove(start, length);
             Editor.Text = Editor.Text.Insert(start, newText);

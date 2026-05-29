@@ -96,11 +96,20 @@
                     FontWeight="Medium"
                     Text="Beschreibung" />
 
+                <TextBox
+                    x:Name="TxtBeschreibung"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    MaxLength="500"
+                    Text="{Binding Path=Beschreibung, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
                 <doc:TextEditor
                     x:Name="Editor"
                     Grid.Row="2"
                     Grid.Column="0"
-                    Grid.ColumnSpan="2" />
+                    Grid.ColumnSpan="2"
+                    Text="{Binding Path=SnippetContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             </Grid>
         </GroupBox>
     </Grid>

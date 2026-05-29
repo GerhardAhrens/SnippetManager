@@ -58,6 +58,9 @@ Ergebnis nach dem Einfügen aus der Zwischenablage.
 ```
 
 # Features
+- Import von Xaml Icons Dateien vom Typ ``DrawingImage`` und ``Viewbox``.
+- Ein Icon aus der Datenbank kann per Doppelklick als XAML Code vom Typ ``DrawingImage`` in die Zwischenablage kopiert werden.
+- Ein Auswahl von Icons kann als XAML Code vom Typ ``DrawingImage`` können in ein Resource Dictionary gesammelt und in die Zwischenablage kopiert werden.
 
 # Versionshistorie
 
