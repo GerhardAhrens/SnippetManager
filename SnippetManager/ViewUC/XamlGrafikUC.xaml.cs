@@ -159,9 +159,8 @@ namespace SnippetManager.View
             }
 
             /* Weitere XAML-Icons aus anderen Quellen können hier geladen und der XamlItemAlleSource hinzugefügt werden */
-            string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
             string sql = "SELECT Id, Gruppe, Titel, XamlContent FROM TAB_Xaml";
-            using (DatabaseService ds = new DatabaseService(databasePath))
+            using (DatabaseService ds = new DatabaseService(App.DatabasePath))
             {
                 SQLiteConnection connection = ds.OpenConnection();
                 DataTable dtSeletWhere = connection.RecordSet<DataTable>(sql).Get().Result;
@@ -360,8 +359,7 @@ namespace SnippetManager.View
                     importXaml.Tooltip = $"{importXaml.Key}\n({importXaml.XamlTyp}";
                     importXaml.Quelle = "Import";
 
-                    string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
-                    using (DatabaseService ds = new DatabaseService(databasePath))
+                    using (DatabaseService ds = new DatabaseService(App.DatabasePath))
                     {
                         ds.Insert(this.ImportXaml, importXaml);
                     }

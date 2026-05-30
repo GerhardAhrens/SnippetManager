@@ -2,6 +2,7 @@
 {
     using System.Globalization;
     using System.IO;
+    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
@@ -60,15 +61,15 @@
                         new KeyGesture(Key.K, ModifierKeys.Control)));
         }
 
-        public string FileName { get; private set; }
-        public bool IsModified { get; private set; }
+        private bool IsModified { get; set; }
+        private static string TextFromOut { get; set; }
 
         public static readonly DependencyProperty TextProperty =
                 DependencyProperty.Register(
                     nameof(Text),
                     typeof(string),
                     typeof(TextEditor),
-                    new PropertyMetadata("", OnTextChanged));
+                    new PropertyMetadata(OnTextChanged));
 
         public string Text
         {
@@ -80,28 +81,32 @@
         {
             TextEditor editor = (TextEditor)d;
             editor.Text = e.NewValue as string;
+            TextFromOut = e.NewValue as string;
             editor.UpdateEditorVisuals();
         }
 
 
         private void Editor_Loaded(object sender, RoutedEventArgs e)
         {
-            this.editorScrollViewer = FindScrollViewer(Editor);
+            this.editorScrollViewer = FindScrollViewer(this.Editor);
+
+            this.Editor.Text = TextFromOut;
 
             if (this.editorScrollViewer != null)
             {
                 this.editorScrollViewer.ScrollChanged += EditorScrollChanged;
             }
 
-            this.lineHeight = Editor.GetRectFromCharacterIndex(0).Height;
+            this.lineHeight = this.Editor.GetRectFromCharacterIndex(0).Height;
 
             if (this.lineHeight <= 0)
             {
-                this.lineHeight = Editor.FontSize * 1.4;
+                this.lineHeight = this.Editor.FontSize * 1.4;
             }
 
             this.UpdateEditorVisuals();
         }
+
         private void Editor_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.IsModified = true;
@@ -145,9 +150,9 @@
 
             this.StatusUtf.Text = $"ASCII: {asciiCode}  Bytes: {bytePos}";
 
-            string name = string.IsNullOrEmpty(FileName) ? "Neue Datei" : Path.GetFileName(FileName);
+            string name = string.Empty;
 
-            if (IsModified)
+            if (IsModified == true)
             {
                 name += " *";
             }

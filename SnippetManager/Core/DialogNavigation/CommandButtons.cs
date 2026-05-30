@@ -26,5 +26,9 @@
         CopyEntryToClipboard = 9,
         [Description("Eintrag speichern")]
         SaveEntry = 10,
+        [Description("Als Snippet kopieren")]
+        CopyAsSnippet = 11,
+        [Description("Als Datei kopieren")]
+        CopyAsFile = 12,
     }
 }

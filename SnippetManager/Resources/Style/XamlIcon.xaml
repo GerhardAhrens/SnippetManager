@@ -15,6 +15,162 @@
     <!--#endregion Farbige Icon Symbole auf Basis von ViewBox-->
 
     <!--#region Farbige Icon Symbole auf Basis von DrawingImage-->
+    <DrawingImage x:Key="IconCopyAsFile">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Hintere Datei  -->
+                <GeometryDrawing Brush="#FFE8E8E8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="20,12,24,32" />
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF909090" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Vordere Datei  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry Figures="                         M 12,18                         L 30,18                         L 38,26                         L 38,50                         L 12,50                         Z                          M 30,18                         L 30,26                         L 38,26" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF404040"
+                            LineJoin="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Dateizeilen  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="18,30,14,2" />
+                            <RectangleGeometry Rect="18,35,14,2" />
+                            <RectangleGeometry Rect="18,40,10,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopier-Plus  -->
+                <GeometryDrawing Brush="#FF28A745">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  Kreis  -->
+                            <EllipseGeometry
+                                Center="48,44"
+                                RadiusX="8"
+                                RadiusY="8" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Plus  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="44,42.5,8,3" />
+                            <RectangleGeometry Rect="46.5,40,3,8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconCopyAsSnippet">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Hinteres Blatt  -->
+                <GeometryDrawing Brush="#FFE8E8E8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="22,12,24,30" />
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF909090" Thickness="2" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Vorderes Blatt  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="14,20,24,30" />
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF404040" Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Geschweifte Klammern  -->
+                <GeometryDrawing Brush="{x:Null}">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  {  -->
+                            <PathGeometry Figures="M 18,28 C 15,28 15,31 15,33 C 15,35 13,36 11,37 C 13,38 15,39 15,41 C 15,43 15,46 18,46" />
+
+                            <!--  }  -->
+                            <PathGeometry Figures="M 34,28 C 37,28 37,31 37,33 C 37,35 39,36 41,37 C 39,38 37,39 37,41 C 37,43 37,46 34,46" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF1976D2"
+                            EndLineCap="Round"
+                            StartLineCap="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  x in der Mitte  -->
+                <GeometryDrawing Brush="{x:Null}">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <LineGeometry StartPoint="23,31" EndPoint="29,43" />
+                            <LineGeometry StartPoint="29,31" EndPoint="23,43" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF1976D2"
+                            EndLineCap="Round"
+                            StartLineCap="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Kleines Plus als Kopierhinweis  -->
+                <GeometryDrawing Brush="#FF28A745">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="44,38,10,3" />
+                            <RectangleGeometry Rect="47,35,3,10" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="IconImport">
         <DrawingImage.Drawing>
             <DrawingGroup>
@@ -112,7 +268,7 @@
                         <GeometryGroup>
 
                             <!--  Oberer Pfeil  -->
-                            <PathGeometry Figures="M 26,22 L 36,22 L 33,19 M 36,22 L 33,25"/>
+                            <PathGeometry Figures="M 26,22 L 36,22 L 33,19 M 36,22 L 33,25" />
 
                             <!--  Unterer Pfeil  -->
                             <PathGeometry Figures="M 38,40 L 28,40 L 31,37 M 28,40 L 31,43" />

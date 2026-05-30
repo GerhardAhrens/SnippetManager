@@ -58,6 +58,30 @@
                     ToolTip="Demo beenden">
                     <Image Source="{StaticResource ResourceKey=IconSaveEntry}" Stretch="Uniform" />
                 </Button>
+
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=CopyAsSnippetCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.CopyAsSnippet }"
+                    ToolTip="Demo beenden">
+                    <Image Source="{StaticResource ResourceKey=IconCopyAsSnippet}" Stretch="Uniform" />
+                </Button>
+
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=CopyAsFileCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.CopyAsFile}"
+                    ToolTip="Demo beenden">
+                    <Image Source="{StaticResource ResourceKey=IconCopyAsFile}" Stretch="Uniform" />
+                </Button>
             </DockPanel>
         </GroupBox>
 

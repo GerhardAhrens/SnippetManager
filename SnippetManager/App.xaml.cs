@@ -85,6 +85,10 @@ namespace SnippetManager
         /// </summary>
         public static ApplicationSettings Settings { get; set; }
 
+        public static string DatabasePath { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "SnippetManager.db");
+
+        public static string TemplatePath { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template");
+
         /// <summary>
         /// Verwaltet die Startlogik der Anwendung, einschließlich der Initialisierung der Ländereinstellungen und der Konfiguration der Benutzereinstellungen.
         /// </summary>
@@ -212,13 +216,12 @@ namespace SnippetManager
 
         private static void InitializeDatabase()
         {
-            string databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Database", "SnippetManager.db");
-            if (Directory.Exists(Path.GetDirectoryName(databasePath)) == false)
+            if (Directory.Exists(Path.GetDirectoryName(App.DatabasePath)) == false)
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(databasePath));
+                Directory.CreateDirectory(Path.GetDirectoryName(App.DatabasePath));
             }
 
-            using (DatabaseService ds = new DatabaseService(databasePath))
+            using (DatabaseService ds = new DatabaseService(App.DatabasePath))
             {
                 ds.Create(CreateTableInDB);
             }

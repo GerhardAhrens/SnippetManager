@@ -1,12 +1,15 @@
 ﻿namespace SnippetManager.View
 {
+    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Globalization;
+    using System.IO;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
 
     using SnippetManager.Core;
+    using SnippetManager.Core.Helper;
 
     /// <summary>
     /// Interaktionslogik für SourceSnippetsDetailUC.xaml
@@ -23,11 +26,16 @@
 
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
             this.SaveEntryCommand = new CommandBase(commandParam => this.OnSaveEntry(commandParam), () => true);
+            this.CopyAsFileCommand = new CommandBase(commandParam => this.OnCopyAsFile(commandParam), () => true);
+            this.CopyAsSnippetCommand = new CommandBase(commandParam => this.OnCopyAsSnippet(commandParam), () => true);
         }
+
 
         #region Properties
         public CommandBase GoBackCommand { get; private set; }
         public CommandBase SaveEntryCommand { get; private set; }
+        public CommandBase CopyAsSnippetCommand { get; private set; }
+        public CommandBase CopyAsFileCommand { get; private set; }
         private ChangeViewEventArgs CurrentCtorArgs { get; set; }
 
         public List<string> GruppenSource
@@ -74,10 +82,7 @@
             this.GruppenSource.Add("C#");
             this.GruppenSource.Add("Visual Basic .Net");
 
-            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-            {
-                await App.EventAgg.PublishAsync(new StatusEvent("Bereit"));
-            }
+            this.SnippetContent = $"public class [[MyClass]]\n{{\n}}\n";
         }
 
         private void OnComboBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -135,13 +140,41 @@
 
         private async void OnSaveEntry(object commandParam)
         {
-            var aa = this.SnippetContent;
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
                 await App.EventAgg.PublishAsync(new StatusEvent("letzte Änderung gespeichert"));
             }
         }
 
+
+        private void OnCopyAsFile(object commandParam)
+        {
+            if(Directory.Exists(App.TemplatePath) == false)
+            {
+                Directory.CreateDirectory(App.TemplatePath);
+            }
+
+            string snippetContent = this.SnippetContent.Replace("[[", string.Empty).Replace("]]", string.Empty);
+            string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+            string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+
+            File.WriteAllText(templatePath, snippetContent);
+
+            /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+            ClipboardHelper.CutFilesToClipboard(templatePath);
+        }
+
+        private async void OnCopyAsSnippet(object commandParam)
+        {
+            string snippetContent = this.SnippetContent;
+            Clipboard.SetText(snippetContent);
+
+            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+            {
+                await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+            }
+        }
         #endregion Command Events
+
     }
 }
