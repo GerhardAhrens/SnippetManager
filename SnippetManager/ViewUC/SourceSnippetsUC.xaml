@@ -14,7 +14,7 @@
         x:Name="gridMain"
         Background="WhiteSmoke"
         ColumnDefinitions="*"
-        RowDefinitions="Auto,*">
+        RowDefinitions="Auto,45,*">
         <GroupBox
             x:Name="SourceSnippetsMenubar"
             Grid.Row="0"
@@ -87,25 +87,121 @@
                     Margin="5,0,0,0"
                     HorizontalAlignment="Left"
                     Background="Transparent"
-                    Command="{Binding Path=CopyToClipboardCommand}"
-                    CommandParameter="{x:Static core:CommandButtons.CopyEntryToClipboard}"
-                    ToolTip="Eintrag in Zwischenablage kopieren">
-                    <Image Source="{StaticResource ResourceKey=IconCopyToClipboard}" Stretch="Uniform" />
+                    Command="{Binding Path=CopyAsSnippetCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.CopyAsSnippet}"
+                    ToolTip="Ausgewähltes Snippet in die Zwischenablage kopieren">
+                    <Image Source="{StaticResource ResourceKey=IconCopyAsSnippet}" Stretch="Uniform" />
                 </Button>
 
                 <Button
                     Width="50"
                     Height="50"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Right"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
                     Background="Transparent"
-                    Command="{Binding Path=HelpCommand}"
-                    CommandParameter="{x:Static core:CommandButtons.Help}"
-                    DockPanel.Dock="Right"
-                    ToolTip="Hilfe zum anzeigen">
-                    <Image Source="{StaticResource ResourceKey=IconHelp}" Stretch="Fill" />
+                    Command="{Binding Path=CopyAsFileCommand}"
+                    CommandParameter="{x:Static core:CommandButtons.CopyAsFile}"
+                    ToolTip="Ausgewähltes Snippet als Datei in die Zwischenablage kopieren">
+                    <Image Source="{StaticResource ResourceKey=IconCopyAsFile}" Stretch="Uniform" />
                 </Button>
             </DockPanel>
         </GroupBox>
+
+        <GroupBox
+            x:Name="ItemFilter"
+            Grid.Row="1"
+            Margin="5"
+            Padding="5">
+            <GroupBox.Template>
+                <ControlTemplate TargetType="GroupBox">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="4">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </GroupBox.Template>
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Filter:" />
+
+                <TextBox
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+
+        <ListBox
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="5"
+            ItemsSource="{Binding Path=SnippetSource}"
+            SelectedItem="{Binding Path=SelectedSnippet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            SelectionMode="Single">
+
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="100,300,100,*" RowDefinitions="Auto,Auto,Auto">
+                        <Grid.InputBindings>
+                            <MouseBinding
+                                Command="{Binding Path=DataContext.EditEntryCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                CommandParameter="{Binding}"
+                                Gesture="LeftDoubleClick" />
+                        </Grid.InputBindings>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="Gruppe" />
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Foreground="Blue"
+                            Text="{Binding Path=[Gruppe]}" />
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Text="Snippet Typ" />
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            Foreground="Blue"
+                            Text="{Binding Path=[SnippetTyp]}" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Titel" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Foreground="Blue"
+                            Text="{Binding Path=[Titel]}" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Text="Beschreibung" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="3"
+                            Foreground="Blue"
+                            Text="{Binding Path=[Beschreibung]}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
     </Grid>
 </base:UserControlBase>

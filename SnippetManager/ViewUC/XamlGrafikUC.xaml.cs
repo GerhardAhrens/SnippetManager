@@ -386,7 +386,7 @@ namespace SnippetManager.View
             {
                 string sqlText = "INSERT INTO TAB_Xaml (Id, Gruppe, Titel, XamlContent,CreatedOn,CreatedBy) VALUES (@Id, @Gruppe, @Titel, @XamlContent,@CreatedOn,@CreatedBy)";
                 Dictionary<string, object> parameterCollection = new();
-                parameterCollection.Add("@Id", Guid.NewGuid().ToString());
+                parameterCollection.Add("@Id", Guid.CreateVersion7().ToString());
                 parameterCollection.Add("@Gruppe", "Import");
                 parameterCollection.Add("@Titel", import.Title);
                 parameterCollection.Add("@XamlContent", import.XamlContent);

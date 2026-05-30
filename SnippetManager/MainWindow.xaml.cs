@@ -119,6 +119,12 @@ namespace SnippetManager
         private void OnUpdateStatusBar(StatusEvent evt)
         {
             StatusbarMain.Statusbar.Notification = evt.Notification;
+
+            if (string.IsNullOrEmpty(evt.DatabaseInfo) == false)
+            {
+                StatusbarMain.Statusbar.DatabaseInfo = evt.DatabaseInfo;
+                StatusbarMain.Statusbar.DatabaseInfoTooltip = evt.DatabaseInfoTooltip;
+            }
         }
 
         private void OnUpdateWindowTitel(WindowsTitelEvent evt)

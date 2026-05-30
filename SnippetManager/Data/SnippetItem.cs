@@ -12,6 +12,7 @@
     {
         public Guid Id { get; set; }
         public string Gruppe { get; set; }
+        public string SnippetTyp { get; set; }
         public string Titel { get; set; }
         public string Beschreibung { get; set; }
         public string SnippetContent { get; set; }
@@ -19,5 +20,10 @@
         public string CreatedBy { get; set; }
         public DateTime ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
+
+        public bool IsValid()
+        {
+            return !string.IsNullOrEmpty(this.Gruppe) && !string.IsNullOrEmpty(this.SnippetTyp) && !string.IsNullOrEmpty(this.Titel) && !string.IsNullOrEmpty(this.SnippetContent);
+        }
     }
 }

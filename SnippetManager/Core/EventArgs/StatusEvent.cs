@@ -4,6 +4,14 @@
 
     public sealed class StatusEvent
     {
+        public StatusEvent(string notification,string databaseInfo, string databaseInfoTooltip)
+        {
+            this.Id = Guid.CreateVersion7();
+            this.DatabaseInfo = databaseInfo;
+            this.DatabaseInfoTooltip = databaseInfoTooltip;
+            this.Notification = notification;
+        }
+
         public StatusEvent(string databaseInfo, string databaseInfoTooltip)
         {
             this.Id = Guid.CreateVersion7();

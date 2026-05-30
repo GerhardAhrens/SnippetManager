@@ -8,7 +8,7 @@
     xmlns:doc="clr-namespace:System.Windows.Documents"
     xmlns:local="clr-namespace:SnippetManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
+    d:DesignHeight="550"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid
@@ -66,8 +66,8 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     Command="{Binding Path=CopyAsSnippetCommand}"
-                    CommandParameter="{x:Static core:CommandButtons.CopyAsSnippet }"
-                    ToolTip="Demo beenden">
+                    CommandParameter="{x:Static core:CommandButtons.CopyAsSnippet}"
+                    ToolTip="Ausgewähltes Snippet in die Zwischenablage kopieren">
                     <Image Source="{StaticResource ResourceKey=IconCopyAsSnippet}" Stretch="Uniform" />
                 </Button>
 
@@ -79,7 +79,7 @@
                     Background="Transparent"
                     Command="{Binding Path=CopyAsFileCommand}"
                     CommandParameter="{x:Static core:CommandButtons.CopyAsFile}"
-                    ToolTip="Demo beenden">
+                    ToolTip="Ausgewähltes Snippet als Datei in die Zwischenablage kopieren">
                     <Image Source="{StaticResource ResourceKey=IconCopyAsFile}" Stretch="Uniform" />
                 </Button>
             </DockPanel>
@@ -90,27 +90,58 @@
             BorderBrush="Gray"
             BorderThickness="2"
             Header="Snippet Details">
-            <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,*">
+            <Grid ColumnDefinitions="120,300,120,*" RowDefinitions="Auto,Auto,Auto,*">
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
                     Margin="5"
                     VerticalAlignment="Center"
                     FontWeight="Medium"
-                    Text="Titel" />
+                    Text="Gruppe" />
 
                 <ComboBox
                     x:Name="GruppenFilter"
                     Grid.Row="0"
                     Grid.Column="1"
                     Width="300"
-                    Margin="5"
+                    Height="20"
                     HorizontalAlignment="Left"
                     IsEditable="True"
                     IsTextSearchCaseSensitive="False"
                     IsTextSearchEnabled="False"
                     ItemsSource="{Binding Path=GruppenSource}"
-                    Text="{Binding Path=SelectedGruppeText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    Text="{Binding Path=SelectedGruppe, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    Text="Gruppe" />
+
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    Text="Snippet Typ" />
+
+                <ComboBox
+                    x:Name="TypFilter"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Width="100"
+                    Height="20"
+                    HorizontalAlignment="Left"
+                    IsEditable="True"
+                    IsTextSearchCaseSensitive="False"
+                    IsTextSearchEnabled="False"
+                    ItemsSource="{Binding Path=SnippetTypSource}"
+                    SelectedIndex="1"
+                    Text="{Binding Path=SelectedSnippetTyp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
                 <TextBlock
                     Grid.Row="1"
@@ -118,21 +149,48 @@
                     Margin="5"
                     VerticalAlignment="Center"
                     FontWeight="Medium"
+                    Text="Titel" />
+
+                <TextBox
+                    x:Name="TxtTitel"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3"
+                    Height="20"
+                    Margin="0,0,8,0"
+                    MaxLength="500"
+                    Text="{Binding Path=Titel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="5"
+                    VerticalAlignment="Top"
+                    FontWeight="Medium"
                     Text="Beschreibung" />
 
                 <TextBox
                     x:Name="TxtBeschreibung"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="1"
-                    Margin="5"
+                    Grid.ColumnSpan="3"
+                    Height="60"
+                    Margin="0,0,8,0"
+                    Padding="5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    AcceptsReturn="True"
+                    HorizontalScrollBarVisibility="Disabled"
                     MaxLength="500"
-                    Text="{Binding Path=Beschreibung, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    Text="{Binding Path=Beschreibung, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto" />
 
                 <doc:TextEditor
                     x:Name="Editor"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="4"
                     Text="{Binding Path=SnippetContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             </Grid>
         </GroupBox>

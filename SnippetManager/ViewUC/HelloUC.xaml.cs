@@ -1,5 +1,6 @@
 ﻿namespace SnippetManager.View
 {
+    using System.Data.SQLite;
     using System.Windows;
     using System.Windows.Controls;
 
@@ -78,9 +79,20 @@
         {
             this.DataContext = this;
 
+            string databaseName = string.Empty;
+            string databaseVersion = string.Empty;
+            string databaseTooltip = string.Empty;
+            using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+            {
+                var dbVersion = ds.MetadataInformation();
+                databaseName = ((List<Tuple<string, string, object, Type>>)dbVersion).FirstOrDefault()?.Item3.ToString() ?? string.Empty;
+                databaseVersion = ((List<Tuple<string, string, object, Type>>)dbVersion).FirstOrDefault(f => f.Item1 == "ServerVersion")?.Item3.ToString() ?? string.Empty;
+            }
+
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
-                await App.EventAgg.PublishAsync(new StatusEvent("Bereit"));
+                databaseTooltip = $"{databaseName} - {databaseVersion}";
+                await App.EventAgg.PublishAsync(new StatusEvent("Bereit",databaseName, databaseTooltip));
             }
         }
         #endregion Windows Events

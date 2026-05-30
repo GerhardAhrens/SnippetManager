@@ -229,7 +229,7 @@ namespace SnippetManager
 
         private static void CreateTableInDB(SQLiteConnection sqliteConnection)
         {
-            string sqlSnippet = "CREATE TABLE IF NOT EXISTS TAB_Snippet (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50),Beschreibung VARCHAR(500), SnippetContent TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
+            string sqlSnippet = "CREATE TABLE IF NOT EXISTS TAB_Snippet (Id VARCHAR(36), Gruppe VARCHAR(50), SnippetTyp VARCHAR(50), Titel VARCHAR(50),Beschreibung VARCHAR(500), SnippetContent TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";
             string sqlSnippetIndex = "CREATE INDEX idx_Snippet_GruppeTitel ON TAB_Snippet(Gruppe,Titel);";
 
             string sqlXamlGrafik = "CREATE TABLE IF NOT EXISTS TAB_Xaml (Id VARCHAR(36), Gruppe VARCHAR(50), Titel VARCHAR(50), XamlContent TEXT,CreatedOn DateTime,CreatedBy VARCHAR(50),ModifiedOn DateTime,ModifiedBy VARCHAR(50), PRIMARY KEY (Id))";

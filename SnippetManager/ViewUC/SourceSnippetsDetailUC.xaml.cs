@@ -2,6 +2,8 @@
 {
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Data;
+    using System.Data.SQLite;
     using System.Globalization;
     using System.IO;
     using System.Windows;
@@ -10,6 +12,7 @@
 
     using SnippetManager.Core;
     using SnippetManager.Core.Helper;
+    using SnippetManager.Data;
 
     /// <summary>
     /// Interaktionslogik für SourceSnippetsDetailUC.xaml
@@ -50,6 +53,24 @@
             set => base.SetValue(value);
         }
 
+        public List<string> SnippetTypSource
+        {
+            get => base.GetValue<List<string>>();
+            set => base.SetValue(value);
+        }
+
+        public string SelectedSnippetTyp
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+
+        public string Titel
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+
         public string Beschreibung
         {
             get => base.GetValue<string>();
@@ -62,12 +83,17 @@
             set => base.SetValue(value);
         }
 
+        private MessageBase Message { get; } = new MessageBase();
         #endregion Properties
 
         #region Windows Events
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             this.GruppenFilter.AddHandler(System.Windows.Controls.Primitives.TextBoxBase.TextChangedEvent, new System.Windows.Controls.TextChangedEventHandler(OnComboBoxTextChanged));
+            this.TxtBeschreibung.TextChanged += (s, args) =>
+            {
+                this.TxtBeschreibung.ScrollToEnd();
+            };
 
             this.DataContext = this;
 
@@ -80,9 +106,36 @@
             this.GruppenSource.Add("Allgemein");
             this.GruppenSource.Add("Linksammlung");
             this.GruppenSource.Add("C#");
-            this.GruppenSource.Add("Visual Basic .Net");
+            this.GruppenSource.Add("WPF");
+            this.GruppenSource.Add("RegEx");
 
-            this.SnippetContent = $"public class [[MyClass]]\n{{\n}}\n";
+            this.SnippetTypSource = new();
+            this.SnippetTypSource.Add("Snippet");
+            this.SnippetTypSource.Add("File");
+
+            if (this.CurrentCtorArgs.EntityId == Guid.Empty)
+            {
+                this.SelectedSnippetTyp = this.SnippetTypSource.FirstOrDefault();
+            }
+            else
+            {
+                Guid snippetId = this.CurrentCtorArgs.EntityId;
+                using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+                {
+                    SQLiteConnection connection = ds.OpenConnection();
+                    string sqlSelect = $"SELECT * FROM TAB_Snippet WHERE Id = '{snippetId}'";
+                    DataRow row = connection.RecordSet<DataRow>(sqlSelect).Get().Result;
+                    if (row != null)
+                    {
+                        this.SelectedGruppe = row["Gruppe"].ToString();
+                        this.SelectedSnippetTyp = row["SnippetTyp"].ToString();
+                        this.Titel = row["Titel"].ToString();
+                        this.Beschreibung = row["Beschreibung"].ToString();
+                        this.SnippetContent = row["SnippetContent"].ToString();
+                    }
+                }
+
+            }
         }
 
         private void OnComboBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -140,12 +193,61 @@
 
         private async void OnSaveEntry(object commandParam)
         {
-            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+            SnippetItem snippet = new()
             {
-                await App.EventAgg.PublishAsync(new StatusEvent("letzte Änderung gespeichert"));
+                Id = Guid.NewGuid(),
+                Gruppe = this.SelectedGruppe,
+                SnippetTyp = this.SelectedSnippetTyp,
+                Titel = this.Titel,
+                Beschreibung = this.Beschreibung,
+                SnippetContent = this.SnippetContent,
+                CreatedOn = DateTime.Now,
+                CreatedBy = Environment.UserName,
+            };
+
+            if (snippet.IsValid() == false)
+            {
+                this.Message.Hinweis("Fehlerhafte Eingabe", "Bitte füllen Sie alle Pflichtfelder aus, bevor Sie den Eintrag speichern können.",true);
+                return;
+            }
+
+            using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+            {
+                ds.Insert(this.InsertSnippet, snippet);
             }
         }
 
+        private async void InsertSnippet(SQLiteConnection sqliteConnection, object snippet)
+        {
+            SnippetItem insertSnipppet = snippet as SnippetItem;
+
+            try
+            {
+                string sqlText = "INSERT INTO TAB_Snippet (Id, Gruppe, SnippetTyp,Titel,Beschreibung,SnippetContent,CreatedOn,CreatedBy) VALUES (@Id, @Gruppe, @SnippetTyp,@Titel,@Beschreibung,@SnippetContent,@CreatedOn,@CreatedBy)";
+                Dictionary<string, object> parameterCollection = new();
+                parameterCollection.Add("@Id", Guid.CreateVersion7().ToString());
+                parameterCollection.Add("@Gruppe", insertSnipppet.Gruppe);
+                parameterCollection.Add("@SnippetTyp", insertSnipppet.SnippetTyp);
+                parameterCollection.Add("@Titel", insertSnipppet.Titel);
+                parameterCollection.Add("@Beschreibung", insertSnipppet.Beschreibung);
+                parameterCollection.Add("@SnippetContent", insertSnipppet.SnippetContent);
+                parameterCollection.Add("@CreatedOn", DateTime.Now);
+                parameterCollection.Add("@CreatedBy", Environment.UserName);
+                int insertedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
+                if (insertedRows > 0)
+                {
+                    if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(new StatusEvent("letzte Änderung gespeichert"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Insert des Snippets in die Tabelle.");
+            }
+        }
 
         private void OnCopyAsFile(object commandParam)
         {
