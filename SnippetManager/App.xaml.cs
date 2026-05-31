@@ -121,6 +121,7 @@ namespace SnippetManager
                 /* Initiale Benutzer Einstellungen speichern */
                 InitializeSettings();
 
+                /* Initialisierung der Datenbank */
                 InitializeDatabase();
             }
             catch (Exception ex)
@@ -139,8 +140,7 @@ namespace SnippetManager
         {
             base.OnExit(e);
 
-            /*
-            Settings.LetzterZugriff = DateTime.Now;
+            Settings.LastAccess = DateTime.Now;
 
             using (ApplicationSettings settings = new ApplicationSettings())
             {
@@ -151,7 +151,6 @@ namespace SnippetManager
                     settings.Save();
                 }
             }
-            */
         }
 
         /// <summary>
@@ -194,14 +193,19 @@ namespace SnippetManager
         /// </summary>
         private static void InitializeSettings()
         {
-            /* 
             using (ApplicationSettings settings = new ApplicationSettings())
             {
                 if (settings.IsExitSettings() == false)
                 {
                     settings.Username = $"{Environment.UserDomainName}\\{Environment.UserName}";
-                    settings.LetzterZugriff = DateTime.Now;
-                    settings.FrageExit = true;
+                    settings.LastAccess = DateTime.Now;
+                    settings.QuestionExit = true;
+                    settings.QuestionSaveClose = true;
+                    settings.TemplateCompany = string.Empty;
+                    settings.TemplateName = $"{Environment.UserDomainName}\\{Environment.UserName}";
+                    settings.TemplateEmail = string.Empty;
+                    settings.DefaultClassName = "MyClass";
+                    settings.DefaultEnumName = "MyEnum";
                     settings.Save();
                 }
                 else
@@ -211,7 +215,6 @@ namespace SnippetManager
 
                 Settings = settings;
             }
-            */
         }
 
         private static void InitializeDatabase()

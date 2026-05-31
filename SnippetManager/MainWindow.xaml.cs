@@ -88,13 +88,11 @@ namespace SnippetManager
         {
             e.Cancel = false;
 
-            /*
-            if (App.Settings.FrageExit == false)
+            if (App.Settings.QuestionExit == false)
             {
                 App.ApplicationExit();
                 return;
             }
-            */
 
             MessageBoxResult msgYN;
             if (this.Tag != null)

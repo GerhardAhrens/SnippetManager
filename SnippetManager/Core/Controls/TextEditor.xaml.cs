@@ -1,18 +1,13 @@
 ﻿namespace System.Windows.Documents
 {
     using System.Globalization;
-    using System.IO;
-    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Threading;
-
-    using Microsoft.Win32;
-
-    using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
     /// <summary>
     /// Interaktionslogik für TextEditor.xaml
@@ -28,12 +23,12 @@
             this.InitializeComponent();
 
             Application.Current.Dispatcher.BeginInvoke(
-                DispatcherPriority.Background, 
-                new Action(() => 
-                { 
-                    this.Editor.Focus(); 
+                DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    this.Editor.Focus();
                 }));
-            
+
 
             /*
             InputBindings.Add(new KeyBinding(
@@ -45,7 +40,7 @@
                     new KeyGesture(Key.S, ModifierKeys.Control)));
             */
             InputBindings.Add(new KeyBinding(
-                        new EditorRelayCommand(o => this.InsertCurrentDate(),null),
+                        new EditorRelayCommand(o => this.InsertCurrentDate(), null),
                         new KeyGesture(Key.D, ModifierKeys.Control)));
 
             InputBindings.Add(new KeyBinding(
@@ -111,7 +106,7 @@
         {
             this.IsModified = true;
             this.UpdateEditorVisuals();
-            this.Text = Editor.Text;
+            this.Text = this.Editor.Text;
         }
 
         private void Editor_SelectionChanged(object sender, RoutedEventArgs e)
@@ -126,27 +121,27 @@
 
         private void UpdateStatus()
         {
-            int caret = Editor.CaretIndex;
+            int caret = this.Editor.CaretIndex;
 
-            int line = Editor.GetLineIndexFromCharacterIndex(caret);
-            int column = caret - Editor.GetCharacterIndexFromLineIndex(line);
+            int line = this.Editor.GetLineIndexFromCharacterIndex(caret);
+            int column = caret - this.Editor.GetCharacterIndexFromLineIndex(line);
 
             this.StatusCursor.Text = $"Ln {line + 1}, Col {column + 1}";
 
-            int totalLines = Editor.LineCount;
+            int totalLines = this.Editor.LineCount;
             this.StatusLines.Text = $"Lines: {totalLines}";
 
-            int selection = Editor.SelectionLength;
+            int selection = this.Editor.SelectionLength;
             this.StatusSelection.Text = $"Sel: {selection}";
 
             int asciiCode = 0;
-            if (caret > 0 && caret <= Editor.Text.Length)
+            if (caret > 0 && caret <= this.Editor.Text.Length)
             {
-                char zeichen = Editor.Text[caret-1];
+                char zeichen = this.Editor.Text[caret - 1];
                 asciiCode = (int)zeichen;
             }
 
-            int bytePos = Encoding.UTF8.GetByteCount(Editor.Text.AsSpan(0, caret));
+            int bytePos = Encoding.UTF8.GetByteCount(this.Editor.Text.AsSpan(0, caret));
 
             this.StatusUtf.Text = $"ASCII: {asciiCode}  Bytes: {bytePos}";
 
@@ -181,7 +176,10 @@
             {
                 TextBlock tb = new TextBlock
                 {
-                    Text = (i + 1).ToString(CultureInfo.CurrentCulture), FontFamily = Editor.FontFamily, FontSize = Editor.FontSize, Foreground = Brushes.Gray
+                    Text = (i + 1).ToString(CultureInfo.CurrentCulture),
+                    FontFamily = Editor.FontFamily,
+                    FontSize = Editor.FontSize,
+                    Foreground = Brushes.Gray
                 };
 
                 double y = (i * lineHeight) - offset;
@@ -239,27 +237,92 @@
         #region Text per Doppelklick markieren
         private void Editor_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int caret = Editor.CaretIndex;
+            int caret = this.Editor.CaretIndex;
 
-            if (caret >= Editor.Text.Length)
+            if (caret >= this.Editor.Text.Length)
+            {
                 return;
+            }
 
-            string text = Editor.Text;
+            string text = this.Editor.Text;
 
             if (char.IsWhiteSpace(text[caret]))
+            {
                 return;
+            }
 
             int start = caret;
             int end = caret;
 
             while (start > 0 && !char.IsWhiteSpace(text[start - 1]))
+            {
                 start--;
+            }
 
             while (end < text.Length && !char.IsWhiteSpace(text[end]))
+            {
                 end++;
+            }
 
-            Editor.SelectionStart = start;
-            Editor.SelectionLength = end - start;
+            this.Editor.SelectionStart = start;
+            this.Editor.SelectionLength = end - start;
+
+            /*
+            string selectedText = string.Empty;
+            if (this.Editor.SelectionLength > 0)
+            {
+                selectedText = this.Editor.SelectedText;
+                DrawingImage iconGeometry = (DrawingImage)base.FindResource("IconCopyEntry");
+                Image iconPathSearch = null;
+                if (iconGeometry != null)
+                {
+                    iconPathSearch = new Image
+                    {
+                        Source = iconGeometry,
+                        Width = 16,
+                        Height = 16
+                    };
+                }
+
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem menuItem1 = new MenuItem();
+                menuItem1.Header = iconPathSearch; // Das Icon wird im Header transportiert
+
+                // 3. ControlTemplate erstellen
+                ControlTemplate customTemplate = new ControlTemplate(typeof(MenuItem));
+
+                // Visuelle Basis (Border für Hintergrund und Padding)
+                FrameworkElementFactory borderFactory = new FrameworkElementFactory(typeof(Border));
+                borderFactory.SetValue(Border.PaddingProperty, new Thickness(8));
+                borderFactory.SetValue(Border.BackgroundProperty, Brushes.Transparent);
+
+                // ContentPresenter erstellen
+                FrameworkElementFactory contentFactory = new FrameworkElementFactory(typeof(ContentPresenter));
+
+                // WICHTIG: Den Inhalt über ein Binding an die Header-Property des MenuItem knüpfen
+                contentFactory.SetBinding(ContentPresenter.ContentProperty, new Binding("Header")
+                {
+                    RelativeSource = new RelativeSource(RelativeSourceMode.TemplatedParent)
+                });
+
+                // Elemente zusammensetzen
+                borderFactory.AppendChild(contentFactory);
+                customTemplate.VisualTree = borderFactory;
+
+                // 4. Template zuweisen
+                menuItem1.Template = customTemplate;
+                contextMenu.Items.Add(menuItem1);
+
+                MenuItem menuItem2 = new MenuItem();
+                menuItem2.Header = "Aktion 2";
+                contextMenu.Items.Add(menuItem2);
+                contextMenu.IsOpen = true;
+            }
+
+            this.Editor.SelectionStart = start;
+            this.Editor.SelectionLength = end - start;
+            */
+
 
             e.Handled = true;
         }
@@ -283,9 +346,37 @@
             }
         }
 
+        private void PlaceholderFixed_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                if (menuItem.Header.ToString() == "Company")
+                {
+                    this.PlaceholderFixed("$$Company$$");
+                }
+                else if (menuItem.Header.ToString() == "Email")
+                {
+                    this.PlaceholderFixed("$$Email$$");
+                }
+                else if (menuItem.Header.ToString() == "Name")
+                {
+                    this.PlaceholderFixed("$$Name$$");
+                }
+                else if (menuItem.Header.ToString() == "Jahr")
+                {
+                    this.PlaceholderFixed("$$Jahr$$");
+                }
+                else if (menuItem.Header.ToString() == "Datum")
+                {
+                    this.PlaceholderFixed("$$Datum$$");
+                }
+            }
+        }
+
         private void InsertCurrentDate()
         {
-            string dateText = DateTime.Now.ToString("dd.MM.yyyy",CultureInfo.CurrentCulture);
+            string dateText = DateTime.Now.ToString("dd.MM.yyyy", CultureInfo.CurrentCulture);
 
             int caret = Editor.CaretIndex;
 
@@ -297,6 +388,20 @@
 
             Editor.Text = Editor.Text.Insert(caret, dateText);
             Editor.CaretIndex = caret + dateText.Length;
+        }
+
+        private void PlaceholderFixed(string placeholder)
+        {
+            int caret = Editor.CaretIndex;
+
+            if (Editor.SelectionLength > 0)
+            {
+                caret = Editor.SelectionStart;
+                Editor.Text = Editor.Text.Remove(Editor.SelectionStart, Editor.SelectionLength);
+            }
+
+            Editor.Text = Editor.Text.Insert(caret, placeholder);
+            Editor.CaretIndex = caret + placeholder.Length;
         }
 
         private void InsertPlaceholder()

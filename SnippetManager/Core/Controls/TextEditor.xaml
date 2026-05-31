@@ -63,6 +63,18 @@
 
                             <Separator />
 
+                            <!--  Menüpunkt mit Untermenü  -->
+                            <MenuItem Header="Platzhalter">
+                                <!--  Die Unterpunkte  -->
+                                <MenuItem Click="PlaceholderFixed_Click" Header="Company" />
+                                <MenuItem Click="PlaceholderFixed_Click" Header="Email" />
+                                <MenuItem Click="PlaceholderFixed_Click" Header="Name" />
+                                <MenuItem Click="PlaceholderFixed_Click" Header="Jahr" />
+                                <MenuItem Click="PlaceholderFixed_Click" Header="Datum" />
+                            </MenuItem>
+
+                            <Separator />
+
                             <MenuItem
                                 Click="InsertCurrentDate_Click"
                                 Header="Heutiges Datum einfügen"
