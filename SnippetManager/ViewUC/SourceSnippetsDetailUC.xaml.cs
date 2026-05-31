@@ -167,7 +167,10 @@
                 }
 
                 // Dropdown automatisch öffnen, während der Nutzer tippt
-                comboBox.IsDropDownOpen = true;
+                if (comboBox.Text.Length < 2)
+                {
+                    comboBox.IsDropDownOpen = true;
+                }
             }
         }
 

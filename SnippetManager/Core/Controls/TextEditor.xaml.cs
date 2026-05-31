@@ -4,7 +4,6 @@
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Threading;
@@ -30,15 +29,6 @@
                 }));
 
 
-            /*
-            InputBindings.Add(new KeyBinding(
-            new EditorRelayCommand(o => OpenFileDialog()),
-            new KeyGesture(Key.O, ModifierKeys.Control)));
-
-            InputBindings.Add(new KeyBinding(
-                    new EditorRelayCommand(o => this.Save()),
-                    new KeyGesture(Key.S, ModifierKeys.Control)));
-            */
             InputBindings.Add(new KeyBinding(
                         new EditorRelayCommand(o => this.InsertCurrentDate(), null),
                         new KeyGesture(Key.D, ModifierKeys.Control)));
