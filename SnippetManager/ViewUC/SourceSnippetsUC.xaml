@@ -161,32 +161,37 @@
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
-                            Text="Gruppe" />
+                            FontSize="14"
+                            FontWeight="Medium"
+                            Text="Titel" />
                         <TextBlock
                             Grid.Row="0"
+                            Grid.Column="1"
+                            FontSize="14"
+                            FontWeight="Medium"
+                            Foreground="Blue"
+                            Text="{Binding Path=[Titel]}" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Gruppe" />
+                        <TextBlock
+                            Grid.Row="1"
                             Grid.Column="1"
                             Foreground="Blue"
                             Text="{Binding Path=[Gruppe]}" />
 
                         <TextBlock
-                            Grid.Row="0"
+                            Grid.Row="1"
                             Grid.Column="2"
                             Text="Snippet Typ" />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="3"
-                            Foreground="Blue"
-                            Text="{Binding Path=[SnippetTyp]}" />
 
                         <TextBlock
                             Grid.Row="1"
-                            Grid.Column="0"
-                            Text="Titel" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
+                            Grid.Column="3"
                             Foreground="Blue"
-                            Text="{Binding Path=[Titel]}" />
+                            Text="{Binding Path=[SnippetTyp]}" />
 
                         <TextBlock
                             Grid.Row="2"

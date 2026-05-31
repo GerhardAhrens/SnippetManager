@@ -1,6 +1,5 @@
 ﻿namespace SnippetManager.View
 {
-    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Data;
     using System.Data.SQLite;
@@ -12,6 +11,7 @@
 
     using SnippetManager.Core;
     using SnippetManager.Core.Helper;
+    using SnippetManager.Core.Placeholder;
     using SnippetManager.Data;
 
     /// <summary>
@@ -196,29 +196,58 @@
 
         private async void OnSaveEntry(object commandParam)
         {
-            SnippetItem snippet = new()
+            if (this.CurrentCtorArgs.EntityId == Guid.Empty)
             {
-                Id = Guid.NewGuid(),
-                Gruppe = this.SelectedGruppe,
-                SnippetTyp = this.SelectedSnippetTyp,
-                Titel = this.Titel,
-                Beschreibung = this.Beschreibung,
-                SnippetContent = this.SnippetContent,
-                CreatedOn = DateTime.Now,
-                CreatedBy = Environment.UserName,
-            };
+                SnippetItem snippet = new()
+                {
+                    Id = Guid.NewGuid(),
+                    Gruppe = this.SelectedGruppe,
+                    SnippetTyp = this.SelectedSnippetTyp,
+                    Titel = this.Titel,
+                    Beschreibung = this.Beschreibung,
+                    SnippetContent = this.SnippetContent,
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = Environment.UserName,
+                };
 
-            if (snippet.IsValid() == false)
-            {
-                this.Message.Hinweis("Fehlerhafte Eingabe", "Bitte füllen Sie alle Pflichtfelder aus, bevor Sie den Eintrag speichern können.",true);
-                return;
-            }
+                if (snippet.IsValid() == false)
+                {
+                    this.Message.Hinweis("Fehlerhafte Eingabe", "Bitte füllen Sie alle Pflichtfelder aus, bevor Sie den Eintrag speichern können.", true);
+                    return;
+                }
 
-            using (DatabaseService ds = new DatabaseService(App.DatabasePath))
-            {
-                ds.Insert(this.InsertSnippet, snippet);
+                using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+                {
+                    ds.Insert(this.InsertSnippet, snippet);
+                }
             }
-        }
+            else
+            {
+                SnippetItem snippet = new()
+                {
+                    Id = this.CurrentCtorArgs.EntityId,
+                    Gruppe = this.SelectedGruppe,
+                    SnippetTyp = this.SelectedSnippetTyp,
+                    Titel = this.Titel,
+                    Beschreibung = this.Beschreibung,
+                    SnippetContent = this.SnippetContent,
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = Environment.UserName,
+                };
+
+                if (snippet.IsValid() == false)
+                {
+                    this.Message.Hinweis("Fehlerhafte Eingabe", "Bitte füllen Sie alle Pflichtfelder aus, bevor Sie den Eintrag speichern können.", true);
+                    return;
+                }
+
+                using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+                {
+                    ds.Insert(this.UpdateSnippet, snippet);
+                }
+            }
+    }
+
 
         private async void InsertSnippet(SQLiteConnection sqliteConnection, object snippet)
         {
@@ -252,6 +281,38 @@
             }
         }
 
+        private async void UpdateSnippet(SQLiteConnection sqliteConnection, object snippet)
+        {
+            SnippetItem updateSnipppet = snippet as SnippetItem;
+
+            try
+            {
+                string sqlText = "UPDATE TAB_Snippet SET Gruppe = @Gruppe, SnippetTyp = @SnippetTyp, Titel = @Titel, Beschreibung = @Beschreibung, SnippetContent = @SnippetContent, CreatedOn = @CreatedOn, CreatedBy = @CreatedBy WHERE Id = @Id";
+                Dictionary<string, object> parameterCollection = new();
+                parameterCollection.Add("@Id", updateSnipppet.Id.ToString());
+                parameterCollection.Add("@Gruppe", updateSnipppet.Gruppe);
+                parameterCollection.Add("@SnippetTyp", updateSnipppet.SnippetTyp);
+                parameterCollection.Add("@Titel", updateSnipppet.Titel);
+                parameterCollection.Add("@Beschreibung", updateSnipppet.Beschreibung);
+                parameterCollection.Add("@SnippetContent", updateSnipppet.SnippetContent);
+                parameterCollection.Add("@CreatedOn", DateTime.Now);
+                parameterCollection.Add("@CreatedBy", Environment.UserName);
+                int updatedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
+                if (updatedRows > 0)
+                {
+                    if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(new StatusEvent("letzte Änderung gespeichert"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Update des Snippets in die Tabelle.");
+            }
+        }
+
         private void OnCopyAsFile(object commandParam)
         {
             if(Directory.Exists(App.TemplatePath) == false)
@@ -272,6 +333,36 @@
         private async void OnCopyAsSnippet(object commandParam)
         {
             string snippetContent = this.SnippetContent;
+            if (string.IsNullOrEmpty(snippetContent) == false)
+            {
+                if (snippetContent.Contains("$$Company$$",StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$$Company$$", App.Settings.TemplateCompany, StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$$year$$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$$year$$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$$name$$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$$name$$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$$email$$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$$email$$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$$date$$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$$date$$", DateTime.Now.ToShortDateString(), StringComparison.OrdinalIgnoreCase);
+                }
+
+                //var pl = PlaceholderService.Extract(snippetContent);
+            }
+
             Clipboard.SetText(snippetContent);
 
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)

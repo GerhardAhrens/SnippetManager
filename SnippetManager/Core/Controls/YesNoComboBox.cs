@@ -33,23 +33,23 @@
         public static readonly DependencyProperty ResultSelectionProperty =
             DependencyProperty.Register(
                 nameof(ResultSelection),
-                typeof(bool),
+                typeof(bool?),
                 typeof(YesNoComboBox),
                 new FrameworkPropertyMetadata(
-                    false,
+                    null,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     new PropertyChangedCallback(OnResultSelectionChanged)));
 
-        public bool ResultSelection
+        public bool? ResultSelection
         {
-            get => (bool)GetValue(ResultSelectionProperty);
+            get => (bool?)GetValue(ResultSelectionProperty);
             set => SetValue(ResultSelectionProperty, value);
         }
 
         private static void OnResultSelectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var comboBox = (YesNoComboBox)d;
-            bool newValue = (bool)e.NewValue;
+            bool? newValue = (bool?)e.NewValue;
 
             comboBox.UpdateSelectionByExternalValue(newValue);
         }
@@ -93,9 +93,9 @@
             this.ResultSelection = false;
         }
 
-        private void UpdateSelectionByExternalValue(bool externalValue)
+        private void UpdateSelectionByExternalValue(bool? externalValue)
         {
-            string targetText = externalValue ? "Ja" : "Nein";
+            string targetText = externalValue == true ? "Ja" : "Nein";
 
             foreach (var item in this.Items)
             {
@@ -112,6 +112,7 @@
                     {
                         this.SelectedItem = item;
                     }
+
                     return;
                 }
             }

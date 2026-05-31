@@ -214,6 +214,64 @@ namespace System.Data.SQLite
             }
         }
 
+        public void Update(Action<SQLiteConnection, object> actionMethod, object parameter)
+        {
+            try
+            {
+                if (File.Exists(this.FullName) == true)
+                {
+                    using (SQLiteConnection sqliteConnection = new SQLiteConnection(this.SqlConnectionString))
+                    {
+                        if (sqliteConnection.State != ConnectionState.Open)
+                        {
+                            sqliteConnection.Open();
+                            this.IsOpen = true;
+                        }
+
+                        if (actionMethod != null)
+                        {
+                            actionMethod?.Invoke(sqliteConnection, parameter);
+                        }
+
+                        sqliteConnection.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Delete(Action<SQLiteConnection, object> actionMethod, object parameter)
+        {
+            try
+            {
+                if (File.Exists(this.FullName) == true)
+                {
+                    using (SQLiteConnection sqliteConnection = new SQLiteConnection(this.SqlConnectionString))
+                    {
+                        if (sqliteConnection.State != ConnectionState.Open)
+                        {
+                            sqliteConnection.Open();
+                            this.IsOpen = true;
+                        }
+
+                        if (actionMethod != null)
+                        {
+                            actionMethod?.Invoke(sqliteConnection, parameter);
+                        }
+
+                        sqliteConnection.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public bool DeleteDatabaseFile()
         {
             try
