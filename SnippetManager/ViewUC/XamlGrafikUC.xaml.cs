@@ -24,6 +24,7 @@ namespace SnippetManager.View
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Xml;
@@ -287,7 +288,7 @@ namespace SnippetManager.View
             return true;
         }
 
-        private void OnImportXamlIcon(object commandParam)
+        private async void OnImportXamlIcon(object commandParam)
         {
             const string DATEIFILTER = "XAML-Dateien (*.xaml)|*.xaml";
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -301,10 +302,23 @@ namespace SnippetManager.View
 
             if (dlg.ShowDialog() == true)
             {
+                this.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Wait);
+
                 foreach (string fileName in dlg.FileNames)
                 {
                     this.LoadFileToImport(fileName);
                 }
+
+                if (dlg.FileNames.Length > 1)
+                {
+                    if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(new StatusEvent($"Es wurde {dlg.FileNames.Length} XAML-Icons importiert"));
+                    }
+                }
+
+
+                this.Dispatcher.Invoke(() => Mouse.OverrideCursor = null);
             }
         }
 
