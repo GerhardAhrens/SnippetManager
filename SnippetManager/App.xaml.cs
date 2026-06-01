@@ -200,7 +200,7 @@ namespace SnippetManager
                     settings.Username = $"{Environment.UserDomainName}\\{Environment.UserName}";
                     settings.LastAccess = DateTime.Now;
                     settings.QuestionExit = true;
-                    settings.QuestionSaveClose = true;
+                    settings.SaveAndClose = true;
                     settings.TemplateCompany = string.Empty;
                     settings.TemplateName = $"{Environment.UserDomainName}\\{Environment.UserName}";
                     settings.TemplateEmail = string.Empty;

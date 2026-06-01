@@ -134,7 +134,11 @@
                         this.SnippetContent = row["SnippetContent"].ToString();
                     }
                 }
+            }
 
+            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+            {
+                await App.EventAgg.PublishAsync(new StatusEvent("Bereit"));
             }
         }
 
@@ -246,7 +250,12 @@
                     ds.Insert(this.UpdateSnippet, snippet);
                 }
             }
-    }
+
+            if (App.Settings.SaveAndClose == true)
+            {
+                OnGoBack(CommandButtons.GoBack);
+            }
+        }
 
 
         private async void InsertSnippet(SQLiteConnection sqliteConnection, object snippet)
@@ -287,7 +296,7 @@
 
             try
             {
-                string sqlText = "UPDATE TAB_Snippet SET Gruppe = @Gruppe, SnippetTyp = @SnippetTyp, Titel = @Titel, Beschreibung = @Beschreibung, SnippetContent = @SnippetContent, CreatedOn = @CreatedOn, CreatedBy = @CreatedBy WHERE Id = @Id";
+                string sqlText = "UPDATE TAB_Snippet SET Gruppe = @Gruppe, SnippetTyp = @SnippetTyp, Titel = @Titel, Beschreibung = @Beschreibung, SnippetContent = @SnippetContent, ModifiedOn = @ModifiedOn, ModifiedBy = @ModifiedBy WHERE Id = @Id";
                 Dictionary<string, object> parameterCollection = new();
                 parameterCollection.Add("@Id", updateSnipppet.Id.ToString());
                 parameterCollection.Add("@Gruppe", updateSnipppet.Gruppe);
@@ -295,8 +304,8 @@
                 parameterCollection.Add("@Titel", updateSnipppet.Titel);
                 parameterCollection.Add("@Beschreibung", updateSnipppet.Beschreibung);
                 parameterCollection.Add("@SnippetContent", updateSnipppet.SnippetContent);
-                parameterCollection.Add("@CreatedOn", DateTime.Now);
-                parameterCollection.Add("@CreatedBy", Environment.UserName);
+                parameterCollection.Add("@ModifiedOn", DateTime.Now);
+                parameterCollection.Add("@ModifiedBy", Environment.UserName);
                 int updatedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
                 if (updatedRows > 0)
                 {
@@ -315,7 +324,7 @@
 
         private void OnCopyAsFile(object commandParam)
         {
-            if(Directory.Exists(App.TemplatePath) == false)
+            if (Directory.Exists(App.TemplatePath) == false)
             {
                 Directory.CreateDirectory(App.TemplatePath);
             }
@@ -335,39 +344,43 @@
             string snippetContent = this.SnippetContent;
             if (string.IsNullOrEmpty(snippetContent) == false)
             {
-                if (snippetContent.Contains("$$Company$$",StringComparison.OrdinalIgnoreCase) == true)
+                if (snippetContent.Contains("$Company$", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    snippetContent = snippetContent.Replace("$$Company$$", App.Settings.TemplateCompany, StringComparison.OrdinalIgnoreCase);
+                    snippetContent = snippetContent.Replace("$Company$", App.Settings.TemplateCompany, StringComparison.OrdinalIgnoreCase);
                 }
 
-                if (snippetContent.Contains("$$year$$", StringComparison.OrdinalIgnoreCase) == true)
+                if (snippetContent.Contains("$year$", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    snippetContent = snippetContent.Replace("$$year$$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    snippetContent = snippetContent.Replace("$year$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
                 }
 
-                if (snippetContent.Contains("$$name$$", StringComparison.OrdinalIgnoreCase) == true)
+                if (snippetContent.Contains("$name$", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    snippetContent = snippetContent.Replace("$$name$$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    snippetContent = snippetContent.Replace("$name$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
                 }
 
-                if (snippetContent.Contains("$$email$$", StringComparison.OrdinalIgnoreCase) == true)
+                if (snippetContent.Contains("$email$", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    snippetContent = snippetContent.Replace("$$email$$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    snippetContent = snippetContent.Replace("$email$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
                 }
 
-                if (snippetContent.Contains("$$date$$", StringComparison.OrdinalIgnoreCase) == true)
+                if (snippetContent.Contains("$date$", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    snippetContent = snippetContent.Replace("$$date$$", DateTime.Now.ToShortDateString(), StringComparison.OrdinalIgnoreCase);
+                    snippetContent = snippetContent.Replace("$date$", DateTime.Now.ToShortDateString(), StringComparison.OrdinalIgnoreCase);
                 }
 
-                //var pl = PlaceholderService.Extract(snippetContent);
-            }
+                List<PlaceholderItem> pl = PlaceholderService.Extract(snippetContent);
+                if (pl != null && pl.Count > 0)
+                {
 
-            Clipboard.SetText(snippetContent);
+                }
 
-            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-            {
-                await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                Clipboard.SetText(snippetContent);
+
+                if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                {
+                    await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                }
             }
         }
         #endregion Command Events

@@ -96,7 +96,6 @@
   <ItemGroup>
     <Folder Include="Core\Message\" />
     <Folder Include="Core\Settings\" />
-    <Folder Include="Data\Core\" />
     <Folder Include="Resources\Style\" />
     <Folder Include="Resources\Localization\" />
     <Folder Include="TemplateCore\EventAggregator\" />

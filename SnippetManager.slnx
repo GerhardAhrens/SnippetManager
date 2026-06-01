@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/_Database/">
+    <File Path="SnippetManager.db" />
+  </Folder>
   <Folder Name="/_Doc/">
     <File Path="LICENSE.txt" />
     <File Path="MainWindow.png" />

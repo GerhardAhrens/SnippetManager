@@ -53,7 +53,7 @@
 
                 this.Settings = App.Settings;
                 this.SelectionExitAnswer = this.Settings.QuestionExit;
-                this.SelectionSaveAnswer = this.Settings.QuestionSaveClose;
+                this.SelectionSaveAnswer = this.Settings.SaveAndClose;
                 this.TemplateCompany = this.Settings.TemplateCompany;
             }
         }
@@ -67,7 +67,7 @@
             }
             else if (arg2 == nameof(this.SelectionSaveAnswer))
             {
-                App.Settings.QuestionSaveClose = arg1;
+                App.Settings.SaveAndClose = arg1;
             }
 
         }

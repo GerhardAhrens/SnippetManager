@@ -7,7 +7,7 @@
         public string Username { get; set; }
         public DateTime LastAccess { get; set; }
         public bool QuestionExit { get; set; }
-        public bool QuestionSaveClose { get; set; }
+        public bool SaveAndClose { get; set; }
         public string TemplateCompany { get; set; }
         public string TemplateName { get; set; }
         public string TemplateEmail { get; set; }

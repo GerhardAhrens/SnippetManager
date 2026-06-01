@@ -234,5 +234,10 @@
 
             return sf.GetMethod().Name;
         }
+
+        internal void SetValue(string value, Action<int, string> refreshData)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

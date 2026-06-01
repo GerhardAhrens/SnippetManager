@@ -10,6 +10,7 @@
 //
 // <summary>
 // WPF Template mit Minimalfunktionen
+// https://stackoverflow.com/questions/564710/how-to-get-messagebox-show-to-pop-up-in-the-middle-of-my-wpf-application
 // </summary>
 //-----------------------------------------------------------------------
 
