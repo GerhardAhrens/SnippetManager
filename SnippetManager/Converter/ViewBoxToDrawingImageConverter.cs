@@ -83,6 +83,11 @@
                     continue;
                 }
 
+                if (string.IsNullOrEmpty(fill) == true)
+                {
+                    fill = "Black";
+                }
+
                 sb.AppendLine(CultureInfo.CurrentCulture, $"\t\t\t<GeometryDrawing Brush=\"{fill}\" Geometry=\"{EscapeXml(data)}\" />");
 
             }

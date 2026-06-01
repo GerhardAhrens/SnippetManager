@@ -505,13 +505,23 @@ namespace SnippetManager.View
 
         public static DrawingImage LoadDrawingImage(string xaml)
         {
-            string cleanedXaml = Regex.Replace(xaml, @"\s+x:Key\s*=\s*""[^""]*""", " xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
-            using StringReader stringReader = new(cleanedXaml);
-            using XmlReader xmlReader = XmlReader.Create(stringReader);
+            try
+            {
+                string cleanedXaml = Regex.Replace(xaml, @"\s+x:Key\s*=\s*""[^""]*""", " xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
+                using StringReader stringReader = new(cleanedXaml);
+                using XmlReader xmlReader = XmlReader.Create(stringReader);
 
-            object obj = XamlReader.Load(xmlReader);
+                object obj = XamlReader.Load(xmlReader);
 
-            return obj as DrawingImage ?? throw new InvalidOperationException("Kein DrawingImage.");
+                return obj as DrawingImage ?? throw new InvalidOperationException("Kein DrawingImage.");
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
+            }
+
+            return null;
         }
     }
 }
