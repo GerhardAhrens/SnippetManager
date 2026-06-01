@@ -163,17 +163,19 @@ namespace SnippetManager.View
             using (DatabaseService ds = new DatabaseService(App.DatabasePath))
             {
                 SQLiteConnection connection = ds.OpenConnection();
-                DataTable dtSeletWhere = connection.RecordSet<DataTable>(sql).Get().Result;
-                foreach (DataRow row in dtSeletWhere.Rows)
+                DataTable dtSeletXamlIcons = connection.RecordSet<DataTable>(sql).Get().Result;
+                if (dtSeletXamlIcons != null && dtSeletXamlIcons.Rows.Count > 0)
                 {
-                    string key = row["Titel"].ToString();
-                    string xamlContent = row["XamlContent"].ToString();
-                    XamlTileItem item = new XamlTileItem() { Key = key, Title = key, XamlContent = xamlContent, XamlTyp = "DrawingImage", Tooltip = $"{key} (DrawingImage)", Quelle = "Import" };
-                    item.ImageContent = LoadDrawingImage(xamlContent);
-                    this.XamlItemAlleSource.Add(item);
+                    foreach (DataRow row in dtSeletXamlIcons.Rows)
+                    {
+                        string key = row["Titel"].ToString();
+                        string xamlContent = row["XamlContent"].ToString();
+                        XamlTileItem item = new XamlTileItem() { Key = key, Title = key, XamlContent = xamlContent, XamlTyp = "DrawingImage", Tooltip = $"{key} (DrawingImage)", Quelle = "Import" };
+                        item.ImageContent = LoadDrawingImage(xamlContent);
+                        this.XamlItemAlleSource.Add(item);
+                    }
                 }
             }
-
 
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
@@ -287,18 +289,22 @@ namespace SnippetManager.View
 
         private void OnImportXamlIcon(object commandParam)
         {
-            const string DATEIFILTER = "XAML-Dateien (*.xaml)|*.xaml|Textdateien (*.txt)|*.txt|Alle Dateien (*.*)|*.*";
+            const string DATEIFILTER = "XAML-Dateien (*.xaml)|*.xaml";
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.AddExtension = true;
             dlg.CheckPathExists = true;
             dlg.CheckFileExists = true;
             dlg.DefaultExt = ".xaml";
+            dlg.Multiselect = true;
             dlg.Title = "Datei mit XAML - Icons auswählen";
             dlg.Filter = DATEIFILTER;
 
             if (dlg.ShowDialog() == true)
             {
-                this.LoadFileToImport(dlg.FileName);
+                foreach (string fileName in dlg.FileNames)
+                {
+                    this.LoadFileToImport(fileName);
+                }
             }
         }
 
