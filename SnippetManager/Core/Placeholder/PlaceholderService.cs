@@ -52,7 +52,23 @@
                 text = text.Replace($"{item.Name}", item.Value.ToString() ?? string.Empty ,StringComparison.OrdinalIgnoreCase);
             }
 
-            return text;
+            return text.Trim().Replace("[[", string.Empty).Replace("]]", string.Empty);
+        }
+
+        public static string Replace(string template, IEnumerable<PlaceholderItem> placeholders)
+        {
+            foreach (var placeholder in placeholders)
+            {
+                string pattern =
+                    $@"\[\[{Regex.Escape(placeholder.Name)}(?:=.*?)?\]\]";
+
+                template = Regex.Replace(
+                    template,
+                    pattern,
+                    (string)(placeholder.Value ?? ""));
+            }
+
+            return template;
         }
 
         public static List<PlaceholderItem> ExtractByTyp(string text)

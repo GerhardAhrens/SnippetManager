@@ -393,12 +393,18 @@
                         .ShowDialog();
                     if (response.DialogResult == true)
                     {
-                        snippetContent = PlaceholderService.ReplacePlaceholders(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
-                        Clipboard.SetText(snippetContent);
+                        snippetContent = PlaceholderService.Replace(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
+
+                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+                        File.WriteAllText(templatePath, snippetContent);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        ClipboardHelper.CutFilesToClipboard(templatePath);
 
                         if (App.EventAgg.IsSubscription<StatusEvent>() == true)
                         {
-                            await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
                         }
                     }
                 }

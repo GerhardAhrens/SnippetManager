@@ -50,6 +50,7 @@
                     FontFamily="Consolas"
                     FontSize="14"
                     HorizontalScrollBarVisibility="Auto"
+                    KeyDown="Editor_KeyDown"
                     Loaded="Editor_Loaded"
                     MouseDoubleClick="Editor_MouseDoubleClick"
                     SelectionChanged="Editor_SelectionChanged"

@@ -13,7 +13,6 @@
     /// </summary>
     public partial class TextEditor : UserControl
     {
-        private const string DATEIFILTER = "Markdown (*.md)|*.md|Textdateien (*.txt)|*.txt|Alle Dateien (*.*)|*.*";
         private ScrollViewer editorScrollViewer;
         private double lineHeight;
 
@@ -257,63 +256,6 @@
             this.Editor.SelectionStart = start;
             this.Editor.SelectionLength = end - start;
 
-            /*
-            string selectedText = string.Empty;
-            if (this.Editor.SelectionLength > 0)
-            {
-                selectedText = this.Editor.SelectedText;
-                DrawingImage iconGeometry = (DrawingImage)base.FindResource("IconCopyEntry");
-                Image iconPathSearch = null;
-                if (iconGeometry != null)
-                {
-                    iconPathSearch = new Image
-                    {
-                        Source = iconGeometry,
-                        Width = 16,
-                        Height = 16
-                    };
-                }
-
-                ContextMenu contextMenu = new ContextMenu();
-                MenuItem menuItem1 = new MenuItem();
-                menuItem1.Header = iconPathSearch; // Das Icon wird im Header transportiert
-
-                // 3. ControlTemplate erstellen
-                ControlTemplate customTemplate = new ControlTemplate(typeof(MenuItem));
-
-                // Visuelle Basis (Border für Hintergrund und Padding)
-                FrameworkElementFactory borderFactory = new FrameworkElementFactory(typeof(Border));
-                borderFactory.SetValue(Border.PaddingProperty, new Thickness(8));
-                borderFactory.SetValue(Border.BackgroundProperty, Brushes.Transparent);
-
-                // ContentPresenter erstellen
-                FrameworkElementFactory contentFactory = new FrameworkElementFactory(typeof(ContentPresenter));
-
-                // WICHTIG: Den Inhalt über ein Binding an die Header-Property des MenuItem knüpfen
-                contentFactory.SetBinding(ContentPresenter.ContentProperty, new Binding("Header")
-                {
-                    RelativeSource = new RelativeSource(RelativeSourceMode.TemplatedParent)
-                });
-
-                // Elemente zusammensetzen
-                borderFactory.AppendChild(contentFactory);
-                customTemplate.VisualTree = borderFactory;
-
-                // 4. Template zuweisen
-                menuItem1.Template = customTemplate;
-                contextMenu.Items.Add(menuItem1);
-
-                MenuItem menuItem2 = new MenuItem();
-                menuItem2.Header = "Aktion 2";
-                contextMenu.Items.Add(menuItem2);
-                contextMenu.IsOpen = true;
-            }
-
-            this.Editor.SelectionStart = start;
-            this.Editor.SelectionLength = end - start;
-            */
-
-
             e.Handled = true;
         }
         #endregion Text per Doppelklick markieren
@@ -438,6 +380,32 @@
             Editor.SelectionLength = newText.Length;
         }
         #endregion Bereich für Kontextmenü
+
+        private void Editor_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Überprüfen, ob die TAB-Taste gedrückt wurde
+            if (e.Key == Key.Tab)
+            {
+                // Standardverhalten (Fokuswechsel oder Standard-Tab) blockieren
+                e.Handled = true;
+
+                // Anzahl der gewünschten Leerzeichen definieren
+                int leerzeichenAnzahl = 4;
+                string leerzeichen = new string(' ', leerzeichenAnzahl);
+
+                // Aktuelle Cursor- oder Auswahlposition ermitteln
+                int startPos = this.Editor.SelectionStart;
+
+                // Den aktuellen Text auslesen
+                string aktuellerText = this.Editor.Text;
+
+                // Text vor und nach der Auswahl/Cursorposition trennen und Leerzeichen dazwischenfügen
+                this.Editor.Text = string.Concat(aktuellerText.AsSpan(0, startPos), leerzeichen, aktuellerText.AsSpan(startPos + this.Editor.SelectionLength));
+
+                // Den Cursor exakt hinter die neu eingefügten Leerzeichen setzen
+                this.Editor.CaretIndex = startPos + leerzeichenAnzahl;
+            }
+        }
     }
 
     public class EditorRelayCommand : ICommand

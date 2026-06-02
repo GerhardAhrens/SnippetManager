@@ -366,31 +366,57 @@
                 }
 
                 string snippetContent = this.SelectedSnippet.Field<string>("SnippetContent");
-                string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
-                string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
-
-                List<PlaceholderItem> pl = PlaceholderService.Extract(snippetContent);
-                if (pl != null && pl.Count > 0)
+                if (string.IsNullOrEmpty(snippetContent) == false)
                 {
-                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
-                        .WithOwner(Application.Current.MainWindow)
-                        .ShowDialog();
-                    if (response.DialogResult == true)
+                    if (snippetContent.Contains("$Company$", StringComparison.OrdinalIgnoreCase) == true)
                     {
-                        snippetContent = PlaceholderService.ReplacePlaceholders(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
+                        snippetContent = snippetContent.Replace("$Company$", App.Settings.TemplateCompany, StringComparison.OrdinalIgnoreCase);
+                    }
 
-                        File.WriteAllText(templatePath, snippetContent);
+                    if (snippetContent.Contains("$year$", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        snippetContent = snippetContent.Replace("$year$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    }
 
-                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
-                        ClipboardHelper.CutFilesToClipboard(templatePath);
+                    if (snippetContent.Contains("$name$", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        snippetContent = snippetContent.Replace("$name$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    }
 
-                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                    if (snippetContent.Contains("$email$", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        snippetContent = snippetContent.Replace("$email$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    }
+
+                    if (snippetContent.Contains("$date$", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        snippetContent = snippetContent.Replace("$date$", DateTime.Now.ToShortDateString(), StringComparison.OrdinalIgnoreCase);
+                    }
+
+                    List<PlaceholderItem> pl = PlaceholderService.Extract(snippetContent);
+                    if (pl != null && pl.Count > 0)
+                    {
+                        DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                            .WithOwner(Application.Current.MainWindow)
+                            .ShowDialog();
+                        if (response.DialogResult == true)
                         {
-                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                            snippetContent = PlaceholderService.Replace(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
+
+                            string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                            string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+                            File.WriteAllText(templatePath, snippetContent);
+
+                            /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                            ClipboardHelper.CutFilesToClipboard(templatePath);
+
+                            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                            {
+                                await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                            }
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
