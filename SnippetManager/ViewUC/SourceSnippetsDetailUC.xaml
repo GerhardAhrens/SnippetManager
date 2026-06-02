@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:SnippetManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="550"
-    d:DesignWidth="800"
+    d:DesignWidth="900"
     mc:Ignorable="d">
     <Grid
         x:Name="gridMain"
@@ -90,7 +90,7 @@
             BorderBrush="Gray"
             BorderThickness="2"
             Header="Snippet Details">
-            <Grid ColumnDefinitions="120,300,120,*" RowDefinitions="Auto,Auto,Auto,*">
+            <Grid ColumnDefinitions="100,220,85,150,85,230" RowDefinitions="Auto,Auto,Auto,*">
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
@@ -103,7 +103,7 @@
                     x:Name="GruppenFilter"
                     Grid.Row="0"
                     Grid.Column="1"
-                    Width="300"
+                    Width="200"
                     Height="20"
                     HorizontalAlignment="Left"
                     IsEditable="True"
@@ -144,6 +144,28 @@
                     Text="{Binding Path=SelectedSnippetTyp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
                 <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    Text="Projekt" />
+
+                <ComboBox
+                    x:Name="ProjektFilter"
+                    Grid.Row="0"
+                    Grid.Column="5"
+                    Width="220"
+                    Height="20"
+                    HorizontalAlignment="Left"
+                    IsEditable="True"
+                    IsTextSearchCaseSensitive="False"
+                    IsTextSearchEnabled="False"
+                    ItemsSource="{Binding Path=ProjektSource}"
+                    SelectedIndex="1"
+                    Text="{Binding Path=SelectedProjekt, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+                <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="5"
@@ -155,7 +177,7 @@
                     x:Name="TxtTitel"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="5"
                     Height="20"
                     Margin="0,0,8,0"
                     MaxLength="500"
@@ -173,7 +195,7 @@
                     x:Name="TxtBeschreibung"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="5"
                     Height="60"
                     Margin="0,0,8,0"
                     Padding="5"
@@ -190,7 +212,7 @@
                     x:Name="Editor"
                     Grid.Row="3"
                     Grid.Column="0"
-                    Grid.ColumnSpan="4"
+                    Grid.ColumnSpan="6"
                     Text="{Binding Path=SnippetContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             </Grid>
         </GroupBox>

@@ -41,6 +41,30 @@
             set => base.SetValue(value, this.SetStringSettingHandler);
         }
 
+        public string TemplateName
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value, this.SetStringSettingHandler);
+        }
+
+        public string TemplateEmail
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value, this.SetStringSettingHandler);
+        }
+
+        public string DefaultClassName
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value, this.SetStringSettingHandler);
+        }
+
+        public string DefaultEnumName
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value, this.SetStringSettingHandler);
+        }
+
         private ApplicationSettings Settings { get; set; }
         #region WindowEventHandler
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -55,6 +79,10 @@
                 this.SelectionExitAnswer = this.Settings.QuestionExit;
                 this.SelectionSaveAnswer = this.Settings.SaveAndClose;
                 this.TemplateCompany = this.Settings.TemplateCompany;
+                this.TemplateName = this.Settings.TemplateName;
+                this.TemplateEmail = this.Settings.TemplateEmail;
+                this.DefaultClassName = this.Settings.DefaultClassName;
+                this.DefaultEnumName = this.Settings.DefaultEnumName;
             }
         }
         #endregion WindowEventHandler
@@ -77,6 +105,22 @@
             if (arg2 == nameof(this.TemplateCompany))
             {
                 App.Settings.TemplateCompany = arg1;
+            }
+            else if (arg2 == nameof(this.TemplateName))
+            {
+                App.Settings.TemplateName = arg1;
+            }
+            else if (arg2 == nameof(this.TemplateEmail))
+            {
+                App.Settings.TemplateEmail = arg1;
+            }
+            else if (arg2 == nameof(this.DefaultClassName))
+            {
+                App.Settings.DefaultClassName = arg1;
+            }
+            else if (arg2 == nameof(this.DefaultEnumName))
+            {
+                App.Settings.DefaultEnumName = arg1;
             }
         }
     }

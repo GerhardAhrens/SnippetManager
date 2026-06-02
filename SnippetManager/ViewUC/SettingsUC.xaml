@@ -115,7 +115,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         ColumnDefinitions="150, *"
-                        RowDefinitions="30,40,25,25">
+                        RowDefinitions="30,30,30">
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
@@ -129,7 +129,6 @@
                             HorizontalAlignment="Left"
                             Text="{Binding Path=TemplateCompany, UpdateSourceTrigger=PropertyChanged}" />
 
-
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
@@ -137,12 +136,28 @@
                             Text="Name"
                             TextWrapping="Wrap" />
 
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Width="300"
+                            Margin="0,5,0,5"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Path=TemplateName, UpdateSourceTrigger=PropertyChanged}" />
+
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
                             VerticalAlignment="Center"
                             Text="Email"
                             TextWrapping="Wrap" />
+
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Width="300"
+                            Margin="0,5,0,5"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Path=TemplateEmail, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </GroupBox>
 
@@ -171,12 +186,20 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         ColumnDefinitions="150, *"
-                        RowDefinitions="30,40,25,25">
+                        RowDefinitions="30,30">
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Allgemeiner Class Name" />
+                            Text="Default Class Name" />
+
+                        <TextBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Width="300"
+                            Margin="0,5,0,5"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Path=DefaultClassName, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock
                             Grid.Row="1"
@@ -184,6 +207,14 @@
                             VerticalAlignment="Center"
                             Text="Enum Name"
                             TextWrapping="Wrap" />
+
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Width="300"
+                            Margin="0,5,0,5"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Path=DefaultEnumName, UpdateSourceTrigger=PropertyChanged}" />
 
                     </Grid>
                 </GroupBox>

@@ -65,6 +65,18 @@
             set => base.SetValue(value);
         }
 
+        public List<string> ProjektSource
+        {
+            get => base.GetValue<List<string>>();
+            set => base.SetValue(value);
+        }
+        
+        public string SelectedProjekt
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+
         public string Titel
         {
             get => base.GetValue<string>();
@@ -104,7 +116,7 @@
 
             this.GruppenSource = new();
             this.GruppenSource.Add("Allgemein");
-            this.GruppenSource.Add("Linksammlung");
+            this.GruppenSource.Add("Web");
             this.GruppenSource.Add("C#");
             this.GruppenSource.Add("WPF");
             this.GruppenSource.Add("RegEx");
@@ -112,6 +124,9 @@
             this.SnippetTypSource = new();
             this.SnippetTypSource.Add("Snippet");
             this.SnippetTypSource.Add("File");
+
+            this.ProjektSource = new();
+            this.ProjektSource.Add("MinimalWPF");
 
             if (this.CurrentCtorArgs.EntityId == Guid.Empty)
             {
@@ -132,6 +147,7 @@
                         this.Titel = row["Titel"].ToString();
                         this.Beschreibung = row["Beschreibung"].ToString();
                         this.SnippetContent = row["SnippetContent"].ToString();
+                        this.SelectedProjekt = row["Projekt"].ToString();
                     }
                 }
             }
@@ -210,6 +226,7 @@
                     Titel = this.Titel,
                     Beschreibung = this.Beschreibung,
                     SnippetContent = this.SnippetContent,
+                    Projekt = this.SelectedProjekt,
                     CreatedOn = DateTime.Now,
                     CreatedBy = Environment.UserName,
                 };
@@ -235,6 +252,7 @@
                     Titel = this.Titel,
                     Beschreibung = this.Beschreibung,
                     SnippetContent = this.SnippetContent,
+                    Projekt = this.SelectedProjekt,
                     CreatedOn = DateTime.Now,
                     CreatedBy = Environment.UserName,
                 };

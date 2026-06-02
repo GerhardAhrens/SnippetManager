@@ -16,6 +16,7 @@
         public string Titel { get; set; }
         public string Beschreibung { get; set; }
         public string SnippetContent { get; set; }
+        public string Projekt { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime ModifiedOn { get; set; }
