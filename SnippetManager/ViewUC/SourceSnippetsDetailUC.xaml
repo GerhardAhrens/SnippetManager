@@ -11,6 +11,19 @@
     d:DesignHeight="550"
     d:DesignWidth="900"
     mc:Ignorable="d">
+
+    <UserControl.InputBindings>
+        <KeyBinding
+            Key="Esc"
+            Command="{Binding Path=GoBackCommand}"
+            CommandParameter="{x:Static core:CommandButtons.GoBack}" />
+        <KeyBinding
+            Key="S"
+            Command="{Binding Path=SaveEntryCommand}"
+            CommandParameter="{x:Static core:CommandButtons.SaveEntry}"
+            Modifiers="Ctrl" />
+    </UserControl.InputBindings>
+
     <Grid
         x:Name="gridMain"
         Background="WhiteSmoke"

@@ -1,4 +1,19 @@
-﻿namespace SnippetManager.Converter
+﻿//-----------------------------------------------------------------------
+// <copyright file="ViewBoxToDrawingImageConverter.cs" company="Lifeprojects.de">
+//     Class: ViewBoxToDrawingImageConverter
+//     Copyright © Lifeprojects.de 2026
+// </copyright>
+//
+// <author>2026 - Lifeprojects.de</author>
+// <email>developer@lifeprojects.de</email>
+// <date>05.03.2026 18:21:36</date>
+//
+// <summary>
+// WPF Template mit Minimalfunktionen
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace SnippetManager.Converter
 {
     using System;
     using System.Globalization;

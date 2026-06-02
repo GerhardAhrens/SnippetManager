@@ -10,14 +10,39 @@
 
         public static List<PlaceholderItem> Extract(string text)
         {
-            return pattern.Matches(text)
-                .Select(m => m.Groups[1].Value)
-                .Distinct()
-                .Select(name => new PlaceholderItem
+            var result = new List<PlaceholderItem>();
+
+            foreach (Match match in pattern.Matches(text))
+            {
+                string content = match.Groups[1].Value.Trim();
+
+                string name;
+                string defaultValue = "";
+
+                int index = content.IndexOf('=');
+
+                if (index >= 0)
                 {
-                    Name = name
-                })
-                .ToList();
+                    name = content[..index].Trim();
+                    defaultValue = content[(index + 1)..].Trim();
+                }
+                else
+                {
+                    name = content;
+                }
+
+                if (result.Any(x => x.Name == name))
+                    continue;
+
+                result.Add(new PlaceholderItem
+                {
+                    Name = name,
+                    DefaultValue = defaultValue,
+                    Value = defaultValue
+                });
+            }
+
+            return result;
         }
 
         public static string ReplacePlaceholders(string text, IEnumerable<PlaceholderItem> items)

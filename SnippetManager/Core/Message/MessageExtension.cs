@@ -9,8 +9,7 @@
 // <date>05.03.2026 18:21:36</date>
 //
 // <summary>
-// WPF Template mit Minimalfunktionen
-// https://stackoverflow.com/questions/564710/how-to-get-messagebox-show-to-pop-up-in-the-middle-of-my-wpf-application
+// In der Extenstion Klasse werden Erweiterungsmethoden für die MessageBase Klasse bereitgestellt.
 // </summary>
 //-----------------------------------------------------------------------
 
@@ -28,6 +27,12 @@ namespace System.Windows
         public static MessageBoxResult Question(this IMessageBase self, string titel, string message)
         {
             MessageBoxResult result = self.ShowMessage(titel, message, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            return result;
+        }
+
+        public static MessageBoxResult Warnung(this IMessageBase self, string titel, string message)
+        {
+            MessageBoxResult result = self.ShowMessage(titel, message, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
             return result;
         }
 

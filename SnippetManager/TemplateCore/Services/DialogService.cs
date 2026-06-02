@@ -1,4 +1,4 @@
-﻿namespace WPFEventAggregator.TemplateCore
+﻿namespace System.Windows
 {
     using System;
     using System.Windows;
@@ -141,8 +141,9 @@
             window.Show();
             window.Activate();
             window.Topmost = false;
+            object resultObject = window.Tag; // Optional: Rückgabewert über Tag-Property
 
-            return new DialogResponse<TWindow>(window, null, isModal);
+            return new DialogResponse<TWindow>(window, null, isModal,resultObject);
         }
 
         public DialogResponse<TWindow> ShowDialog()
@@ -150,8 +151,9 @@
             var window = this.CreateWindow();
             bool isModal = IsModal(window);
             bool? result = window.ShowDialog();
+            object resultObject = window.Tag; // Optional: Rückgabewert über Tag-Property
 
-            return new DialogResponse<TWindow>(window, result, isModal);
+            return new DialogResponse<TWindow>(window, result, isModal, resultObject);
         }
 
         private static bool IsModal(Window window)
@@ -341,11 +343,14 @@
         
         public bool IsModal { get; }
 
-        public DialogResponse(TWindow window, bool? dialogResult, bool isModal)
+        public object ResponseObject { get; }
+
+        public DialogResponse(TWindow window, bool? dialogResult, bool isModal, object responseObject)
         {
-            Window = window;
-            DialogResult = dialogResult;
-            IsModal = isModal;  
+            this.Window = window;
+            this.DialogResult = dialogResult;
+            this.IsModal = isModal;
+            this.ResponseObject = responseObject;
         }
     }
 }

@@ -114,23 +114,19 @@
                 await App.EventAgg.PublishAsync(new WindowsTitelEvent(DialogView.SourceSnippetsDetail.ToDescription()));
             }
 
-            this.GruppenSource = new();
-            this.GruppenSource.Add("Allgemein");
-            this.GruppenSource.Add("Web");
-            this.GruppenSource.Add("C#");
-            this.GruppenSource.Add("WPF");
-            this.GruppenSource.Add("RegEx");
-
-            this.SnippetTypSource = new();
-            this.SnippetTypSource.Add("Snippet");
-            this.SnippetTypSource.Add("File");
-
-            this.ProjektSource = new();
-            this.ProjektSource.Add("MinimalWPF");
+            using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+            {
+                SQLiteConnection connection = ds.OpenConnection();
+                this.GruppenSource = connection.RecordSet<List<string>>("SELECT DISTINCT Gruppe FROM TAB_Snippet ORDER BY Gruppe").Get().Result;
+                this.SnippetTypSource = connection.RecordSet<List<string>>("SELECT DISTINCT SnippetTyp FROM TAB_Snippet ORDER BY SnippetTyp").Get().Result;
+                this.ProjektSource = connection.RecordSet<List<string>>("SELECT DISTINCT  Projekt FROM TAB_Snippet ORDER BY Projekt").Get().Result;
+            }
 
             if (this.CurrentCtorArgs.EntityId == Guid.Empty)
             {
                 this.SelectedSnippetTyp = this.SnippetTypSource.FirstOrDefault();
+                this.SelectedGruppe = string.Empty;
+                this.SelectedProjekt = string.Empty;
             }
             else
             {
@@ -282,7 +278,7 @@
 
             try
             {
-                string sqlText = "INSERT INTO TAB_Snippet (Id, Gruppe, SnippetTyp,Titel,Beschreibung,SnippetContent,CreatedOn,CreatedBy) VALUES (@Id, @Gruppe, @SnippetTyp,@Titel,@Beschreibung,@SnippetContent,@CreatedOn,@CreatedBy)";
+                string sqlText = "INSERT INTO TAB_Snippet (Id, Gruppe, SnippetTyp,Titel,Beschreibung,SnippetContent,Projekt,CreatedOn,CreatedBy) VALUES (@Id, @Gruppe, @SnippetTyp,@Titel,@Beschreibung,@SnippetContent,@Projekt,@CreatedOn,@CreatedBy)";
                 Dictionary<string, object> parameterCollection = new();
                 parameterCollection.Add("@Id", Guid.CreateVersion7().ToString());
                 parameterCollection.Add("@Gruppe", insertSnipppet.Gruppe);
@@ -290,6 +286,7 @@
                 parameterCollection.Add("@Titel", insertSnipppet.Titel);
                 parameterCollection.Add("@Beschreibung", insertSnipppet.Beschreibung);
                 parameterCollection.Add("@SnippetContent", insertSnipppet.SnippetContent);
+                parameterCollection.Add("@Projekt", insertSnipppet.Projekt);
                 parameterCollection.Add("@CreatedOn", DateTime.Now);
                 parameterCollection.Add("@CreatedBy", Environment.UserName);
                 int insertedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
@@ -314,7 +311,7 @@
 
             try
             {
-                string sqlText = "UPDATE TAB_Snippet SET Gruppe = @Gruppe, SnippetTyp = @SnippetTyp, Titel = @Titel, Beschreibung = @Beschreibung, SnippetContent = @SnippetContent, ModifiedOn = @ModifiedOn, ModifiedBy = @ModifiedBy WHERE Id = @Id";
+                string sqlText = "UPDATE TAB_Snippet SET Gruppe = @Gruppe, SnippetTyp = @SnippetTyp, Titel = @Titel, Beschreibung = @Beschreibung, SnippetContent = @SnippetContent, Projekt = @Projekt, ModifiedOn = @ModifiedOn, ModifiedBy = @ModifiedBy WHERE Id = @Id";
                 Dictionary<string, object> parameterCollection = new();
                 parameterCollection.Add("@Id", updateSnipppet.Id.ToString());
                 parameterCollection.Add("@Gruppe", updateSnipppet.Gruppe);
@@ -322,6 +319,7 @@
                 parameterCollection.Add("@Titel", updateSnipppet.Titel);
                 parameterCollection.Add("@Beschreibung", updateSnipppet.Beschreibung);
                 parameterCollection.Add("@SnippetContent", updateSnipppet.SnippetContent);
+                parameterCollection.Add("@Projekt", updateSnipppet.Projekt);
                 parameterCollection.Add("@ModifiedOn", DateTime.Now);
                 parameterCollection.Add("@ModifiedBy", Environment.UserName);
                 int updatedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
@@ -390,14 +388,19 @@
                 List<PlaceholderItem> pl = PlaceholderService.Extract(snippetContent);
                 if (pl != null && pl.Count > 0)
                 {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        snippetContent = PlaceholderService.ReplacePlaceholders(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
+                        Clipboard.SetText(snippetContent);
 
-                }
-
-                Clipboard.SetText(snippetContent);
-
-                if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-                {
-                    await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                        }
+                    }
                 }
             }
         }

@@ -4,10 +4,13 @@
     using System.Data;
     using System.Data.SQLite;
     using System.Globalization;
+    using System.IO;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
     using SnippetManager.Core;
+    using SnippetManager.Core.Helper;
     using SnippetManager.Core.Placeholder;
     using SnippetManager.Data;
 
@@ -30,6 +33,8 @@
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
             this.CopyAsSnippetCommand = new CommandBase(commandParam => this.OnCopyAsSnippet(commandParam), () => true);
             this.CopyAsFileCommand = new CommandBase(commandParam => this.OnCopyAsFile(commandParam), () => true);
+
+            this.DefineHotkey();
         }
 
         #region Properties
@@ -123,9 +128,9 @@
             string textFilterString = (this.FilterText ?? string.Empty).ToUpperInvariant();
             if (string.IsNullOrEmpty(textFilterString) == false)
             {
-                string fullRow = rowItem.ToString("Titel,Gruppe");
+                string fullRow = rowItem.ToString("Titel,Gruppe,Projekt");
 
-                if (fullRow.Contains(textFilterString))
+                if (fullRow.Contains(textFilterString, StringComparison.OrdinalIgnoreCase) == true)
                 {
                     found = true;
                 }
@@ -347,14 +352,44 @@
             catch (Exception ex)
             {
                 string errorText = ex.Message;
-                App.ErrorMessage(ex, "Fehler beim Insert des Snippets in die Tabelle.");
+                App.ErrorMessage(ex, "Fehler beim Kopieren des Snippets in die Tabelle.");
             }
         }
 
-        private void OnCopyAsFile(object commandParam)
+        private async void OnCopyAsFile(object commandParam)
         {
             try
             {
+                if (Directory.Exists(App.TemplatePath) == false)
+                {
+                    Directory.CreateDirectory(App.TemplatePath);
+                }
+
+                string snippetContent = this.SelectedSnippet.Field<string>("SnippetContent");
+                string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+
+                List<PlaceholderItem> pl = PlaceholderService.Extract(snippetContent);
+                if (pl != null && pl.Count > 0)
+                {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        snippetContent = PlaceholderService.ReplacePlaceholders(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
+
+                        File.WriteAllText(templatePath, snippetContent);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        ClipboardHelper.CutFilesToClipboard(templatePath);
+
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                        }
+                    }
+                }
 
             }
             catch (Exception ex)
@@ -401,14 +436,19 @@
                         List<PlaceholderItem> pl = PlaceholderService.Extract(snippetContent);
                         if (pl != null && pl.Count > 0)
                         {
+                            DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                                .WithOwner(Application.Current.MainWindow)
+                                .ShowDialog();
+                            if (response.DialogResult == true)
+                            {
+                                snippetContent = PlaceholderService.ReplacePlaceholders(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
+                                Clipboard.SetText(snippetContent);
 
-                        }
-
-                        Clipboard.SetText(snippetContent);
-
-                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-                        {
-                            await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                                if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                                {
+                                    await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                                }
+                            }
                         }
                     }
                 }
@@ -420,5 +460,15 @@
             }
         }
         #endregion Command Events
+
+        private void DefineHotkey()
+        {
+            // Tastenkombination Strg + S erstellen
+            KeyGesture hotkey = new KeyGesture(Key.Escape, ModifierKeys.Alt);
+
+            // Eine Eingabe-Bindung für das Fenster hinzufügen
+            InputBinding inputBinding = new InputBinding(this.GoBackCommand, hotkey);
+            this.InputBindings.Add(inputBinding);
+        }
     }
 }
