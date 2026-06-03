@@ -13,6 +13,10 @@ Die Anwendung ist aus heutiger Sicht eher etwas Old-School, da in vielen Bereich
 In der Hauptsache ging es mir um den EventAggregator, Factory-Pattern, sowie Windows und UserControl von einer Basisklasse abzuleiten. In der Anwendung wird das Prinzip verwendet, das UserControls über eine Factory als Dialoge geladen werden. Die Steuerung zwischen den Dialogen erfolgt über den EventAggregator.
 Somit habe ich eine vollständige lose Koppelung zwischen den Dialogen erreicht. Es gibt keine direkte Referenz von einem Dialog zu anderen Dialogen, sondern die Kommunikation erfolgt ausschließlich über den EventAggregator.
 
+Ein weiteres Ziel war es, den Umgang mit XAML Vektor Grafiken zu verbessern. Hierzu sind einige Konverter entstanden, die es ermöglichen, Vektor Grafiken direkt in XAML zu verwenden und zu manipulieren.
+Als Typ habe ich `DrawingImage` verwendet, da dieser Typ direkt an ein Image-Objekt gebunden werden kann. Zu dem sind Funktionen in der Anwendung um die Vektorgrafiken als `DrawingImage` direkt aus den Resourcen lesen zu können.
+Zusätzlich sind aber auch Funktionen vorhanden , um die Vektorgrafiken als `Geometry` aus eine Datenbank zu lesen und anzeigen zu können.
+
 ## Hauptdialog
 
 <img src="MainWindow.png" style="width:650px;"/>
