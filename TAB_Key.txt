@@ -1,0 +1,72 @@
+<TextBox x:Name="MyTextBox" 
+         AcceptsReturn="True" 
+         AcceptsTab="True" 
+         PreviewKeyDown="MyTextBox_PreviewKeyDown" />
+		 
+private void MyTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+{
+    if (e.Key == Key.Tab)
+    {
+        TextBox textBox = sender as TextBox;
+        if (textBox == null) return;
+
+        // Definition der Einrückung (z. B. 4 Leerzeichen)
+        string indentation = "    ";
+        int indentLength = indentation.Length;
+
+        bool unindent = Keyboard.Modifiers.HasFlag(ModifierKeys.Shift);
+        int selectionStart = textBox.SelectionStart;
+        int selectionLength = textBox.SelectionLength;
+
+        // Text zeilenweise aufteilen
+        string[] lines = textBox.Text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        
+        int currentPos = 0;
+        int newSelectionStart = selectionStart;
+        int newSelectionLength = selectionLength;
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            // \r\n Korrektur für die Positionierung im WPF-TextBuffer
+            int lineBreakLength = textBox.Text.Contains("\r\n") ? 2 : 1;
+            int lineStart = currentPos;
+            int lineEnd = currentPos + lines[i].Length;
+
+            // Prüfen, ob die Zeile Teil der Markierung ist
+            if (lineStart <= selectionStart + selectionLength && lineEnd >= selectionStart)
+            {
+                if (unindent)
+                {
+                    // Leerzeichen am Anfang entfernen, falls vorhanden
+                    if (lines[i].StartsWith(indentation))
+                    {
+                        lines[i] = lines[i].Substring(indentLength);
+                        if (lineStart < selectionStart) newSelectionStart -= indentLength;
+                        newSelectionLength -= indentLength;
+                    }
+                    else if (lines[i].StartsWith("\t")) // Fallback für bestehende Tabs
+                    {
+                        lines[i] = lines[i].Substring(1);
+                        if (lineStart < selectionStart) newSelectionStart -= 1;
+                        newSelectionLength -= 1;
+                    }
+                }
+                else
+                {
+                    // Leerzeichen hinzufügen
+                    lines[i] = indentation + lines[i];
+                    if (lineStart < selectionStart) newSelectionStart += indentLength;
+                    newSelectionLength += indentLength;
+                }
+            }
+            currentPos += lines[i].Length + lineBreakLength;
+        }
+
+        // Text aktualisieren und Selektion wiederherstellen
+        textBox.Text = string.Join(lineBreakLength == 2 ? "\r\n" : "\n", lines);
+        textBox.Select(Math.Max(0, newSelectionStart), Math.Max(0, newSelectionLength));
+
+        // Standard-Tab-Verhalten unterdrücken
+        e.Handled = true;
+    }
+}
