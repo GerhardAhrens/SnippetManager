@@ -9,15 +9,15 @@
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
     <ApplicationIcon>Resources\Picture\ApplicationIcon.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.2026.1</AssemblyVersion>
-    <FileVersion>1.0.2026.1</FileVersion>
+    <AssemblyVersion>1.0.2026.2</AssemblyVersion>
+    <FileVersion>1.0.2026.2</FileVersion>
     <Authors>MinimalWPF</Authors>
     <Company>MinimalWPF</Company>
     <Product>MinimalWPF</Product>
-    <Description>MinimalWPF NET10 V6 Template </Description>
-    <PackageId>MinimalWPF</PackageId>
+    <Description>Snippet Manager</Description>
+    <PackageId>SnippetManager</PackageId>
     <AssemblyName>SnippetManager</AssemblyName>
-    <AssemblyTitle>MinimalWPF</AssemblyTitle>
+    <AssemblyTitle>Snippet Manager</AssemblyTitle>
     <RootNamespace>SnippetManager</RootNamespace>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>

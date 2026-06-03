@@ -46,7 +46,7 @@
                     Grid.Column="1"
                     Padding="3"
                     AcceptsReturn="True"
-                    AcceptsTab="True"
+                    AcceptsTab="False"
                     FontFamily="Consolas"
                     FontSize="14"
                     HorizontalScrollBarVisibility="Auto"

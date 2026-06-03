@@ -98,7 +98,7 @@
 
         public string Tooltip
         {
-            get => $"Name: {this.Title}\n XamlTyp: {this.XamlTyp}\n Quelle: {this.Quelle}";
+            get => $"Name: {this.Title}\n XamlTyp: {this.XamlTyp}\n Quelle: {this.Quelle}\nMit einem Doppelklick wird der XAML Source im Clipboard abgelegt";
             set
             {
                 if (this.toolTip != value)

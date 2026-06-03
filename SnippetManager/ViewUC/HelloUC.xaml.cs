@@ -9,6 +9,7 @@
     /// <summary>
     /// Interaktionslogik für HelloUC.xaml
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
     public partial class HelloUC : UserControlBase
     {
         public HelloUC() : base(typeof(HelloUC))
@@ -18,7 +19,6 @@
             WeakEventManager<UserControl, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
 
             this.QuitCommand = new CommandBase(commandParam => this.OnQuit(commandParam), () => true);
-            this.HomeCommand = new CommandBase(commandParam => this.OnHome(commandParam), () => true);
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
             this.SourceSnippetsCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
             this.IconGrafikCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
@@ -36,7 +36,6 @@
 
         #region Properties
         public CommandBase QuitCommand { get; private set; }
-        public CommandBase HomeCommand { get; private set; }
         public CommandBase HelpCommand { get; private set; }
         public CommandBase SourceSnippetsCommand { get; private set; }
         public CommandBase IconGrafikCommand { get; private set; }
@@ -98,7 +97,6 @@
         #endregion Windows Events
 
         #region Command Events
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void OnQuit(object commandParam)
         {
             if (commandParam != null && commandParam is CommandButtons button)
@@ -116,25 +114,6 @@
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
-        private async void OnHome(object commandParam)
-        {
-            if (commandParam != null && commandParam is CommandButtons button)
-            {
-                if (button == CommandButtons.Home)
-                {
-                    ChangeViewEventArgs args = new();
-                    args.MenuButton = button;
-
-                    if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
-                    {
-                        await App.EventAgg.PublishAsync(args);
-                    }
-                }
-            }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void OnHelp(object commandParam)
         {
             if (commandParam != null && commandParam is CommandButtons button)
@@ -172,7 +151,6 @@
             this.SettingsPopup.SetValue(MaskLayerBehavior.IsOpenProperty, false);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
         private async void ChangeView(object commandParam)
         {
             if (commandParam != null && commandParam is DialogView view)

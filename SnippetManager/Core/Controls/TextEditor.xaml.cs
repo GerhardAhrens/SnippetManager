@@ -13,6 +13,7 @@
     /// </summary>
     public partial class TextEditor : UserControl
     {
+        private const int TABSIZE = 4;
         private ScrollViewer editorScrollViewer;
         private double lineHeight;
 
@@ -390,7 +391,7 @@
                 e.Handled = true;
 
                 // Anzahl der gewünschten Leerzeichen definieren
-                int leerzeichenAnzahl = 4;
+                int leerzeichenAnzahl = TABSIZE;
                 string leerzeichen = new string(' ', leerzeichenAnzahl);
 
                 // Aktuelle Cursor- oder Auswahlposition ermitteln
