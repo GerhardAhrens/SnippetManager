@@ -150,8 +150,6 @@
                     Height="20"
                     HorizontalAlignment="Left"
                     IsEditable="True"
-                    IsTextSearchCaseSensitive="False"
-                    IsTextSearchEnabled="False"
                     ItemsSource="{Binding Path=SnippetTypSource}"
                     SelectedIndex="1"
                     Text="{Binding Path=SelectedSnippetTyp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -172,8 +170,6 @@
                     Height="20"
                     HorizontalAlignment="Left"
                     IsEditable="True"
-                    IsTextSearchCaseSensitive="False"
-                    IsTextSearchEnabled="False"
                     ItemsSource="{Binding Path=ProjektSource}"
                     SelectedIndex="1"
                     Text="{Binding Path=SelectedProjekt, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
