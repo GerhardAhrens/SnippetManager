@@ -200,6 +200,7 @@
                 if (button == CommandButtons.GoBack)
                 {
                     ChangeViewEventArgs args = new();
+                    args = this.CurrentCtorArgs;
                     args.MenuButton = this.CurrentCtorArgs.FromPage;
                     args.FromPage = this.CurrentCtorArgs.MenuButton;
                     if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
@@ -338,7 +339,7 @@
             }
         }
 
-        private void OnCopyAsFile(object commandParam)
+        private async void OnCopyAsFile(object commandParam)
         {
             if (Directory.Exists(App.TemplatePath) == false)
             {
@@ -346,18 +347,6 @@
             }
 
             string snippetContent = this.SnippetContent.Replace("[[", string.Empty).Replace("]]", string.Empty);
-            string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
-            string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
-
-            File.WriteAllText(templatePath, snippetContent);
-
-            /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
-            ClipboardHelper.CutFilesToClipboard(templatePath);
-        }
-
-        private async void OnCopyAsSnippet(object commandParam)
-        {
-            string snippetContent = this.SnippetContent;
             if (string.IsNullOrEmpty(snippetContent) == false)
             {
                 if (snippetContent.Contains("$Company$", StringComparison.OrdinalIgnoreCase) == true)
@@ -405,6 +394,58 @@
                         if (App.EventAgg.IsSubscription<StatusEvent>() == true)
                         {
                             await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                        }
+                    }
+                }
+            }
+        }
+
+        private async void OnCopyAsSnippet(object commandParam)
+        {
+            string snippetContent = this.SnippetContent;
+            if (string.IsNullOrEmpty(snippetContent) == false)
+            {
+                if (snippetContent.Contains("$Company$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$Company$", App.Settings.TemplateCompany, StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$year$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$year$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$name$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$name$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$email$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$email$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (snippetContent.Contains("$date$", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    snippetContent = snippetContent.Replace("$date$", DateTime.Now.ToShortDateString(), StringComparison.OrdinalIgnoreCase);
+                }
+
+                List<PlaceholderItem> pl = PlaceholderService.Extract(snippetContent);
+                if (pl != null && pl.Count > 0)
+                {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        snippetContent = PlaceholderService.Replace(snippetContent, (List<PlaceholderItem>)response.ResponseObject);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        Clipboard.SetText(snippetContent);
+
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet  wurde in die Zwischenablage kopiert"));
                         }
                     }
                 }

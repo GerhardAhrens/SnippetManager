@@ -8,11 +8,14 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Threading;
 
     using SnippetManager.Core;
     using SnippetManager.Core.Helper;
     using SnippetManager.Core.Placeholder;
     using SnippetManager.Data;
+
+    using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
     /// <summary>
     /// Interaktionslogik für SourceSnippetsUC.xaml
@@ -20,8 +23,9 @@
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
     public partial class SourceSnippetsUC : UserControlBase
     {
-        public SourceSnippetsUC() : base(typeof(SourceSnippetsUC))
+        public SourceSnippetsUC(ChangeViewEventArgs args) : base(typeof(SourceSnippetsUC))
         {
+            this.CurrentCtorArgs = args;
             this.InitializeComponent();
             WeakEventManager<UserControl, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
 
@@ -72,6 +76,7 @@
         }
 
         private MessageBase Message { get; } = new MessageBase();
+        private ChangeViewEventArgs CurrentCtorArgs { get; set; }
         #endregion Properties
 
         #region Windows Events
@@ -107,6 +112,27 @@
             {
                 SQLiteConnection connection = ds.OpenConnection();
                 this.SnippetSource = connection.RecordSet<ICollectionView>("SELECT * FROM TAB_Snippet ORDER BY Titel").Get().Result;
+            }
+
+            if (this.CurrentCtorArgs != null && this.CurrentCtorArgs.EntityId != Guid.Empty)
+            {
+                /* Aktuelle Row anhand der übergebenen Id markieren und Fokus setzen */
+                this.SelectedSnippet = this.SnippetSource.Cast<DataRow>().FirstOrDefault(r => r.Field<string>("Id") == this.CurrentCtorArgs.EntityId.ToString());
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    this.SnippetListBox.SelectedItem = this.SelectedSnippet;
+                    this.SnippetListBox.ScrollIntoView(this.SelectedSnippet);
+
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        if (this.SnippetListBox.ItemContainerGenerator.ContainerFromItem(this.SelectedSnippet) is ListViewItem lvi)
+                        {
+                            lvi.Focus();
+                            Keyboard.Focus(lvi);
+                        }
+                    }), DispatcherPriority.Background);
+
+                }), DispatcherPriority.Loaded);
             }
 
             if (this.SnippetSource != null)

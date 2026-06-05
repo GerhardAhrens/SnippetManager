@@ -157,7 +157,7 @@
             </Grid>
         </GroupBox>
 
-        <ListBox
+        <ListBox x:Name="SnippetListBox"
             Grid.Row="2"
             Grid.Column="0"
             Margin="5"

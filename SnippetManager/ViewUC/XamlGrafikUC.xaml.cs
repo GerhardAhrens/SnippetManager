@@ -251,22 +251,93 @@ namespace SnippetManager.View
 
         private async void OnExportSingleIcon(object commandParam)
         {
-            if (commandParam.ToString().Equals("DrwawingImage", StringComparison.OrdinalIgnoreCase) == true)
+            string xamlSource = string.Empty;
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.Title = "XAML-Icon speichern unter";
+            if (commandParam.ToString().Equals("DrawingImage", StringComparison.OrdinalIgnoreCase) == true)
             {
-                if (this.SelectedXamlItem.Quelle.Equals("Import", StringComparison.OrdinalIgnoreCase) == true)
-                {
-                    string xamlSource = this.SelectedXamlItem.XamlContent;
-                }
-                else if (this.SelectedXamlItem.Quelle.Equals("Resources\\Style\\XamlIcon.xaml", StringComparison.OrdinalIgnoreCase) == true)
-                {
-                    string xamlSource = GetXamlSourceFromKey(this.ResourcesDic, this.SelectedXamlItem.Key);
-                }
+                dlg.DefaultExt = ".xaml";
+                dlg.FileName = $"{this.SelectedXamlItem.Key}.xaml";
+                dlg.Filter = "XAML-Dateien (*.xaml)|*.xaml";
             }
             else if (commandParam.ToString().Equals("PNG", StringComparison.OrdinalIgnoreCase) == true)
             {
+                dlg.DefaultExt = ".png";
+                dlg.FileName = $"{this.SelectedXamlItem.Key}.png";
+                dlg.Filter = "PNG-Dateien (*.png)|*.png";
             }
             else if (commandParam.ToString().Equals("ICO", StringComparison.OrdinalIgnoreCase) == true)
             {
+                dlg.DefaultExt = ".ico";
+                dlg.FileName = $"{this.SelectedXamlItem.Key}.ico";
+                dlg.Filter = "ICO-Dateien (*.ico)|*.ico";
+            }
+
+            bool? dlgResule = dlg.ShowDialog();
+            if (dlgResule == false || string.IsNullOrEmpty(dlg.FileName) == true)
+            {
+                return;
+            }
+
+            if (commandParam.ToString().Equals("DrawingImage", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (dlgResule == true && string.IsNullOrEmpty(dlg.FileName) == false)
+                {
+                    string exportFile = dlg.FileName;
+                    if (this.SelectedXamlItem.Quelle.Equals("Import", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        xamlSource = this.SelectedXamlItem.XamlContent;
+                    }
+                    else if (this.SelectedXamlItem.Quelle.Equals("Resources\\Style\\XamlIcon.xaml", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        string tempXamlSource = GetXamlSourceFromKey(this.ResourcesDic, this.SelectedXamlItem.Key);
+                        if (tempXamlSource.Contains("<Viewbox") == true)
+                        {
+                            xamlSource = ViewBoxToDrawingImageConverter.Convert(tempXamlSource, this.SelectedXamlItem.Key);
+                        }
+                        else
+                        {
+                            xamlSource = tempXamlSource;
+                        }
+                    }
+
+                    File.WriteAllText(exportFile, xamlSource);
+                }
+
+            }
+            else if (commandParam.ToString().Equals("PNG", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (dlgResule == true && string.IsNullOrEmpty(dlg.FileName) == false)
+                {
+                    DrawingImage drawingImage;
+                    if (this.SelectedXamlItem.XamlContent != null)
+                    {
+                        drawingImage = LoadDrawingImage(this.SelectedXamlItem.XamlContent);
+                    }
+                    else
+                    {
+                        drawingImage = this.SelectedXamlItem.ImageContent as DrawingImage;
+                    }
+
+                    ToPngConverter.Convert(drawingImage,64,64, dlg.FileName);
+                }
+            }
+            else if (commandParam.ToString().Equals("ICO", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (dlgResule == true && string.IsNullOrEmpty(dlg.FileName) == false)
+                {
+                    DrawingImage drawingImage;
+                    if (this.SelectedXamlItem.XamlContent != null)
+                    {
+                        drawingImage = LoadDrawingImage(this.SelectedXamlItem.XamlContent);
+                    }
+                    else
+                    {
+                        drawingImage = this.SelectedXamlItem.ImageContent as DrawingImage;
+                    }
+
+                    ToIcoConverter.Convert(drawingImage, dlg.FileName,256);
+                }
             }
         }
 
