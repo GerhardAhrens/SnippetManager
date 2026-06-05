@@ -45,6 +45,7 @@ namespace SnippetManager.View
 
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
             this.ExportXamlIconCommand = new CommandBase(commandParam => this.OnExportXamlIcon(commandParam), this.OnCanExportXamlIcon);
+            this.ExportSingleIconCommand = new CommandBase(commandParam => this.OnExportSingleIcon(commandParam), () => true);
             this.ImportXamlIconCommand = new CommandBase(commandParam => this.OnImportXamlIcon(commandParam), this.OnCanImportXamlIcon);
             this.ImageDoubleClickCommand = new CommandBase(commandParam => this.OnImageDoubleClick(commandParam), () => true);
             this.ConvertCommand = new CommandBase(commandParam => this.OnConvert(commandParam), () => true);
@@ -55,6 +56,7 @@ namespace SnippetManager.View
         #region Properties
         public CommandBase GoBackCommand { get; private set; }
         public CommandBase ExportXamlIconCommand { get; private set; }
+        public CommandBase ExportSingleIconCommand { get; private set; }
         public CommandBase ImportXamlIconCommand { get; private set; }
         public CommandBase ImageDoubleClickCommand { get; private set; }
         public CommandBase ConvertCommand { get; private set; }
@@ -244,6 +246,27 @@ namespace SnippetManager.View
                         await App.EventAgg.PublishAsync(args);
                     }
                 }
+            }
+        }
+
+        private async void OnExportSingleIcon(object commandParam)
+        {
+            if (commandParam.ToString().Equals("DrwawingImage", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (this.SelectedXamlItem.Quelle.Equals("Import", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    string xamlSource = this.SelectedXamlItem.XamlContent;
+                }
+                else if (this.SelectedXamlItem.Quelle.Equals("Resources\\Style\\XamlIcon.xaml", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    string xamlSource = GetXamlSourceFromKey(this.ResourcesDic, this.SelectedXamlItem.Key);
+                }
+            }
+            else if (commandParam.ToString().Equals("PNG", StringComparison.OrdinalIgnoreCase) == true)
+            {
+            }
+            else if (commandParam.ToString().Equals("ICO", StringComparison.OrdinalIgnoreCase) == true)
+            {
             }
         }
 

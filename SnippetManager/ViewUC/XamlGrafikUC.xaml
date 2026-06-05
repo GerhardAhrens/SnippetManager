@@ -147,6 +147,23 @@
                 VirtualizingPanel.IsVirtualizing="True"
                 VirtualizingPanel.VirtualizationMode="Recycling">
 
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Command="{Binding Path=ExportSingleIconCommand}"
+                            CommandParameter="DrawingImage"
+                            Header="Icon als DrawingImage exportieren" />
+                        <MenuItem
+                            Command="{Binding Path=ExportSingleIconCommand}"
+                            CommandParameter="PNG"
+                            Header="Icon als PNG exportieren" />
+                        <MenuItem
+                            Command="{Binding Path=ExportSingleIconCommand}"
+                            CommandParameter="ICO"
+                            Header="Icon als ICO exportieren" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Margin" Value="1" />
