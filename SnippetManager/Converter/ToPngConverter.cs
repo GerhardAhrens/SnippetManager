@@ -19,7 +19,7 @@ namespace SnippetManager.Converter
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
 
-    internal class ToPngConverter
+    internal sealed class ToPngConverter
     {
         private const double DPI  = 96.0;
 

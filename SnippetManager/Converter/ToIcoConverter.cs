@@ -21,7 +21,7 @@ namespace SnippetManager.Converter
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
 
-    internal class ToIcoConverter
+    internal sealed class ToIcoConverter
     {
         private const double DPI = 96.0;
         private static int[] sizes = {16, 24, 32, 48, 64, 128, 256};
