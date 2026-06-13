@@ -479,31 +479,6 @@
         }
         #endregion Bereich für Kontextmenü
 
-        private void Editor_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Überprüfen, ob die TAB-Taste gedrückt wurde
-            if (e.Key == Key.Tab)
-            {
-                // Standardverhalten (Fokuswechsel oder Standard-Tab) blockieren
-                e.Handled = true;
-
-                // Anzahl der gewünschten Leerzeichen definieren
-                int leerzeichenAnzahl = TABSIZE;
-                string leerzeichen = new string(' ', leerzeichenAnzahl);
-
-                // Aktuelle Cursor- oder Auswahlposition ermitteln
-                int startPos = this.Editor.SelectionStart;
-
-                // Den aktuellen Text auslesen
-                string aktuellerText = this.Editor.Text;
-
-                // Text vor und nach der Auswahl/Cursorposition trennen und Leerzeichen dazwischenfügen
-                this.Editor.Text = string.Concat(aktuellerText.AsSpan(0, startPos), leerzeichen, aktuellerText.AsSpan(startPos + this.Editor.SelectionLength));
-
-                // Den Cursor exakt hinter die neu eingefügten Leerzeichen setzen
-                this.Editor.CaretIndex = startPos + leerzeichenAnzahl;
-            }
-        }
     }
 
     public class EditorRelayCommand : ICommand
