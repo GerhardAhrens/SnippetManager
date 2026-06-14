@@ -50,6 +50,7 @@ namespace SnippetManager.View
             this.ImageDoubleClickCommand = new CommandBase(commandParam => this.OnImageDoubleClick(commandParam), () => true);
             this.ConvertCommand = new CommandBase(commandParam => this.OnConvert(commandParam), () => true);
             this.DeleteSymbolCommand = new CommandBase(commandParam => this.OnDeleteSymbol(commandParam), () => true);
+            this.DeleteFilterCommand = new CommandBase(commandParam => this.OnDeleteFilter(commandParam), () => true);
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
 
         }
@@ -62,6 +63,7 @@ namespace SnippetManager.View
         public CommandBase ImageDoubleClickCommand { get; private set; }
         public CommandBase ConvertCommand { get; private set; }
         public CommandBase DeleteSymbolCommand { get; private set; }
+        public CommandBase DeleteFilterCommand { get; private set; }
         public CommandBase HelpCommand { get; private set; }
 
         public ObservableCollection<XamlTileItem> XamlItemAlleSource
@@ -104,9 +106,11 @@ namespace SnippetManager.View
                 await App.EventAgg.PublishAsync(new WindowsTitelEvent("XamlGrafik Übersicht"));
             }
 
+            this.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Wait);
             this.XamlItemAlleSource = new ObservableCollection<XamlTileItem>();
             this.XamlItemAlleSource.CollectionChanged += (s, ev) =>
             {
+
                 if (ev.NewItems != null)
                 {
                     foreach (XamlTileItem newItem in ev.NewItems)
@@ -138,6 +142,7 @@ namespace SnippetManager.View
                         };
                     }
                 }
+
             };
 
             const string DICTIONARYNAME = "Resources\\Style\\XamlIcon.xaml";
@@ -190,6 +195,8 @@ namespace SnippetManager.View
 
             this.XamlItemSource = new FilteredObservableCollection<XamlTileItem>(this.XamlItemAlleSource, this.DataDefaultFilter);
             this.XamlItemSource.Filter = this.DataDefaultFilter;
+
+            this.Dispatcher.Invoke(() => Mouse.OverrideCursor = null);
         }
 
         private bool DataDefaultFilter(XamlTileItem item)
@@ -540,6 +547,11 @@ namespace SnippetManager.View
             }
         }
 
+        private void OnDeleteFilter(object commandParam)
+        {
+            this.FilterText = string.Empty;
+        }
+
         #endregion Command Events
 
         private void LoadFileToImport(string path)
@@ -552,8 +564,8 @@ namespace SnippetManager.View
                     string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml, Path.GetFileNameWithoutExtension(path));
 
                     XamlTileItem importXaml = new XamlTileItem();
-                    importXaml.Key = $"VS2026_{Path.GetFileNameWithoutExtension(path)}";
-                    importXaml.Title = $"VS2026_{Path.GetFileNameWithoutExtension(path)}";
+                    importXaml.Key = Path.GetFileNameWithoutExtension(path);
+                    importXaml.Title = Path.GetFileNameWithoutExtension(path);
                     importXaml.XamlContent = xamlConvert;
                     importXaml.XamlTyp = "DrawingImage";
                     importXaml.Tooltip = $"{importXaml.Key}\n({importXaml.XamlTyp}";
