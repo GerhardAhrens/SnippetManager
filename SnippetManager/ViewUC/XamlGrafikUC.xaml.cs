@@ -211,9 +211,14 @@ namespace SnippetManager.View
             return isInKey || item.Title.Contains(this.FilterText, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        private void RefreshData(string arg1, string arg2)
+        private async void RefreshData(string arg1, string arg2)
         {
             this.XamlItemSource.Refilter();
+            int filterdCount = this.XamlItemSource.Count;
+            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+            {
+                await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + filterdCount));
+            }
         }
 
         private static List<string> GetResourceKeys(ResourceDictionary dictionary)
@@ -547,9 +552,13 @@ namespace SnippetManager.View
             }
         }
 
-        private void OnDeleteFilter(object commandParam)
+        private async void OnDeleteFilter(object commandParam)
         {
             this.FilterText = string.Empty;
+            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+            {
+                await App.EventAgg.PublishAsync(new StatusEvent("Bereit: Anzahl der XAML-Icons: " + this.XamlItemAlleSource.Count));
+            }
         }
 
         #endregion Command Events

@@ -2,6 +2,7 @@
     x:Class="SnippetManager.View.XamlGrafikUC"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UI="clr-namespace:SnippetManager.Controls"
     xmlns:base="clr-namespace:System.Windows"
     xmlns:core="clr-namespace:SnippetManager.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -167,9 +168,11 @@
 
         <Grid Grid.Row="2" Grid.Column="0">
             <ListView
+                x:Name="lv"
                 Background="White"
                 BorderThickness="0"
                 ItemsSource="{Binding Path=XamlItemSource, UpdateSourceTrigger=PropertyChanged}"
+                ScrollViewer.CanContentScroll="True"
                 SelectedItem="{Binding Path=SelectedXamlItem, UpdateSourceTrigger=PropertyChanged}"
                 VirtualizingPanel.IsVirtualizing="True"
                 VirtualizingPanel.VirtualizationMode="Recycling">
@@ -201,7 +204,7 @@
                 <!--  Elemente in Spaltenn anordnen  -->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="5" />
+                        <UniformGrid VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" Columns="7" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -245,6 +248,7 @@
                                     VerticalAlignment="Center"
                                     FontWeight="Bold"
                                     Text="{Binding Path=Title}"
+                                    TextWrapping="WrapWithOverflow"
                                     ToolTip="{Binding Path=Tooltip}" />
                             </Grid>
                         </Border>
