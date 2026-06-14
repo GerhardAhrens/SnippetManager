@@ -3,7 +3,7 @@
 ![NET](https://img.shields.io/badge/NET-10-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![VS2026](https://img.shields.io/badge/Visual%20Studio-2026-white.svg)
-![Version](https://img.shields.io/badge/Version-1.0.2026.1-yellow.svg)
+![Version](https://img.shields.io/badge/Version-1.0.2026.3-yellow.svg)
 
 # Projekt
 
@@ -81,8 +81,15 @@ Ergebnis nach dem Einfügen aus der Zwischenablage.
 - Import von Xaml Icons Dateien vom Typ ``DrawingImage`` und ``Viewbox``.
 - Ein Icon aus der Datenbank kann per Doppelklick als XAML Code vom Typ ``DrawingImage`` in die Zwischenablage kopiert werden.
 - Ein Auswahl von Icons kann als XAML Code vom Typ ``DrawingImage`` können in ein Resource Dictionary gesammelt und in die Zwischenablage kopiert werden.
+- Export von DrawingImage nach PNG
+- Export von DrawingImage nich Windows ICO
 
 # Versionshistorie
+![Version](https://img.shields.io/badge/Version-1.0.2026.3-yellow.svg)
+- Löschen von Icon/Symbolen aus der Datenbank
+- Export von DrawingImage nach PNG
+- Export von DrawingImage nich Windows ICO
+
 ![Version](https://img.shields.io/badge/Version-1.0.2026.2-yellow.svg)
 - Erstes Release
 - README.md aktualisiert und Screenshots hinzugefügt.

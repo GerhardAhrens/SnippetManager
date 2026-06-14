@@ -49,6 +49,7 @@ namespace SnippetManager.View
             this.ImportXamlIconCommand = new CommandBase(commandParam => this.OnImportXamlIcon(commandParam), this.OnCanImportXamlIcon);
             this.ImageDoubleClickCommand = new CommandBase(commandParam => this.OnImageDoubleClick(commandParam), () => true);
             this.ConvertCommand = new CommandBase(commandParam => this.OnConvert(commandParam), () => true);
+            this.DeleteSymbolCommand = new CommandBase(commandParam => this.OnDeleteSymbol(commandParam), () => true);
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
 
         }
@@ -60,6 +61,7 @@ namespace SnippetManager.View
         public CommandBase ImportXamlIconCommand { get; private set; }
         public CommandBase ImageDoubleClickCommand { get; private set; }
         public CommandBase ConvertCommand { get; private set; }
+        public CommandBase DeleteSymbolCommand { get; private set; }
         public CommandBase HelpCommand { get; private set; }
 
         public ObservableCollection<XamlTileItem> XamlItemAlleSource
@@ -89,6 +91,7 @@ namespace SnippetManager.View
         private int CountSelectedItem { get; set; }
 
         private ResourceDictionary ResourcesDic { get; set; }
+        private MessageBase Message { get; } = new MessageBase();
         #endregion Properties
 
         #region Windows Events
@@ -396,23 +399,43 @@ namespace SnippetManager.View
 
             if (dlg.ShowDialog() == true)
             {
-                this.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Wait);
-
-                foreach (string fileName in dlg.FileNames)
+                try
                 {
-                    this.LoadFileToImport(fileName);
-                }
+                    this.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Wait);
 
-                if (dlg.FileNames.Length > 1)
-                {
-                    if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                    int countImports = 0;
+                    foreach (string fileName in dlg.FileNames)
                     {
-                        await App.EventAgg.PublishAsync(new StatusEvent($"Es wurde {dlg.FileNames.Length} XAML-Icons importiert"));
+                        this.LoadFileToImport(fileName);
+                        countImports++;
+
+                        App.DoEvents();
+
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Importiere {countImports}/{dlg.FileNames.Length} {fileName}"));
+                        }
                     }
+
+                    if (countImports > 1)
+                    {
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Es wurde {countImports} XAML-Icons importiert"));
+                        }
+                    }
+
+                    App.DoEvents();
+
+                    this.OnLoaded(null, null);
+
+                    this.Dispatcher.Invoke(() => Mouse.OverrideCursor = null);
                 }
-
-
-                this.Dispatcher.Invoke(() => Mouse.OverrideCursor = null);
+                catch (Exception ex)
+                {
+                    string errorText = ex.Message;
+                    App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
+                }
             }
         }
 
@@ -454,6 +477,69 @@ namespace SnippetManager.View
                 this.LoadFileToConvert(dlg.FileName);
             }
         }
+
+        private void OnDeleteSymbol(object commandParam)
+        {
+            try
+            {
+                int countDelete = this.XamlItemSource.Count(c => c.IsSelectedItem == true);
+                int quelleIntern = this.XamlItemSource.Count(c => c.Quelle != "Resources\\Style\\XamlIcon.xaml" && c.IsSelectedItem == true);
+
+                if (countDelete == 1)
+                {
+                    MessageBoxResult result = this.Message.Question("Löschen Symbol/icon", "Soll das gewählte Symbol/Icon gelöscht werden?");
+                    if (result == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+
+                    if (this.SelectedXamlItem != null)
+                    {
+                        if (this.SelectedXamlItem.Quelle != "Resources\\Style\\XamlIcon.xaml")
+                        {
+                            using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+                            {
+                                ds.Delete(this.DeleteXaml, this.SelectedXamlItem);
+                            }
+
+                            this.OnLoaded(null, null);
+                        }
+                        else
+                        {
+                            this.Message.Hinweis("Löschen Eintrag", "Symbole/Icon die in der lokalen Resource abgelegt wurden, können nicht gelöscht werden.");
+                        }
+                    }
+                }
+                else if (countDelete == quelleIntern)
+                {
+                    MessageBoxResult result = this.Message.Question("Löschen Symbol/icon", "Soll die gewählte Symbol/Icon gelöscht werden?");
+                    if (result == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+
+                    foreach (XamlTileItem item in this.XamlItemSource.Where(w => w.IsSelectedItem == true))
+                    {
+                        using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+                        {
+                            ds.Delete(this.DeleteXaml, item);
+                        }
+                    }
+
+                    this.OnLoaded(null, null);
+                }
+                else if (countDelete != quelleIntern)
+                {
+                    this.Message.Hinweis("Löschen Eintrag", "Symbole/Icon die in der lokalen Resource abgelegt wurden, können nicht gelöscht werden.");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Importieren des XAML-Icons.");
+            }
+        }
+
         #endregion Command Events
 
         private void LoadFileToImport(string path)
@@ -466,8 +552,8 @@ namespace SnippetManager.View
                     string xamlConvert = ViewBoxToDrawingImageConverter.Convert(sourceXaml, Path.GetFileNameWithoutExtension(path));
 
                     XamlTileItem importXaml = new XamlTileItem();
-                    importXaml.Key = Path.GetFileNameWithoutExtension(path);
-                    importXaml.Title = Path.GetFileNameWithoutExtension(path);
+                    importXaml.Key = $"VS2026_{Path.GetFileNameWithoutExtension(path)}";
+                    importXaml.Title = $"VS2026_{Path.GetFileNameWithoutExtension(path)}";
                     importXaml.XamlContent = xamlConvert;
                     importXaml.XamlTyp = "DrawingImage";
                     importXaml.Tooltip = $"{importXaml.Key}\n({importXaml.XamlTyp}";
@@ -475,14 +561,8 @@ namespace SnippetManager.View
 
                     using (DatabaseService ds = new DatabaseService(App.DatabasePath))
                     {
-                        ds.Insert(this.ImportXaml, importXaml);
+                        ds.Insert(this.InsertImportXaml, importXaml);
                     }
-
-                    ObservableCollection<XamlTileItem> tempCollection = new ObservableCollection<XamlTileItem>(this.XamlItemAlleSource);
-                    importXaml.ImageContent = LoadDrawingImage(importXaml.XamlContent);
-                    tempCollection.Add(importXaml);
-
-                    this.XamlItemSource = new FilteredObservableCollection<XamlTileItem>(tempCollection, this.DataDefaultFilter);
                 }
             }
             catch (Exception ex)
@@ -492,7 +572,7 @@ namespace SnippetManager.View
             }
         }
 
-        private async void ImportXaml(SQLiteConnection sqliteConnection, object importXaml)
+        private async void InsertImportXaml(SQLiteConnection sqliteConnection, object importXaml)
         {
             XamlTileItem import = importXaml as XamlTileItem;
 
@@ -507,11 +587,29 @@ namespace SnippetManager.View
                 parameterCollection.Add("@CreatedOn", DateTime.Now);
                 parameterCollection.Add("@CreatedBy", Environment.UserName);
                 int insertedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, "Fehler beim Insert des XAML-Icons in die Tabelle.");
+            }
+        }
+
+        private async void DeleteXaml(SQLiteConnection sqliteConnection, object XamlItem)
+        {
+            XamlTileItem item = XamlItem as XamlTileItem;
+
+            try
+            {
+                string sqlText = "DELETE FROM TAB_Xaml WHERE Titel = @Titel";
+                Dictionary<string, object> parameterCollection = new();
+                parameterCollection.Add("@Titel", item.Title);
+                int insertedRows = sqliteConnection.RecordSet<int>(sqlText, parameterCollection).Execute().Result;
                 if (insertedRows > 0)
                 {
                     if (App.EventAgg.IsSubscription<StatusEvent>() == true)
                     {
-                        await App.EventAgg.PublishAsync(new StatusEvent($"XAML-Icon '{import.Title}' erfolgreich importiert"));
+                        await App.EventAgg.PublishAsync(new StatusEvent($"XAML-Icon '{item.Title}' erfolgreich gelöscht"));
                     }
                 }
             }
