@@ -122,6 +122,7 @@
                 {
                     ChangeViewEventArgs args = new();
                     args.MenuButton = button;
+                    args.FromPage = CommandButtons.Home;
 
                     if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
                     {

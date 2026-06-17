@@ -31,6 +31,8 @@ namespace SnippetManager
         public MainWindow()
         {
             this.InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             WeakEventManager<WindowBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
             WeakEventManager<WindowBase, CancelEventArgs>.AddHandler(this, "Closing", this.OnWindowClosing);
 
@@ -158,6 +160,11 @@ namespace SnippetManager
                 }
                 else if (button.In(CommandButtons.Home, CommandButtons.Help))
                 {
+                    if (App.EventAgg.IsSubscription<WindowsTitelEvent>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(new WindowsTitelEvent(string.Empty));
+                    }
+
                     this.WorkContent = null;
                     this.WorkContent = (System.Windows.Controls.UserControl)Factory.Get<UserControlBase, CommandButtons>((CommandButtons)commandParam.MenuButton, commandParam);
                 }
