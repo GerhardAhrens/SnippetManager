@@ -46,10 +46,131 @@
                     ToolTip="Zurück zum Hauptmenü">
                     <Image Source="{StaticResource ResourceKey=IconBackToMainMenu}" Stretch="Uniform" />
                 </Button>
-
             </DockPanel>
         </GroupBox>
-
         <!--#endregion Hauptmenübar-->
+
+        <WrapPanel Grid.Row="1" Grid.Column="0">
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen eines WPF UserControl">
+                <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen eines WPF Window">
+                <Image Source="{StaticResource ResourceKey=WindowIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen eines Dialog">
+                <Image Source="{StaticResource ResourceKey=DialogIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Enum-Klasse">
+                <Image Source="{StaticResource ResourceKey=EnumIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Standard C# Klasse">
+                <Image Source="{StaticResource ResourceKey=ClassIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Static Extension Klasse">
+                <Image Source="{StaticResource ResourceKey=ExtensionClassIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Static Extension Klasse">
+                <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Interface Klasse">
+                <Image Source="{StaticResource ResourceKey=InterfaceIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Record Klasse">
+                <Image Source="{StaticResource ResourceKey=RecordIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer struct Klasse">
+                <Image Source="{StaticResource ResourceKey=StructIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Custom Data Type Klasse">
+                <Image Source="{StaticResource ResourceKey=CustomDataTypeIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Dependency Property">
+                <Image Source="{StaticResource ResourceKey=DependencyPropertyIcon}" Stretch="Uniform" />
+            </Button>
+        </WrapPanel>
+
     </Grid>
 </base:UserControlBase>

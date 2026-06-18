@@ -12,6 +12,1219 @@
 
     <PathGeometry x:Key="CtxSearch" Figures="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
 
+    <!--#region Icons für Source Generator-->
+    <DrawingImage x:Key="UserControlIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Hintergrund  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,28,28" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Rahmen des Controls  -->
+                <GeometryDrawing Brush="#FFFFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopfzeile  -->
+                <GeometryDrawing Brush="#FF4A90E2">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="4,4,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Inhalt  -->
+                <GeometryDrawing Brush="#FFDCEBFA">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="1"
+                            RadiusY="1"
+                            Rect="7,12,10,10" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="19,12,6,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="19,16,6,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kleines Zahnrad unten rechts  -->
+                <GeometryDrawing Brush="#FF666666">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <EllipseGeometry
+                                Center="22,23"
+                                RadiusX="3"
+                                RadiusY="3" />
+                            <EllipseGeometry
+                                Center="22,23"
+                                RadiusX="1.2"
+                                RadiusY="1.2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="WindowIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Fensterschatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Fensterrahmen  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Titelleiste  -->
+                <GeometryDrawing Brush="#FF007ACC">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Fensterbuttons  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="20,4.5"
+                            RadiusX="0.8"
+                            RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="22,4.5"
+                            RadiusX="0.8"
+                            RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="24,4.5"
+                            RadiusX="0.8"
+                            RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Inhaltsbereich  -->
+                <GeometryDrawing Brush="#FFF3F3F3">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="1"
+                            RadiusY="1"
+                            Rect="5,10,8,8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFBDBDBD">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="15,10,7,1.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFBDBDBD">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="15,14,7,1.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFBDBDBD">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="15,18,5,1.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="DialogIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Dialogfenster  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Titelleiste  -->
+                <GeometryDrawing Brush="#FF007ACC">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Meldungsbereich  -->
+                <GeometryDrawing Brush="#FFFDF3D0">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FFE0C35A" Thickness="0.5" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="1"
+                            RadiusY="1"
+                            Rect="6,10,16,7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Ausrufezeichen  -->
+                <GeometryDrawing Brush="#FFB8860B">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="9,11.5,1.5,3" />
+                            <EllipseGeometry
+                                Center="9.75,15.5"
+                                RadiusX="0.75"
+                                RadiusY="0.75" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Textzeilen  -->
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="12,12,7,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="12,14,5,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  OK-Button  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="7,20,6,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Abbrechen-Button  -->
+                <GeometryDrawing Brush="#FFE0E0E0">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FFB0B0B0" Thickness="0.5" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="15,20,6,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="EnumIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Typcontainer  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopfbereich  -->
+                <GeometryDrawing Brush="#FF7B3FB5">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  E (Enum)  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,3.5,1,2" />
+                            <RectangleGeometry Rect="6,3.5,4,0.8" />
+                            <RectangleGeometry Rect="6,4.6,3,0.8" />
+                            <RectangleGeometry Rect="6,5.7,4,0.8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Enum-Werte  -->
+                <GeometryDrawing Brush="#FF7B3FB5">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,11"
+                            RadiusX="1.2"
+                            RadiusY="1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF7B3FB5">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,16"
+                            RadiusX="1.2"
+                            RadiusY="1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF7B3FB5">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,21"
+                            RadiusX="1.2"
+                            RadiusY="1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Wertnamen  -->
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,10.2,10,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,15.2,8,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,20.2,9,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ClassIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Klassencontainer  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopfbereich  -->
+                <GeometryDrawing Brush="#FF1F5AA6">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  C (Class)  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,3.5,4,0.8" />
+                            <RectangleGeometry Rect="6,3.5,0.8,3" />
+                            <RectangleGeometry Rect="6,5.7,4,0.8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Eigenschaften  -->
+                <GeometryDrawing Brush="#FF1F5AA6">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,10,2,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,10.3,10,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF1F5AA6">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,14.5,2,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,14.8,8,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Methoden  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,20"
+                            RadiusX="1.2"
+                            RadiusY="1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,19.3,9,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ExtensionClassIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Klassencontainer  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopfbereich  -->
+                <GeometryDrawing Brush="#FF1F5AA6">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  C  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,3.5,4,0.8" />
+                            <RectangleGeometry Rect="6,3.5,0.8,3" />
+                            <RectangleGeometry Rect="6,5.7,4,0.8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Static-Markierung  -->
+                <GeometryDrawing Brush="#FFFFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="20,3.6,4,0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFFFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="20,5.0,4,0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Methoden  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,12"
+                            RadiusX="1.2"
+                            RadiusY="1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,11.3,10,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,17"
+                            RadiusX="1.2"
+                            RadiusY="1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,16.3,8,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Erweiterungssymbol  -->
+                <GeometryDrawing Brush="#FFFFA000">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="22,0"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Pluszeichen  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="21.2,20,1.6,4" />
+                            <RectangleGeometry Rect="20,21.2,4,1.6" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="InterfaceIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Interface-Container  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kopfbereich  -->
+                <GeometryDrawing Brush="#FF1BA1B8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  I  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="7.5,3.5,1,3" />
+                            <RectangleGeometry Rect="6.5,3.5,3,0.8" />
+                            <RectangleGeometry Rect="6.5,5.7,3,0.8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Abstrakte Methode 1  -->
+                <GeometryDrawing Brush="#FF1BA1B8">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,11"
+                            RadiusX="1.1"
+                            RadiusY="1.1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,10.4,10,1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Abstrakte Methode 2  -->
+                <GeometryDrawing Brush="#FF1BA1B8">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,16"
+                            RadiusX="1.1"
+                            RadiusY="1.1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,15.4,8,1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Abstrakte Methode 3  -->
+                <GeometryDrawing Brush="#FF1BA1B8">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="7,21"
+                            RadiusX="1.1"
+                            RadiusY="1.1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,20.4,9,1.2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="RecordIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Record-Container  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Header  -->
+                <GeometryDrawing Brush="#FF6A5ACD">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  R  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,3.5,1,3" />
+                            <RectangleGeometry Rect="6,3.5,3,0.8" />
+                            <RectangleGeometry Rect="6,4.6,3,0.8" />
+                            <RectangleGeometry Rect="8.2,4.3,0.8,1.5" />
+                            <RectangleGeometry Rect="7.5,5.0,2,0.8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property 1  -->
+                <GeometryDrawing Brush="#FF6A5ACD">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,10,2,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,10.3,10,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property 2  -->
+                <GeometryDrawing Brush="#FF6A5ACD">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,15,2,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,15.3,8,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property 3  -->
+                <GeometryDrawing Brush="#FF6A5ACD">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,20,2,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,20.3,9,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="StructIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Struct-Container  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Header  -->
+                <GeometryDrawing Brush="#FFE67E22">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  S  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,3.5,4,0.8" />
+                            <RectangleGeometry Rect="6,4.6,3,0.8" />
+                            <RectangleGeometry Rect="6,5.7,4,0.8" />
+                            <RectangleGeometry Rect="6,3.5,0.8,1.5" />
+                            <RectangleGeometry Rect="9.2,5.0,0.8,1.5" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Value-Type-Darstellung  -->
+                <GeometryDrawing Brush="#FFE67E22">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,10,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFE67E22">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="12,10,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFE67E22">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="18,10,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFE67E22">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,16,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFE67E22">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="12,16,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FFE67E22">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="18,16,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kleine Datenzeile  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,23,16,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="CustomDataTypeIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Container  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Header  -->
+                <GeometryDrawing Brush="#FF2E8B57">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  T  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,3.5,4,0.8" />
+                            <RectangleGeometry Rect="7.5,3.5,0.8,3" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  UML-Datentyp-Diamant  -->
+                <GeometryDrawing Brush="#FF2E8B57">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry Figures="M14,9 L17,12 L14,15 L11,12 Z" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property 1  -->
+                <GeometryDrawing Brush="#FF2E8B57">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,18,2,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,18.3,10,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property 2  -->
+                <GeometryDrawing Brush="#FF2E8B57">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="6,22,2,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,22.3,8,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="DependencyPropertyIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="4,4,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property Container  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  WPF Header  -->
+                <GeometryDrawing Brush="#FF007ACC">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  DP  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <!--  D  -->
+                            <RectangleGeometry Rect="5.5,3.5,1,3" />
+                            <RectangleGeometry Rect="5.5,3.5,2.5,0.8" />
+                            <RectangleGeometry Rect="5.5,5.7,2.5,0.8" />
+                            <RectangleGeometry Rect="7.2,4.0,0.8,2" />
+
+                            <!--  P  -->
+                            <RectangleGeometry Rect="10,3.5,1,3" />
+                            <RectangleGeometry Rect="10,3.5,2.5,0.8" />
+                            <RectangleGeometry Rect="10,4.6,2.5,0.8" />
+                            <RectangleGeometry Rect="11.8,3.5,0.8,1.9" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property  -->
+                <GeometryDrawing Brush="#FF007ACC">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="1"
+                            RadiusY="1"
+                            Rect="6,11,8,8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Binding / Dependency Symbol  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="18,10,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="18,16,4,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Verbindung  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="19.5,13.5,1,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Property-Linien  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,22,16,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ExtensionBlockIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Schatten  -->
+                <GeometryDrawing Brush="#22000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="3,3,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Hauptcontainer  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,2,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Header  -->
+                <GeometryDrawing Brush="#FF1F5AA6">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,24,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  C  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,3.5,4,0.8" />
+                            <RectangleGeometry Rect="6,3.5,0.8,3" />
+                            <RectangleGeometry Rect="6,5.7,4,0.8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  static Kennzeichnung  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="20,3.7,4,0.7" />
+                            <RectangleGeometry Rect="20,5.0,4,0.7" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Block  -->
+                <GeometryDrawing Brush="#FFF4F7FB">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FFB8C7DC" Thickness="0.8" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="1"
+                            RadiusY="1"
+                            Rect="5,10,13,12" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Methoden  -->
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="8,13"
+                            RadiusX="1"
+                            RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,12.5,6,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="8,17"
+                            RadiusX="1"
+                            RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,16.5,5,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF4CAF50">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="8,21"
+                            RadiusX="1"
+                            RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#FF909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="10,20.5,6,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Extension-Symbol  -->
+                <GeometryDrawing Brush="#FFFFA000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.8"
+                            RadiusY="0.8"
+                            Rect="20,12,5,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Pluszeichen  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="22,13,1,3" />
+                            <RectangleGeometry Rect="21,14,3,1" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Verbindung  -->
+                <GeometryDrawing Brush="#FFFFA000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="18,14,2,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <!--#endregion Icons für Source Generator-->
+
     <!--#region Farbige Icon Symbole auf Basis von DrawingImage-->
     <DrawingImage x:Key="IconDatabase_Code">
         <DrawingImage.Drawing>
