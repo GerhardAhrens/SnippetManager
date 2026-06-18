@@ -22,6 +22,7 @@
             this.HelpCommand = new CommandBase(commandParam => this.OnHelp(commandParam), () => true);
             this.SourceSnippetsCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
             this.IconGrafikCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
+            this.ShowSourceGenCommand = new CommandBase(commandParam => this.ChangeView(commandParam), () => true);
 
             this.InformationCommand = new CommandBase(this.OnInformationPopup);
             this.SettingsCommand = new CommandBase(this.OnSettingsPopup);
@@ -39,6 +40,7 @@
         public CommandBase HelpCommand { get; private set; }
         public CommandBase SourceSnippetsCommand { get; private set; }
         public CommandBase IconGrafikCommand { get; private set; }
+        public CommandBase ShowSourceGenCommand { get; private set; }
 
         public CommandBase InformationCommand { get; private set; }
         public CommandBase SettingsCommand { get; private set; }
@@ -171,6 +173,17 @@
                 {
                     ChangeViewEventArgs args = new();
                     args.MenuButton = DialogView.XamlGrafik;
+                    args.FromPage = CommandButtons.Home;
+
+                    if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)
+                    {
+                        await App.EventAgg.PublishAsync(args);
+                    }
+                }
+                else if (view == DialogView.ShowSourceGen)
+                {
+                    ChangeViewEventArgs args = new();
+                    args.MenuButton = DialogView.ShowSourceGen;
                     args.FromPage = CommandButtons.Home;
 
                     if (App.EventAgg.IsSubscription<ChangeViewEventArgs>() == true)

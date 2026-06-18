@@ -12,5 +12,7 @@
         SourceSnippetsDetail = 2,
         [Description("XAML-Grafik")]
         XamlGrafik = 3,
+        [Description("Sorce Generator C#/XAML")]
+        ShowSourceGen = 4
     }
 }

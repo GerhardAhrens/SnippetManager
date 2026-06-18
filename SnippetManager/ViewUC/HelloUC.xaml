@@ -149,6 +149,18 @@
                     <Image Source="{StaticResource ResourceKey=IconImage}" />
                 </Button>
 
+                <Button
+                    Width="50"
+                    Height="50"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=ShowSourceGenCommand}"
+                    CommandParameter="{x:Static core:DialogView.ShowSourceGen}"
+                    ToolTip="Source Code Generator">
+                    <Image Source="{StaticResource ResourceKey=IconDatabase_Code}" Stretch="Uniform" />
+                </Button>
+
                 <!--  Button für Settings und Information  -->
                 <Button
                     Width="50"

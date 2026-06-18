@@ -19,6 +19,8 @@ namespace SnippetManager
     using System.Windows;
     using System.Windows.Input;
 
+    using MinimalWPF.Beispiel;
+
     using SnippetManager.Core;
     using SnippetManager.View;
 
@@ -146,7 +148,7 @@ namespace SnippetManager
 
             if (commandParam != null && commandParam.MenuButton is DialogView view)
             {
-                if (view.In(DialogView.SourceSnippets, DialogView.XamlGrafik, DialogView.SourceSnippetsDetail))
+                if (view.In(DialogView.SourceSnippets, DialogView.XamlGrafik, DialogView.SourceSnippetsDetail, DialogView.ShowSourceGen))
                 {
                     this.WorkContent = null;
                     this.WorkContent = (System.Windows.Controls.UserControl)Factory.Get<UserControlBase, DialogView>((DialogView)commandParam.MenuButton, commandParam);
@@ -191,6 +193,7 @@ namespace SnippetManager
             Factory.RegisterTransient<DialogView>(DialogView.SourceSnippets, (param) => new SourceSnippetsUC((ChangeViewEventArgs)param!));
             Factory.RegisterTransient<DialogView>(DialogView.SourceSnippetsDetail, (param) => new SourceSnippetsDetailUC((ChangeViewEventArgs)param!));
             Factory.RegisterSingleton<DialogView>(DialogView.XamlGrafik, () => new XamlGrafikUC());
+            Factory.RegisterTransient<DialogView>(DialogView.ShowSourceGen, (param) => new SourceGenUC((ChangeViewEventArgs)param!));
         }
 
     }
