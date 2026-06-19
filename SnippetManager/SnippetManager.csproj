@@ -51,6 +51,7 @@
     <None Remove="Resources\Sound\SoundSuccess.wav" />
     <None Remove="Resources\Sound\SuccessTone.wav" />
     <None Remove="Resources\Sound\UpliftingFluteNotification.wav" />
+    <None Remove="Resources\Source\NeuEnum.cs.source" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,6 +87,7 @@
     <EmbeddedResource Include="Resources\Sound\SoundSuccess.wav" />
     <EmbeddedResource Include="Resources\Sound\SuccessTone.wav" />
     <EmbeddedResource Include="Resources\Sound\UpliftingFluteNotification.wav" />
+    <Resource Include="Resources\Source\NeuEnum.cs.source" />
   </ItemGroup>
 
   <ItemGroup>

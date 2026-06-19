@@ -30,6 +30,28 @@
             Clipboard.SetDataObject(data, true);
         }
 
+        public static void CutFilesToClipboard(StringCollection files)
+        {
+            // Prüfen, ob überhaupt Dateien in der Zwischenablage liegen
+            if (Clipboard.ContainsData(DataFormats.FileDrop) == true)
+            {
+                Clipboard.Clear();
+            }
+
+            // 2. Den Effekt auf "Move" (Verschieben) setzen
+            byte[] moveEffect = new byte[] { 2, 0, 0, 0 };
+            MemoryStream dropEffect = new MemoryStream();
+            dropEffect.Write(moveEffect, 0, moveEffect.Length);
+
+            // 3. Das DataObject erzeugen und beide Informationen anhängen
+            DataObject data = new DataObject();
+            data.SetFileDropList(files);
+            data.SetData("Preferred DropEffect", dropEffect);
+
+            // 4. Daten an die Zwischenablage übergeben
+            Clipboard.SetDataObject(data, true);
+        }
+
 
         public static void PasteFilesFromClipboard(string targetFolder)
         {

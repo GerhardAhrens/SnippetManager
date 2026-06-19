@@ -1,0 +1,25 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neue Enum-Klasse
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace [[RootNamespace]]
+{
+    using System.ComponentModel;
+
+    public enum [[ClassName]] : int
+    {
+        [Description("Keine Auswahl")]
+        None = 0,
+    }
+}
