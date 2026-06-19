@@ -34,6 +34,10 @@ namespace SnippetManager
         {
             this.InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.ResizeMode = ResizeMode.CanResizeWithGrip;
+            this.ShowInTaskbar = true;
+            this.MinWidth = 400;
+            this.MinHeight = 300;
 
             WeakEventManager<WindowBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
             WeakEventManager<WindowBase, CancelEventArgs>.AddHandler(this, "Closing", this.OnWindowClosing);
