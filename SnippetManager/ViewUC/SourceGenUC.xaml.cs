@@ -35,12 +35,14 @@ namespace MinimalWPF.Beispiel
             this.CurrentCtorArgs = args;
 
             this.GoBackCommand = new CommandBase(commandParam => this.OnGoBack(commandParam), () => true);
+            this.CreateSourceCommand = new CommandBase(commandParam => OnCreateSource(commandParam), () => true);
 
             this.DataContext = this;
         }
 
         #region Properties
         public CommandBase GoBackCommand { get; private set; }
+        public CommandBase CreateSourceCommand { get; private set; }
         private ChangeViewEventArgs CurrentCtorArgs { get; set; }
 
         #endregion Properties
@@ -73,6 +75,22 @@ namespace MinimalWPF.Beispiel
                 }
             }
         }
+
+        private static void OnCreateSource(object commandParam)
+        {
+            if (commandParam != null && commandParam is SourceTyp button)
+            {
+                if (button == SourceTyp.UserControlWithArgs)
+                {
+
+                }
+                else if (button == SourceTyp.UserControlWithoutArgs)
+                {
+
+                }
+            }
+        }
+
         #endregion Command Events
 
     }

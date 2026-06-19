@@ -127,6 +127,9 @@
                 this.SelectedSnippetTyp = this.SnippetTypSource.FirstOrDefault();
                 this.SelectedGruppe = string.Empty;
                 this.SelectedProjekt = string.Empty;
+                this.Titel = string.Empty;
+                this.Beschreibung = string.Empty;
+                this.SnippetContent = string.Empty;
             }
             else
             {

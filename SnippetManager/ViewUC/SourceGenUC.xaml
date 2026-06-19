@@ -55,10 +55,22 @@
                 Width="100"
                 Height="100"
                 Margin="5,0,0,0"
-                HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.UserControlWithArgs}"
                 ToolTip="Erstellen eines WPF UserControl">
                 <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
+            </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.UserControlWithArgs}"
+                ToolTip="Erstellen eines WPF UserControl mit Konstruktor Parameter">
+                <Image Source="{StaticResource ResourceKey=ParameterizedUserControlIcon}" Stretch="Uniform" />
             </Button>
 
             <Button
