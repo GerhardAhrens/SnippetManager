@@ -182,6 +182,16 @@
                 ToolTip="Erstellen einer Dependency Property">
                 <Image Source="{StaticResource ResourceKey=DependencyPropertyIcon}" Stretch="Uniform" />
             </Button>
+
+            <Button
+                Width="100"
+                Height="100"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                ToolTip="Erstellen einer Dependency Property mit Callback-Methode">
+                <Image Source="{StaticResource ResourceKey=DependencyPropertyCallbackIcon}" Stretch="Uniform" />
+            </Button>
         </WrapPanel>
 
     </Grid>
