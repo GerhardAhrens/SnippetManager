@@ -79,6 +79,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.Window}"
                 ToolTip="Erstellen eines WPF Window">
                 <Image Source="{StaticResource ResourceKey=WindowIcon}" Stretch="Uniform" />
             </Button>
@@ -89,6 +91,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.DialogWindow}"
                 ToolTip="Erstellen eines Dialog">
                 <Image Source="{StaticResource ResourceKey=DialogIcon}" Stretch="Uniform" />
             </Button>
@@ -98,9 +102,9 @@
                 Height="100"
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
+                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.EnumClass}"
-                Background="Transparent"
                 ToolTip="Erstellen einer Enum-Klasse">
                 <Image Source="{StaticResource ResourceKey=EnumIcon}" Stretch="Uniform" />
             </Button>
@@ -111,6 +115,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.EnumClass}"
                 ToolTip="Erstellen einer Standard C# Klasse">
                 <Image Source="{StaticResource ResourceKey=ClassIcon}" Stretch="Uniform" />
             </Button>

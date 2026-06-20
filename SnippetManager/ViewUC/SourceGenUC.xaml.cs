@@ -106,15 +106,27 @@ namespace MinimalWPF.Beispiel
             {
                 if (button == SourceTyp.UserControlWithArgs)
                 {
-
+                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
                 }
                 else if (button == SourceTyp.UserControlWithoutArgs)
                 {
-
+                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                }
+                else if (button == SourceTyp.Window)
+                {
+                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                }
+                else if (button == SourceTyp.DialogWindow)
+                {
+                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
                 }
                 else if (button == SourceTyp.EnumClass)
                 {
                     this.CreateEnumClass();
+                }
+                else if (button == SourceTyp.DefaultClass)
+                {
+                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
                 }
             }
         }
