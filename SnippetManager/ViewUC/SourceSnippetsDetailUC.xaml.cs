@@ -420,12 +420,12 @@
 
                 if (snippetContent.Contains("$name$", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    snippetContent = snippetContent.Replace("$name$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    snippetContent = snippetContent.Replace("$name$", App.Settings.TemplateName, StringComparison.OrdinalIgnoreCase);
                 }
 
                 if (snippetContent.Contains("$email$", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    snippetContent = snippetContent.Replace("$email$", DateTime.Now.Year.ToString(CultureInfo.CurrentCulture), StringComparison.OrdinalIgnoreCase);
+                    snippetContent = snippetContent.Replace("$email$", App.Settings.TemplateEmail, StringComparison.OrdinalIgnoreCase);
                 }
 
                 if (snippetContent.Contains("$date$", StringComparison.OrdinalIgnoreCase) == true)

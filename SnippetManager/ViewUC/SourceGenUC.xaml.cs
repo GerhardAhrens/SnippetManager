@@ -27,10 +27,12 @@ namespace MinimalWPF.Beispiel
 
     using SnippetManager;
     using SnippetManager.Core;
+    using SnippetManager.Core.Placeholder;
 
     /// <summary>
     /// Interaktionslogik für SourceGenUC.xaml
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
     public partial class SourceGenUC : UserControlBase
     {
         public SourceGenUC(ChangeViewEventArgs args) : base(typeof(SourceGenUC))
@@ -51,6 +53,7 @@ namespace MinimalWPF.Beispiel
         public CommandBase GoBackCommand { get; private set; }
         public CommandBase CreateSourceCommand { get; private set; }
         private ChangeViewEventArgs CurrentCtorArgs { get; set; }
+        private MessageBase Message { get; } = new MessageBase();
 
         #endregion Properties
 
@@ -89,7 +92,7 @@ namespace MinimalWPF.Beispiel
             }
         }
 
-        private static void OnCreateSource(object commandParam)
+        private void OnCreateSource(object commandParam)
         {
             if (commandParam != null && commandParam is SourceTyp button)
             {
@@ -101,11 +104,28 @@ namespace MinimalWPF.Beispiel
                 {
 
                 }
+                else if (button == SourceTyp.EnumClass)
+                {
+                    this.CreateEnumClass();
+                }
             }
         }
 
         #endregion Command Events
 
+        private void CreateEnumClass()
+        {
+            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuEnum");
+            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
+            {
+                string sourceContent = new ReplaceContent().Replace(file.Item1);
+                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
+            }
+            else
+            {
+                this.Message.Warnung("Source Generator", "Die Resource 'NeuEnum' wurde nicht gefunden.");
+            }
+        }
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Member als statisch markieren", Justification = "<Ausstehend>")]
@@ -247,8 +267,6 @@ namespace MinimalWPF.Beispiel
                 StreamResourceInfo sri = Application.GetResourceStream(uriXAMLCS);
                 using StreamReader reader = new StreamReader(sri.Stream);
                 outCodeCS = reader.ReadToEnd();
-
-                outCodeCS = new ReplaceContent().Replace(outCodeCS);
             }
 
             uriCS = new Uri($"pack://application:,,,/Resources/Source/{className}.cs.source", UriKind.Absolute);
@@ -257,8 +275,6 @@ namespace MinimalWPF.Beispiel
                 StreamResourceInfo sri = Application.GetResourceStream(uriCS);
                 using StreamReader reader = new StreamReader(sri.Stream);
                 outCodeCS = reader.ReadToEnd();
-
-                outCodeCS = new ReplaceContent().Replace(outCodeCS);
             }
 
             uriXAML = new Uri($"pack://application:,,,/Resources/Source/{className}.xaml.source", UriKind.Absolute);
@@ -320,15 +336,25 @@ namespace MinimalWPF.Beispiel
         private const string EMAIL = "developer@lifeprojects.de";
 
         private readonly List<ReplaceValues> _replaceValues;
+
         public ReplaceContent()
         {
+            this.Settings = App.Settings;
+
             this._replaceValues = new List<ReplaceValues>();
-            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$firma$", Value = FIRMA });
-            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$company$", Value = FIRMA });
-            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$name$", Value = FULLNAME });
-            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$email$", Value = EMAIL });
+            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$company$", Value = FallbackContent(App.Settings.TemplateCompany,FIRMA) });
+            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$Firma$", Value = FallbackContent(App.Settings.TemplateCompany,FIRMA) });
+            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$name$", Value = FallbackContent(App.Settings.TemplateName,FULLNAME) });
+            this._replaceValues.Add(new ReplaceValues() { Placeholder = "$email$", Value = FallbackContent(App.Settings.TemplateEmail,EMAIL) });
             this._replaceValues.Add(new ReplaceValues() { Placeholder = "$year$", Value = DateTime.Now.Year.ToString(CultureInfo.CurrentCulture) });
             this._replaceValues.Add(new ReplaceValues() { Placeholder = "$date$", Value = DateTime.Now.ToString("dd.MM.yyyy", CultureInfo.CurrentCulture) });
+        }
+
+        public ApplicationSettings Settings { get; private set; }
+
+        private static string FallbackContent(string value, string fallBack)
+        {
+            return string.IsNullOrEmpty(value) == true ? fallBack : value;
         }
 
         public string Replace(string content)

@@ -98,6 +98,8 @@
                 Height="100"
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.EnumClass}"
                 Background="Transparent"
                 ToolTip="Erstellen einer Enum-Klasse">
                 <Image Source="{StaticResource ResourceKey=EnumIcon}" Stretch="Uniform" />

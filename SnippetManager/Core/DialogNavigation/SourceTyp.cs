@@ -10,5 +10,7 @@
         UserControlWithArgs = 1,
         [Description("UserControl ohne Kontruktor Parameter")]
         UserControlWithoutArgs = 2,
+        [Description("Enum Klasse")]
+        EnumClass = 10,
     }
 }
