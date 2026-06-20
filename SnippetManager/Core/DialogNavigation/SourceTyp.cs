@@ -18,5 +18,21 @@
         EnumClass = 5,
         [Description("Default Klasse")]
         DefaultClass = 6,
+        [Description("Static Extension Klasse")]
+        ExtensionClass = 7,
+        [Description("Static ExtensionBlock Klasse")]
+        ExtensionBlockClass = 8,
+        [Description("Interface Klasse")]
+        InterfaceClass = 9,
+        [Description("Record Klasse")]
+        RecordClass = 10,
+        [Description("Struct Klasse")]
+        StructClass = 11,
+        [Description("Custom Data Type Klasse")]
+        CustomDataTypeClass = 12,
+        [Description("Dependency Property")]
+        DependencyProperty = 13,
+        [Description("Dependency Property with Callback")]
+        DependencyPropertyCallback = 14,
     }
 }

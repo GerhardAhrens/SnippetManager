@@ -52,6 +52,7 @@
     <None Remove="Resources\Sound\SuccessTone.wav" />
     <None Remove="Resources\Sound\UpliftingFluteNotification.wav" />
     <None Remove="Resources\Source\NeuEnum.cs.source" />
+    <None Remove="Resources\Source\NeuPublicClass.cs.source" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,6 +94,7 @@
   <ItemGroup>
     <Resource Include="Resources\Picture\ApplicationIcon.ico" />
     <Resource Include="Resources\Picture\ApplicationIcon.png" />
+    <Resource Include="Resources\Source\NeuPublicClass.cs.source" />
   </ItemGroup>
 
   <ItemGroup>

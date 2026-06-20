@@ -14,7 +14,7 @@
         x:Name="gridMain"
         Background="WhiteSmoke"
         ColumnDefinitions="*"
-        RowDefinitions="Auto,*">
+        RowDefinitions="Auto,Auto,*">
 
         <!--#region Hauptmenübar-->
         <GroupBox
@@ -50,7 +50,18 @@
         </GroupBox>
         <!--#endregion Hauptmenübar-->
 
-        <WrapPanel Grid.Row="1" Grid.Column="0">
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="5,5,0,5"
+            BorderBrush="Gray"
+            BorderThickness="0,0,0,2">
+            <TextBlock FontSize="13" TextWrapping="Wrap">
+                <Run FontWeight="Medium" Text="Über diesen Dialog können für verschiedene Zwecke aus vorhandene Templates Klassen erstellt werden. Aus dem Template wird ein Source erzeugt, der als Datei oder als Snippet erstellt und über die Zwischenablage an beliebiger Stelle eingefügt werden." />
+            </TextBlock>
+        </Border>
+
+        <WrapPanel Grid.Row="2" Grid.Column="0">
             <Button
                 Width="100"
                 Height="100"
@@ -127,6 +138,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.ExtensionClass}"
                 ToolTip="Erstellen einer Static Extension Klasse">
                 <Image Source="{StaticResource ResourceKey=ExtensionClassIcon}" Stretch="Uniform" />
             </Button>
@@ -137,6 +150,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.ExtensionBlockClass}"
                 ToolTip="Erstellen einer Static Extension Klasse">
                 <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
             </Button>
@@ -147,6 +162,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.InterfaceClass}"
                 ToolTip="Erstellen einer Interface Klasse">
                 <Image Source="{StaticResource ResourceKey=InterfaceIcon}" Stretch="Uniform" />
             </Button>
@@ -157,6 +174,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.RecordClass}"
                 ToolTip="Erstellen einer Record Klasse">
                 <Image Source="{StaticResource ResourceKey=RecordIcon}" Stretch="Uniform" />
             </Button>
@@ -167,6 +186,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.StructClass}"
                 ToolTip="Erstellen einer struct Klasse">
                 <Image Source="{StaticResource ResourceKey=StructIcon}" Stretch="Uniform" />
             </Button>
@@ -177,6 +198,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.CustomDataTypeClass}"
                 ToolTip="Erstellen einer Custom Data Type Klasse">
                 <Image Source="{StaticResource ResourceKey=CustomDataTypeIcon}" Stretch="Uniform" />
             </Button>
@@ -187,6 +210,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.DependencyProperty}"
                 ToolTip="Erstellen einer Dependency Property">
                 <Image Source="{StaticResource ResourceKey=DependencyPropertyIcon}" Stretch="Uniform" />
             </Button>
@@ -197,6 +222,8 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Left"
                 Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.DependencyPropertyCallback}"
                 ToolTip="Erstellen einer Dependency Property mit Callback-Methode">
                 <Image Source="{StaticResource ResourceKey=DependencyPropertyCallbackIcon}" Stretch="Uniform" />
             </Button>

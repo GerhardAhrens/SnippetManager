@@ -1,0 +1,46 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neue Enum-Klasse
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace [[RootNamespace]]
+{
+    using System;
+    using System.Windows.Controls;
+    using System.Collections.Generic;
+
+    public class [[ClassName]]
+    {
+        public [[ClassName]]()
+        {            
+        }
+
+        #region Properties
+
+        #endregion Properties
+
+        #region Class Methodes
+        public void MyMethodes()
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                string errorText = ex.Message;
+                App.ErrorMessage(ex, $"Fehler in {this.GetType().Name}");
+            }
+        }
+        #endregion Class Methodes
+    }
+}
