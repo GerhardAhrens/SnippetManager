@@ -23,11 +23,14 @@ namespace MinimalWPF.Beispiel
     using System.Resources;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Media;
     using System.Windows.Resources;
 
     using SnippetManager;
     using SnippetManager.Core;
+    using SnippetManager.Core.Helper;
     using SnippetManager.Core.Placeholder;
+    using SnippetManager.View;
 
     /// <summary>
     /// Interaktionslogik für SourceGenUC.xaml
@@ -64,6 +67,11 @@ namespace MinimalWPF.Beispiel
             if (App.EventAgg.IsSubscription<StatusEvent>() == true)
             {
                 await App.EventAgg.PublishAsync(new StatusEvent("Bereit"));
+            }
+
+            if (App.EventAgg.IsSubscription<WindowsTitelEvent>() == true)
+            {
+                await App.EventAgg.PublishAsync(new WindowsTitelEvent("Code Template Generator"));
             }
 
             /*
@@ -113,13 +121,34 @@ namespace MinimalWPF.Beispiel
 
         #endregion Command Events
 
-        private void CreateEnumClass()
+        private async void CreateEnumClass()
         {
             (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuEnum");
             if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
             {
                 string sourceContent = new ReplaceContent().Replace(file.Item1);
                 List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
+                if (pl != null && pl.Count > 0)
+                {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
+                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+                        File.WriteAllText(templatePath, snippetContent);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        ClipboardHelper.CutFilesToClipboard(templatePath);
+
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                        }
+                    }
+                }
             }
             else
             {

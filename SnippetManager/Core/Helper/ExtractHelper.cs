@@ -14,11 +14,11 @@
 
             List<string> ergebnisse = new List<string>();
 
-            // Der reguläre Ausdruck sucht nach 'class' oder 'enum', 
-            // ignoriert Leerzeichen und fängt das Wort danach ab.
-            string pattern = @"\b(class|enum)\s+(\w+)\s*\{";
+            var regex = new Regex(
+                @"(?:public|private|internal|protected)?\s*(?:static\s+)?(class|enum|struct)\s+([A-Za-z_][A-Za-z0-9_]*)",
+                RegexOptions.Multiline);
 
-            MatchCollection matches = Regex.Matches(input, pattern);
+            MatchCollection matches = regex.Matches(input);
 
             foreach (Match match in matches)
             {
@@ -28,5 +28,10 @@
 
             return ergebnisse;
         }
+    }
+
+    public class Test()
+    {
+
     }
 }

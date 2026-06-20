@@ -17,6 +17,13 @@ Ein weiteres Ziel war es, den Umgang mit XAML Vektor Grafiken zu verbessern. Hie
 Als Typ habe ich `DrawingImage` verwendet, da dieser Typ direkt an ein Image-Objekt gebunden werden kann. Zu dem sind Funktionen in der Anwendung um die Vektorgrafiken als `DrawingImage` direkt aus den Resourcen lesen zu können.
 Zusätzlich sind aber auch Funktionen vorhanden , um die Vektorgrafiken als `Geometry` aus eine Datenbank zu lesen und anzeigen zu können.
 
+## Features
+
+- Erstellen, Verwalten und Exportieren (in Zwischenablage) von Codesnippets
+- Exportieren (in Zwischenablage) von Vektorgrafik Symbolen (DrawingImage) als XAML
+- Exportieren (als ico und png) von Vektorgrafik Symbolen (DrawingImage)
+- Erstellen von verschieden Klassen Templates über die Zwischenablage zum Einfügen in Projekte (als Datei)
+
 ## Hauptdialog
 
 <img src="MainWindow.png" style="width:650px;"/>
@@ -77,12 +84,16 @@ Ergebnis nach dem Einfügen aus der Zwischenablage.
 </DrawingImage>
 ```
 
-# Features
+### weitere Features des XAML Icon Dialog
 - Import von Xaml Icons Dateien vom Typ ``DrawingImage`` und ``Viewbox``.
 - Ein Icon aus der Datenbank kann per Doppelklick als XAML Code vom Typ ``DrawingImage`` in die Zwischenablage kopiert werden.
 - Ein Auswahl von Icons kann als XAML Code vom Typ ``DrawingImage`` können in ein Resource Dictionary gesammelt und in die Zwischenablage kopiert werden.
 - Export von DrawingImage nach PNG
 - Export von DrawingImage nich Windows ICO
+
+## Template Code Dialog
+
+<img src="CodeGenTemplate.png" style="width:650px;"/>
 
 # Versionshistorie
 ![Version](https://img.shields.io/badge/Version-1.0.2026.3-yellow.svg)

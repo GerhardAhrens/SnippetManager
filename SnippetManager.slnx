@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/_Doc/">
+    <File Path="CodeGenTemplate.png" />
     <File Path="LICENSE.txt" />
     <File Path="MainWindow.png" />
     <File Path="README.md" />
