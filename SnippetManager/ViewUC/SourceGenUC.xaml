@@ -127,7 +127,7 @@
                 HorizontalAlignment="Left"
                 Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.EnumClass}"
+                CommandParameter="{x:Static core:SourceTyp.DefaultClass}"
                 ToolTip="Erstellen einer Standard C# Klasse">
                 <Image Source="{StaticResource ResourceKey=ClassIcon}" Stretch="Uniform" />
             </Button>

@@ -15,6 +15,12 @@
 
 namespace MinimalWPF.Beispiel
 {
+    using SnippetManager;
+    using SnippetManager.Core;
+    using SnippetManager.Core.Helper;
+    using SnippetManager.Core.Placeholder;
+    using SnippetManager.View;
+
     using System.Collections;
     using System.Collections.Specialized;
     using System.Globalization;
@@ -23,14 +29,7 @@ namespace MinimalWPF.Beispiel
     using System.Resources;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Media;
     using System.Windows.Resources;
-
-    using SnippetManager;
-    using SnippetManager.Core;
-    using SnippetManager.Core.Helper;
-    using SnippetManager.Core.Placeholder;
-    using SnippetManager.View;
 
     /// <summary>
     /// Interaktionslogik für SourceGenUC.xaml
