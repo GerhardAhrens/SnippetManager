@@ -105,11 +105,11 @@ namespace MinimalWPF.Beispiel
             {
                 if (button == SourceTyp.UserControlWithArgs)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateUserControl(false);
                 }
                 else if (button == SourceTyp.UserControlWithoutArgs)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateUserControl(true);
                 }
                 else if (button == SourceTyp.Window)
                 {
@@ -159,6 +159,50 @@ namespace MinimalWPF.Beispiel
                 {
                     this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
                 }
+            }
+        }
+
+        private async void CreateUserControl(bool withArgs)
+        {
+            (string, string) file;
+            if (withArgs == false)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuUC");
+            }
+            else
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuWithArgsUC");
+            }
+
+            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
+            {
+                string sourceContent = new ReplaceContent().Replace(file.Item1);
+                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
+                if (pl != null && pl.Count > 0)
+                {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
+                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+                        File.WriteAllText(templatePath, snippetContent);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        ClipboardHelper.CutFilesToClipboard(templatePath);
+
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                this.Message.Warnung("Source Generator", "Die Resource 'NeuEnum' wurde nicht gefunden.");
             }
         }
 

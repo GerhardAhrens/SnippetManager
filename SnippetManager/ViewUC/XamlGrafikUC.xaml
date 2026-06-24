@@ -204,7 +204,7 @@
                 <!--  Elemente in Spaltenn anordnen  -->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" Columns="7" />
+                        <UI:VirtualizingTilePanel ItemWidth="160" ItemHeight="160"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -232,6 +232,7 @@
                                     Width="90"
                                     Height="90"
                                     VerticalAlignment="Top"
+                                    CacheMode="BitmapCache"
                                     RenderOptions.BitmapScalingMode="LowQuality"
                                     Source="{Binding Path=ImageContent}"
                                     Stretch="Uniform"

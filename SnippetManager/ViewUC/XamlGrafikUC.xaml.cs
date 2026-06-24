@@ -739,8 +739,7 @@ namespace SnippetManager.View
                 using XmlReader xmlReader = XmlReader.Create(stringReader);
 
                 object obj = XamlReader.Load(xmlReader);
-
-                return obj as DrawingImage ?? throw new InvalidOperationException("Kein DrawingImage.");
+                return obj as DrawingImage ?? throw new InvalidOperationException("Kein DrawingImage Objekt.");
             }
             catch (Exception ex)
             {

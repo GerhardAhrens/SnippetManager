@@ -500,6 +500,15 @@
                                 }
                             }
                         }
+                        else
+                        {
+                            Clipboard.SetText(snippetContent);
+
+                            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                            {
+                                await App.EventAgg.PublishAsync(new StatusEvent("Snippet wurde in die Zwischenablage kopiert"));
+                            }
+                        }
                     }
                 }
             }
