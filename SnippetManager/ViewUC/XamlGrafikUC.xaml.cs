@@ -494,55 +494,62 @@ namespace SnippetManager.View
         {
             try
             {
-                int countDelete = this.XamlItemSource.Count(c => c.IsSelectedItem == true);
-                int quelleIntern = this.XamlItemSource.Count(c => c.Quelle != "Resources\\Style\\XamlIcon.xaml" && c.IsSelectedItem == true);
-
-                if (countDelete == 1)
+                if (this.CountSelectedItem > 0)
                 {
-                    MessageBoxResult result = this.Message.Question("Löschen Symbol/icon", "Soll das gewählte Symbol/Icon gelöscht werden?");
-                    if (result == MessageBoxResult.No)
-                    {
-                        return;
-                    }
 
-                    if (this.SelectedXamlItem != null)
+                }
+                else
+                {
+                    int countDelete = this.XamlItemSource.Count(c => c.IsSelectedItem == true);
+                    int quelleIntern = this.XamlItemSource.Count(c => c.Quelle != "Resources\\Style\\XamlIcon.xaml" && c.IsSelectedItem == true);
+
+                    if (countDelete == 1)
                     {
-                        if (this.SelectedXamlItem.Quelle != "Resources\\Style\\XamlIcon.xaml")
+                        MessageBoxResult result = this.Message.Question("Löschen Symbol/icon", "Soll das gewählte Symbol/Icon gelöscht werden?");
+                        if (result == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+
+                        if (this.SelectedXamlItem != null)
+                        {
+                            if (this.SelectedXamlItem.Quelle != "Resources\\Style\\XamlIcon.xaml")
+                            {
+                                using (DatabaseService ds = new DatabaseService(App.DatabasePath))
+                                {
+                                    ds.Delete(this.DeleteXaml, this.SelectedXamlItem);
+                                }
+
+                                this.OnLoaded(null, null);
+                            }
+                            else
+                            {
+                                this.Message.Hinweis("Löschen Eintrag", "Symbole/Icon die in der lokalen Resource abgelegt wurden, können nicht gelöscht werden.");
+                            }
+                        }
+                    }
+                    else if (countDelete == quelleIntern)
+                    {
+                        MessageBoxResult result = this.Message.Question("Löschen Symbol/icon", "Soll die gewählte Symbol/Icon gelöscht werden?");
+                        if (result == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+
+                        foreach (XamlTileItem item in this.XamlItemSource.Where(w => w.IsSelectedItem == true))
                         {
                             using (DatabaseService ds = new DatabaseService(App.DatabasePath))
                             {
-                                ds.Delete(this.DeleteXaml, this.SelectedXamlItem);
+                                ds.Delete(this.DeleteXaml, item);
                             }
+                        }
 
-                            this.OnLoaded(null, null);
-                        }
-                        else
-                        {
-                            this.Message.Hinweis("Löschen Eintrag", "Symbole/Icon die in der lokalen Resource abgelegt wurden, können nicht gelöscht werden.");
-                        }
+                        this.OnLoaded(null, null);
                     }
-                }
-                else if (countDelete == quelleIntern)
-                {
-                    MessageBoxResult result = this.Message.Question("Löschen Symbol/icon", "Soll die gewählte Symbol/Icon gelöscht werden?");
-                    if (result == MessageBoxResult.No)
+                    else if (countDelete != quelleIntern)
                     {
-                        return;
+                        this.Message.Hinweis("Löschen Eintrag", "Symbole/Icon die in der lokalen Resource abgelegt wurden, können nicht gelöscht werden.");
                     }
-
-                    foreach (XamlTileItem item in this.XamlItemSource.Where(w => w.IsSelectedItem == true))
-                    {
-                        using (DatabaseService ds = new DatabaseService(App.DatabasePath))
-                        {
-                            ds.Delete(this.DeleteXaml, item);
-                        }
-                    }
-
-                    this.OnLoaded(null, null);
-                }
-                else if (countDelete != quelleIntern)
-                {
-                    this.Message.Hinweis("Löschen Eintrag", "Symbole/Icon die in der lokalen Resource abgelegt wurden, können nicht gelöscht werden.");
                 }
             }
             catch (Exception ex)
