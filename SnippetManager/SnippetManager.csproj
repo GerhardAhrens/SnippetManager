@@ -53,8 +53,12 @@
     <None Remove="Resources\Sound\UpliftingFluteNotification.wav" />
     <None Remove="Resources\Source\NeuEnum.cs.source" />
     <None Remove="Resources\Source\NeuPublicClass.cs.source" />
+    <None Remove="Resources\Source\NeuStaticExtension.cs.source" />
+    <None Remove="Resources\Source\NeuStaticExtensionBlock.cs.source" />
     <None Remove="Resources\Source\NeuUC.xaml.cs.source" />
     <None Remove="Resources\Source\NeuUC.xaml.source" />
+    <None Remove="Resources\Source\NeuWindow.xaml.cs.source" />
+    <None Remove="Resources\Source\NeuWindow.xaml.source" />
     <None Remove="Resources\Source\NeuWithArgsUC.xaml.cs.source" />
     <None Remove="Resources\Source\NeuWithArgsUC.xaml.source" />
   </ItemGroup>
@@ -99,8 +103,12 @@
     <Resource Include="Resources\Picture\ApplicationIcon.ico" />
     <Resource Include="Resources\Picture\ApplicationIcon.png" />
     <Resource Include="Resources\Source\NeuPublicClass.cs.source" />
+    <Resource Include="Resources\Source\NeuStaticExtension.cs.source" />
+    <Resource Include="Resources\Source\NeuStaticExtensionBlock.cs.source" />
     <Resource Include="Resources\Source\NeuUC.xaml.cs.source" />
     <Resource Include="Resources\Source\NeuUC.xaml.source" />
+    <Resource Include="Resources\Source\NeuWindow.xaml.cs.source" />
+    <Resource Include="Resources\Source\NeuWindow.xaml.source" />
     <Resource Include="Resources\Source\NeuWithArgsUC.xaml.cs.source" />
     <Resource Include="Resources\Source\NeuWithArgsUC.xaml.source" />
   </ItemGroup>

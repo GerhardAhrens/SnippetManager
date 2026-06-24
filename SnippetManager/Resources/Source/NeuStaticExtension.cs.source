@@ -1,0 +1,50 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neue Extension Klasse 
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace System.Windows
+{
+    public static partial class [[ClassName]]
+    {
+        public static bool In(this string @this, params string[] values)
+        {
+            bool result = false;
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (@this == values[i].ToString())
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        public static bool NotIn(this string @this, params string[] values)
+        {
+            bool result = true;
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (@this == values[i].ToString())
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+    }
+}

@@ -56,7 +56,7 @@ namespace MinimalWPF.Beispiel
         public CommandBase CreateSourceCommand { get; private set; }
         private ChangeViewEventArgs CurrentCtorArgs { get; set; }
         private MessageBase Message { get; } = new MessageBase();
-
+        private string TemplatePath { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template");
         #endregion Properties
 
         #region Windows Events
@@ -113,7 +113,7 @@ namespace MinimalWPF.Beispiel
                 }
                 else if (button == SourceTyp.Window)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateWindow();
                 }
                 else if (button == SourceTyp.DialogWindow)
                 {
@@ -129,11 +129,11 @@ namespace MinimalWPF.Beispiel
                 }
                 else if (button == SourceTyp.ExtensionClass)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateExtensionClass();
                 }
                 else if (button == SourceTyp.ExtensionBlockClass)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateExtensionBlockClass();
                 }
                 else if (button == SourceTyp.InterfaceClass)
                 {
@@ -162,6 +162,8 @@ namespace MinimalWPF.Beispiel
             }
         }
 
+        #endregion Command Events
+
         private async void CreateUserControl(bool withArgs)
         {
             (string, string) file;
@@ -176,6 +178,7 @@ namespace MinimalWPF.Beispiel
 
             if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
             {
+                StringCollection files = new StringCollection();
                 string sourceContent = new ReplaceContent().Replace(file.Item1);
                 List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
                 if (pl != null && pl.Count > 0)
@@ -187,32 +190,88 @@ namespace MinimalWPF.Beispiel
                     {
                         string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
                         string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
-                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.xaml.cs");
                         File.WriteAllText(templatePath, snippetContent);
+                        files.Add(templatePath);
+
+                        sourceContent = file.Item2;
+                        snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
+                        templatePath = Path.Combine(App.TemplatePath, $"{fileName}.xaml");
+                        File.WriteAllText(templatePath, snippetContent);
+                        files.Add(templatePath);
 
                         /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
-                        ClipboardHelper.CutFilesToClipboard(templatePath);
-
-                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        if (files.Count > 0)
                         {
-                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                            ClipboardHelper.CutFilesToClipboard(files);
+
+                            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                            {
+                                await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                            }
                         }
                     }
                 }
             }
             else
             {
-                this.Message.Warnung("Source Generator", "Die Resource 'NeuEnum' wurde nicht gefunden.");
+                this.Message.Warnung("Source Generator", "Die Resource 'NeuUC / NeuWithArgsUC' wurde nicht gefunden.");
             }
         }
 
-        #endregion Command Events
+        private async void CreateWindow()
+        {
+            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuWindow");
+            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
+            {
+                StringCollection files = new StringCollection();
+                string sourceContent = new ReplaceContent().Replace(file.Item1);
+                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
+                if (pl != null && pl.Count > 0)
+                {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
+                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.xaml.cs");
+                        File.WriteAllText(templatePath, snippetContent);
+                        files.Add(templatePath);
+
+                        sourceContent = file.Item2;
+                        snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
+                        templatePath = Path.Combine(App.TemplatePath, $"{fileName}.xaml");
+                        File.WriteAllText(templatePath, snippetContent);
+                        files.Add(templatePath);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        if (files.Count > 0)
+                        {
+                            ClipboardHelper.CutFilesToClipboard(files);
+
+                            if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                            {
+                                await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                this.Message.Warnung("Source Generator", "Die Resource 'NeuWindow' wurde nicht gefunden.");
+            }
+        }
 
         private async void CreateEnumClass()
         {
             (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuEnum");
             if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
             {
+                StringCollection files = new StringCollection();
+
                 string sourceContent = new ReplaceContent().Replace(file.Item1);
                 List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
                 if (pl != null && pl.Count > 0)
@@ -275,6 +334,76 @@ namespace MinimalWPF.Beispiel
             else
             {
                 this.Message.Warnung("Source Generator", "Die Resource 'NeuPublicClass' wurde nicht gefunden.");
+            }
+        }
+
+        private async void CreateExtensionClass()
+        {
+            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuStaticExtension");
+            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
+            {
+                string sourceContent = new ReplaceContent().Replace(file.Item1);
+                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
+                if (pl != null && pl.Count > 0)
+                {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
+                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+                        File.WriteAllText(templatePath, snippetContent);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        ClipboardHelper.CutFilesToClipboard(templatePath);
+
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                this.Message.Warnung("Source Generator", "Die Resource 'NeuStaticExtension' wurde nicht gefunden.");
+            }
+        }
+
+        private async void CreateExtensionBlockClass()
+        {
+            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuStaticExtensionBlock");
+            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
+            {
+                string sourceContent = new ReplaceContent().Replace(file.Item1);
+                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
+                if (pl != null && pl.Count > 0)
+                {
+                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
+                        .WithOwner(Application.Current.MainWindow)
+                        .ShowDialog();
+                    if (response.DialogResult == true)
+                    {
+                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
+                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
+                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
+                        File.WriteAllText(templatePath, snippetContent);
+
+                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
+                        ClipboardHelper.CutFilesToClipboard(templatePath);
+
+                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
+                        {
+                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                this.Message.Warnung("Source Generator", "Die Resource 'NeuStaticExtensionBlock' wurde nicht gefunden.");
             }
         }
     }
@@ -381,13 +510,22 @@ namespace MinimalWPF.Beispiel
             }
         }
 
-        public bool IsResourceExist(string resourceName)
+        public bool IsResourceExist(string resourceName, bool isXamlCs = false)
         {
+            Uri uriPath;
             try
             {
-                Uri uriCS = new Uri($"pack://application:,,,/Resources/Source/{resourceName}.cs.source", UriKind.Absolute);
+                if (isXamlCs == true)
+                {
+                    uriPath = new Uri($"pack://application:,,,/Resources/Source/{resourceName}.xaml.cs.source", UriKind.Absolute);
+                }
+                else
+                {
+                    uriPath = new Uri($"pack://application:,,,/Resources/Source/{resourceName}.cs.source", UriKind.Absolute);
+                }
+
                 // Versucht, den Stream der Ressource abzurufen
-                var resourceStream = Application.GetResourceStream(uriCS);
+                var resourceStream = Application.GetResourceStream(uriPath);
 
                 // Wenn kein Fehler auftritt und der Stream existiert
                 return resourceStream != null;
@@ -435,7 +573,6 @@ namespace MinimalWPF.Beispiel
                 using StreamReader reader = new StreamReader(sri.Stream);
                 outCodeXAML = reader.ReadToEnd();
             }
-
 
             return (outCodeCS, outCodeXAML);
         }

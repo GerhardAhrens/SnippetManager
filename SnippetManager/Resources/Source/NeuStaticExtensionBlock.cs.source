@@ -1,0 +1,49 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neue Extension Block Klasse für statische Typen
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace System
+{
+    internal static class ConsoleExtensions
+    {
+        // Erstelle Extension für den Typ Console
+        extension(Console)
+        {
+            public static ConsoleKeyInfo Wait(string text = "")
+            {
+                ConsoleKeyInfo result;
+                ConsoleColor defaultColor = Console.ForegroundColor;
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.CursorVisible = false;
+                if (string.IsNullOrEmpty(text) == true)
+                {
+                    Console.Write('\n');
+                    Console.WriteLine("Eine Taste drücken, um zum Menü zurück zukehren!");
+                }
+                else
+                {
+                    Console.Write('\n');
+                    Console.WriteLine($"{text}");
+                }
+
+                Console.ForegroundColor = defaultColor;
+                result = Console.ReadKey();
+                Console.CursorVisible = true;
+
+                return result;
+            }
+        }
+    }
+}

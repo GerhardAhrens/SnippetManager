@@ -1,0 +1,77 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neues Window
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace [[RootNamespace]]
+{
+    using System.ComponentModel;
+    using System.Windows;
+
+    /// <summary>
+    /// Interaktionslogik für [[ClassName]].xaml
+    /// </summary>
+    public partial class [[ClassName]] : WindowBase
+    {
+        public [[ClassName]]()
+        {
+            this.InitializeComponent();
+            WeakEventManager<WindowBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
+            WeakEventManager<WindowBase, CancelEventArgs>.AddHandler(this, "Closing", this.OnWindowClosing);
+            this.WindowTitel = "[[ClassName]]_Window Titel";
+            this.DataContext = this;
+        }
+
+        public [[ClassName]](string param)
+        {
+            this.InitializeComponent();
+            WeakEventManager<WindowBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
+            WeakEventManager<WindowBase, CancelEventArgs>.AddHandler(this, "Closing", this.OnWindowClosing);
+            this.WindowTitel = "[[ClassName]]_Window Titel";
+            this.DataContext = this;
+            this.DemoText = param;
+        }
+
+		#region Properties
+        public string WindowTitel
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+
+        public string DemoText
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+		#endregion Properties
+		
+        #region WindowEventHandler
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OnCloseApplication(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+        }
+        #endregion WindowEventHandler
+		
+		#region Command Events
+		#endregion Command Events
+    }
+}
