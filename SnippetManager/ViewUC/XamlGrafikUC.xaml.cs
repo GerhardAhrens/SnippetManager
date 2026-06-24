@@ -653,7 +653,7 @@ namespace SnippetManager.View
 
                     if (App.EventAgg.IsSubscription<StatusEvent>() == true)
                     {
-                        await App.EventAgg.PublishAsync(new StatusEvent("XAML-Icons in Zwischenablage kopiert"));
+                        await App.EventAgg.PublishAsync(new StatusEvent("XAML-Icon in Zwischenablage kopiert"));
                     }
                 }
             }

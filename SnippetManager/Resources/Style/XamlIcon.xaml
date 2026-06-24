@@ -1711,8 +1711,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
-
-    <DrawingImage x:Key="IconConvert">
+    <DrawingImage x:Key="IconConvertToFrom">
         <DrawingImage.Drawing>
             <DrawingGroup>
 
@@ -1783,6 +1782,172 @@
                             <!--  Unterer Pfeil  -->
                             <PathGeometry Figures="M 38,40 L 28,40 L 31,37 M 28,40 L 31,43" />
 
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF28A745"
+                            EndLineCap="Round"
+                            LineJoin="Round"
+                            StartLineCap="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconConvertTo">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Linkes Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="10,16,18,26" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF404040"
+                            LineJoin="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Rechtes Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="36,22,18,26" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF404040"
+                            LineJoin="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Zeilen links  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="14,24,10,2" />
+                            <RectangleGeometry Rect="14,29,10,2" />
+                            <RectangleGeometry Rect="14,34,7,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Zeilen rechts  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="40,30,10,2" />
+                            <RectangleGeometry Rect="40,35,10,2" />
+                            <RectangleGeometry Rect="40,40,7,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Konvertierungs-Pfeile  -->
+                <GeometryDrawing Brush="#FF28A745">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <!--  Oberer Pfeil  -->
+                            <PathGeometry Figures="M 26,22 L 36,22 L 33,19 M 36,22 L 33,25" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF28A745"
+                            EndLineCap="Round"
+                            LineJoin="Round"
+                            StartLineCap="Round"
+                            Thickness="3" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconConvertFrom">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Linkes Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="10,16,18,26" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF404040"
+                            LineJoin="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Rechtes Dokument  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="3"
+                            RadiusY="3"
+                            Rect="36,22,18,26" />
+                    </GeometryDrawing.Geometry>
+
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF404040"
+                            LineJoin="Round"
+                            Thickness="2.5" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+
+                <!--  Zeilen links  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="14,24,10,2" />
+                            <RectangleGeometry Rect="14,29,10,2" />
+                            <RectangleGeometry Rect="14,34,7,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Zeilen rechts  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="40,30,10,2" />
+                            <RectangleGeometry Rect="40,35,10,2" />
+                            <RectangleGeometry Rect="40,40,7,2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Konvertierungs-Pfeile  -->
+                <GeometryDrawing Brush="#FF28A745">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <!--  Unterer Pfeil  -->
+                            <PathGeometry Figures="M 38,40 L 28,40 L 31,37 M 28,40 L 31,43" />
                         </GeometryGroup>
                     </GeometryDrawing.Geometry>
 

@@ -87,8 +87,8 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     Command="{Binding Path=ConvertCommand}"
-                    ToolTip="XAML-Icon exportieren">
-                    <Image Source="{StaticResource ResourceKey=IconConvert}" Stretch="Uniform" />
+                    ToolTip="XAML-Icon Konvertieren (Viewbox => DrawingImage) und in der Zwichenablage ablegen.">
+                    <Image Source="{StaticResource ResourceKey=IconConvertTo}" Stretch="Uniform" />
                 </Button>
 
                 <Button
@@ -99,7 +99,7 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     Command="{Binding Path=DeleteSymbolCommand}"
-                    ToolTip="XAML-Icon exportieren">
+                    ToolTip="XAML-Icon aus Datenbank löschen">
                     <Image Source="{StaticResource ResourceKey=IconDeleteSymbol}" Stretch="Uniform" />
                 </Button>
 
