@@ -45,7 +45,7 @@ namespace SnippetManager
             this.RegisterFactory();
 
             this.WindowTitel = $"{LocalizationValue.Get("WindowsTitelZeile")} ({base.ApplicationVersion})";
-            this.SetVectorIcon("IconSnippetManager", 64);
+            this.SetVectorIcon("IconDatabase_Code", 64);
             this.DataContext = this;
         }
 

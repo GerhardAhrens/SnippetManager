@@ -105,11 +105,15 @@ namespace MinimalWPF.Beispiel
             {
                 if (button == SourceTyp.UserControlWithArgs)
                 {
-                    this.CreateUserControl(false);
+                    this.CreateUserControl("noargs");
                 }
                 else if (button == SourceTyp.UserControlWithoutArgs)
                 {
-                    this.CreateUserControl(true);
+                    this.CreateUserControl("withargs");
+                }
+                else if (button == SourceTyp.UserControlDefault)
+                {
+                    this.CreateUserControl("default");
                 }
                 else if (button == SourceTyp.Window)
                 {
@@ -164,16 +168,20 @@ namespace MinimalWPF.Beispiel
 
         #endregion Command Events
 
-        private async void CreateUserControl(bool withArgs)
+        private async void CreateUserControl(string typ)
         {
-            (string, string) file;
-            if (withArgs == false)
+            (string, string) file = (string.Empty,string.Empty);
+            if (typ.ToLower(CultureInfo.CurrentCulture).Equals("noargs", StringComparison.OrdinalIgnoreCase) == true)
             {
                 file = new UsedEmbeddetSource().GetSourceFromResources("NeuUC");
             }
-            else
+            else if (typ.ToLower(CultureInfo.CurrentCulture).Equals("withargs", StringComparison.OrdinalIgnoreCase) == true)
             {
                 file = new UsedEmbeddetSource().GetSourceFromResources("NeuWithArgsUC");
+            }
+            else if (typ.ToLower(CultureInfo.CurrentCulture).Equals("default", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuDefaultUC");
             }
 
             if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)

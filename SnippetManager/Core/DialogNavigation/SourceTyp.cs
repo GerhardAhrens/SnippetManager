@@ -10,6 +10,8 @@
         UserControlWithArgs = 1,
         [Description("UserControl ohne Kontruktor Parameter")]
         UserControlWithoutArgs = 2,
+        [Description("UserControl Standard")]
+        UserControlDefault = 21,
         [Description("WPF Window ohne Kontruktor Parameter")]
         Window = 3,
         [Description("WPF Dialog Window ohne Kontruktor Parameter")]

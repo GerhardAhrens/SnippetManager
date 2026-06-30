@@ -7,9 +7,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MinimalWPF.Beispiel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <system:Double x:Key="ButtonHeight">160</system:Double>
+        <system:Double x:Key="ButtonWidth">120</system:Double>
+
+        <Style x:Key="ButtonGen" TargetType="Button">
+            <Setter Property="Height" Value="{StaticResource ResourceKey=ButtonHeight}" />
+            <Setter Property="Width" Value="{StaticResource ResourceKey=ButtonWidth}" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+    </UserControl.Resources>
+
+
     <Grid
         x:Name="gridMain"
         Background="WhiteSmoke"
@@ -63,29 +78,39 @@
 
         <WrapPanel Grid.Row="2" Grid.Column="0">
             <Button
-                Width="120"
-                Height="140"
-                Margin="5,0,0,0"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.UserControlWithArgs}"
+                CommandParameter="{x:Static core:SourceTyp.UserControlDefault}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen eines WPF UserControl">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
                     <TextBlock
                         HorizontalAlignment="Center"
                         FontWeight="Medium"
-                        Text="UserControl" />
+                        Text="UserControl (Standard)"
+                        TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
 
             <Button
-                Width="120"
-                Height="140"
-                Margin="5,0,0,0"
-                Background="Transparent"
+                Command="{Binding Path=CreateSourceCommand}"
+                CommandParameter="{x:Static core:SourceTyp.UserControlWithoutArgs}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
+                ToolTip="Erstellen eines WPF UserControl">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Text="UserControl (mit Buttonleiste)"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Button>
+
+            <Button
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.UserControlWithArgs}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen eines WPF UserControl mit Konstruktor Parameter">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ResourceKey=ParameterizedUserControlIcon}" Stretch="Uniform" />
@@ -97,13 +122,9 @@
             </Button>
 
             <Button
-                Width="120"
-                Height="140"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.Window}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen eines WPF Window">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ResourceKey=WindowIcon}" Stretch="Uniform" />
@@ -127,13 +148,9 @@
             </Button>
 
             <Button
-                Width="120"
-                Height="140"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.EnumClass}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer Enum-Klasse">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ResourceKey=EnumIcon}" Stretch="Uniform" />
@@ -145,13 +162,9 @@
             </Button>
 
             <Button
-                Width="120"
-                Height="140"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.DefaultClass}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer Standard C# Klasse">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ResourceKey=ClassIcon}" Stretch="Uniform" />
@@ -163,13 +176,9 @@
             </Button>
 
             <Button
-                Width="120"
-                Height="140"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.ExtensionClass}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer Static Extension Klasse">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ResourceKey=ExtensionClassIcon}" Stretch="Uniform" />
@@ -181,20 +190,17 @@
             </Button>
 
             <Button
-                Width="120"
-                Height="140"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.ExtensionBlockClass}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer Static Extension Klasse">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
                     <TextBlock
                         HorizontalAlignment="Center"
                         FontWeight="Medium"
-                        Text="Extension Block Klasse" />
+                        Text="Extension Block Klasse"
+                        TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
 

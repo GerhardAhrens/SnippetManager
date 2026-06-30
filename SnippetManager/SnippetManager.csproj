@@ -105,6 +105,8 @@
     <Resource Include="Resources\Source\NeuPublicClass.cs.source" />
     <Resource Include="Resources\Source\NeuStaticExtension.cs.source" />
     <Resource Include="Resources\Source\NeuStaticExtensionBlock.cs.source" />
+    <Resource Include="Resources\Source\NeuDefaultUC.xaml.cs.source" />
+    <Resource Include="Resources\Source\NeuDefaultUC.xaml.source" />
     <Resource Include="Resources\Source\NeuUC.xaml.cs.source" />
     <Resource Include="Resources\Source\NeuUC.xaml.source" />
     <Resource Include="Resources\Source\NeuWindow.xaml.cs.source" />
