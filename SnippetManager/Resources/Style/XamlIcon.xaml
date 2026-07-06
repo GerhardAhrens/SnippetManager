@@ -1416,6 +1416,471 @@
     <!--#endregion Icons für Source Generator-->
 
     <!--#region Farbige Icon Symbole auf Basis von DrawingImage-->
+    <DrawingImage x:Key="DriveIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Laufwerksgehäuse  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,6,20,12" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Frontblende  -->
+                <GeometryDrawing Brush="#EAEAEA">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,14,20,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Laufwerksschlitz  -->
+                <GeometryDrawing Brush="#909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="5,9,14,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Status-LED  -->
+                <GeometryDrawing Brush="#3CB371">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="18,16"
+                                RadiusX="1"
+                                RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Taste  -->
+                <GeometryDrawing Brush="#909090">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="15,16"
+                                RadiusX="0.7"
+                                RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="NetworkDriveIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Laufwerk  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,13,18,7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Frontblende  -->
+                <GeometryDrawing Brush="#EAEAEA">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,17,18,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Laufwerksschlitz  -->
+                <GeometryDrawing Brush="#909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,15,10,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Status LED  -->
+                <GeometryDrawing Brush="#3CB371">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="18.5,18.5"
+                                RadiusX="0.8"
+                                RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Verbindung  -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1976D2" Thickness="1.4" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="12,10" EndPoint="12,13" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Netzwerklinien  -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1976D2" Thickness="1.2" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <LineGeometry StartPoint="12,6" EndPoint="8,9" />
+
+                            <LineGeometry StartPoint="12,6" EndPoint="16,9" />
+
+                            <LineGeometry StartPoint="8,9" EndPoint="16,9" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Netzwerkknoten  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <EllipseGeometry
+                                    Center="12,5"
+                                    RadiusX="1.2"
+                                    RadiusY="1.2" />
+
+                            <EllipseGeometry
+                                    Center="8,9"
+                                    RadiusX="1.2"
+                                    RadiusY="1.2" />
+
+                            <EllipseGeometry
+                                    Center="16,9"
+                                    RadiusX="1.2"
+                                    RadiusY="1.2" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="CdRomDriveIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  CD  -->
+                <GeometryDrawing Brush="#FFF8F8F8">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="12,6"
+                                RadiusX="4"
+                                RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Loch der CD  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#909090" Thickness="0.6" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="12,6"
+                                RadiusX="1"
+                                RadiusY="1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Laufwerksgehäuse  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,11,18,9" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Frontblende  -->
+                <GeometryDrawing Brush="#EAEAEA">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,17,18,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Offener Einschub  -->
+                <GeometryDrawing Brush="#CFCFCF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="7,11,10,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Auswurftaste  -->
+                <GeometryDrawing Brush="#909090">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="18,18.3"
+                                RadiusX="0.7"
+                                RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Status-LED  -->
+                <GeometryDrawing Brush="#3CB371">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="15.5,18.3"
+                                RadiusX="0.7"
+                                RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="RamDriveIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  =====================  -->
+                <!--  RAM-Baustein  -->
+                <!--  =====================  -->
+
+                <GeometryDrawing Brush="#D8F0D8">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,3,12,6" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Speicherchips  -->
+                <GeometryDrawing Brush="#8BC34A">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="7,4,2,3" />
+                            <RectangleGeometry Rect="10,4,2,3" />
+                            <RectangleGeometry Rect="13,4,2,3" />
+                            <RectangleGeometry Rect="16,4,1,3" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Pins oben/unten  -->
+                <GeometryDrawing Brush="#909090">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+
+                            <!--  oben  -->
+                            <RectangleGeometry Rect="7,2,0.6,1" />
+                            <RectangleGeometry Rect="9,2,0.6,1" />
+                            <RectangleGeometry Rect="11,2,0.6,1" />
+                            <RectangleGeometry Rect="13,2,0.6,1" />
+                            <RectangleGeometry Rect="15,2,0.6,1" />
+                            <RectangleGeometry Rect="17,2,0.6,1" />
+
+                            <!--  unten  -->
+                            <RectangleGeometry Rect="7,9,0.6,1" />
+                            <RectangleGeometry Rect="9,9,0.6,1" />
+                            <RectangleGeometry Rect="11,9,0.6,1" />
+                            <RectangleGeometry Rect="13,9,0.6,1" />
+                            <RectangleGeometry Rect="15,9,0.6,1" />
+                            <RectangleGeometry Rect="17,9,0.6,1" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Verbindung  -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1976D2" Thickness="1.3" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="12,10" EndPoint="12,13" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =====================  -->
+                <!--  Laufwerk  -->
+                <!--  =====================  -->
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,13,18,7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Frontblende  -->
+                <GeometryDrawing Brush="#EAEAEA">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="3,17,18,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Schlitz  -->
+                <GeometryDrawing Brush="#909090">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,15,10,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  LED  -->
+                <GeometryDrawing Brush="#3CB371">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="18.5,18.3"
+                                RadiusX="0.8"
+                                RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="UsbDriveIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  =========================  -->
+                <!--  USB-Stecker  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="#E6E6E6">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="8,2,8,5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kontakte  -->
+                <GeometryDrawing Brush="#909090">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="9.5,3,1.2,1.2" />
+                            <RectangleGeometry Rect="13.3,3,1.2,1.2" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  USB-Gehäuse  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="5,7,14,15" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Frontblende  -->
+                <GeometryDrawing Brush="#EAEAEA">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="5,18,14,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  USB-Symbol  -->
+                <!--  =========================  -->
+
+                <!--  Stamm  -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1976D2" Thickness="1.2" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="12,17" EndPoint="12,10" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Linker Ast  -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1976D2" Thickness="1.2" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="12,14" EndPoint="9,12" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Rechter Ast  -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#1976D2" Thickness="1.2" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="12,14" EndPoint="15,12" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Pfeilspitze  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M12,9
+                                L11,10.5
+                                L11.6,10.5
+                                L11.6,11.3
+                                L12.4,11.3
+                                L12.4,10.5
+                                L13,10.5
+                                Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kreis  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="9,12"
+                                RadiusX="0.8"
+                                RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Quadrat  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="14.3,11.3,1.4,1.4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Unterer Kreis  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="12,17"
+                                RadiusX="0.9"
+                                RadiusY="0.9" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  LED  -->
+                <GeometryDrawing Brush="#3CB371">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                                Center="17,20"
+                                RadiusX="0.7"
+                                RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="IconDatabase_Code">
         <DrawingImage.Drawing>
             <DrawingGroup>
