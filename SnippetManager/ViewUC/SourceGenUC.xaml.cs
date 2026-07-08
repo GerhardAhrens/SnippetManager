@@ -117,11 +117,11 @@ namespace MinimalWPF.Beispiel
                 }
                 else if (button == SourceTyp.Window)
                 {
-                    this.CreateWindow();
+                    this.CreateWindow(button);
                 }
                 else if (button == SourceTyp.DialogWindow)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateWindow(button);
                 }
                 else if (button == SourceTyp.EnumClass)
                 {
@@ -227,9 +227,18 @@ namespace MinimalWPF.Beispiel
             }
         }
 
-        private async void CreateWindow()
+        private async void CreateWindow(SourceTyp styp)
         {
-            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuWindow");
+            (string, string) file = (string.Empty,string.Empty);
+            if (styp == SourceTyp.Window)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuWindow");
+            }
+            else if (styp == SourceTyp.DialogWindow)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuDefaultWindow");
+            }
+
             if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
             {
                 StringCollection files = new StringCollection();

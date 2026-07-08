@@ -8,8 +8,8 @@
     xmlns:local="clr-namespace:MinimalWPF.Beispiel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="600"
+    d:DesignWidth="900"
     mc:Ignorable="d">
     <UserControl.Resources>
         <system:Double x:Key="ButtonHeight">160</system:Double>
@@ -71,7 +71,10 @@
             Margin="5,5,0,5"
             BorderBrush="Gray"
             BorderThickness="0,0,0,2">
-            <TextBlock FontSize="13" TextWrapping="Wrap">
+            <TextBlock
+                Margin="5"
+                FontSize="13"
+                TextWrapping="Wrap">
                 <Run FontWeight="Medium" Text="Über diesen Dialog können für verschiedene Zwecke aus vorhandene Templates Klassen erstellt werden. Aus dem Template wird ein Source erzeugt, der als Datei oder als Snippet erstellt und über die Zwischenablage an beliebiger Stelle eingefügt werden." />
             </TextBlock>
         </Border>
@@ -136,15 +139,18 @@
             </Button>
 
             <Button
-                Width="100"
-                Height="100"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.DialogWindow}"
-                ToolTip="Erstellen eines Dialog">
-                <Image Source="{StaticResource ResourceKey=DialogIcon}" Stretch="Uniform" />
+                Style="{StaticResource ResourceKey=ButtonGen}"
+                ToolTip="Erstellen eines Dialog Window">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="{StaticResource ResourceKey=DialogIcon}" Stretch="Uniform" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Text="WPF Windows mit Menübar"
+                        TextWrapping="Wrap" />
+                </StackPanel>
             </Button>
 
             <Button

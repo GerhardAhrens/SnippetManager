@@ -51,6 +51,7 @@
     <None Remove="Resources\Sound\SoundSuccess.wav" />
     <None Remove="Resources\Sound\SuccessTone.wav" />
     <None Remove="Resources\Sound\UpliftingFluteNotification.wav" />
+    <None Remove="Resources\Source\NeuDefaultWindow.xaml.source" />
     <None Remove="Resources\Source\NeuEnum.cs.source" />
     <None Remove="Resources\Source\NeuPublicClass.cs.source" />
     <None Remove="Resources\Source\NeuStaticExtension.cs.source" />
@@ -61,6 +62,10 @@
     <None Remove="Resources\Source\NeuWindow.xaml.source" />
     <None Remove="Resources\Source\NeuWithArgsUC.xaml.cs.source" />
     <None Remove="Resources\Source\NeuWithArgsUC.xaml.source" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Source\NeuDefaultWindow.xaml.cs.source" />
   </ItemGroup>
 
   <ItemGroup>
@@ -96,6 +101,7 @@
     <EmbeddedResource Include="Resources\Sound\SoundSuccess.wav" />
     <EmbeddedResource Include="Resources\Sound\SuccessTone.wav" />
     <EmbeddedResource Include="Resources\Sound\UpliftingFluteNotification.wav" />
+    <Resource Include="Resources\Source\NeuDefaultWindow.xaml.source" />
     <Resource Include="Resources\Source\NeuEnum.cs.source" />
   </ItemGroup>
 
@@ -126,6 +132,10 @@
 
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Resources\Source\NeuDefaultWindow.xaml.source" />
   </ItemGroup>
 
   <ItemGroup>

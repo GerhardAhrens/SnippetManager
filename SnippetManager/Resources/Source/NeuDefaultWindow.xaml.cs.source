@@ -1,0 +1,74 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neues Standard Window
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace [[RootNamespace]]
+{
+    using System.ComponentModel;
+    using System.Windows;
+
+    /// <summary>
+    /// Interaktionslogik für [[ClassName]].xaml
+    /// </summary>
+    public partial class [[ClassName]] : WindowBase
+    {
+        public [[ClassName]]()
+        {
+            this.InitializeComponent();
+            WeakEventManager<WindowBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
+            WeakEventManager<WindowBase, CancelEventArgs>.AddHandler(this, "Closing", this.OnWindowClosing);
+            this.WindowTitel = "Neues Window";
+
+            this.CloseDialogCommand = new CommandBase(commandParam => this.OnCloseDialog(commandParam), () => true);
+
+            this.DataContext = this;
+        }
+
+        #region Properties
+        public CommandBase CloseDialogCommand { get; private set; }
+
+        public string WindowTitel
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
+
+        private MessageBase Message { get; } = new MessageBase();
+        #endregion Properties
+
+        #region WindowEventHandler
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OnCloseApplication(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = false;
+        }
+        #endregion WindowEventHandler
+
+        #region Command Events
+        private void OnCloseDialog(object commandParam)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+        #endregion Command Events
+    }
+}
