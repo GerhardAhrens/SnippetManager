@@ -1,0 +1,23 @@
+//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neue Record-Klasse
+// </summary>
+// <Remark>
+// Die Parameternamen sollen in PascalCase geschrieben werden, da diese in der späteren
+// als Property Getter verwendet werden.
+// </Remark>
+//-----------------------------------------------------------------------
+
+namespace [[RootNamespace]]
+{
+    public record [[ClassName]](string Text); 
+}

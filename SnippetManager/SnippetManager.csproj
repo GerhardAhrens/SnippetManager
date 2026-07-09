@@ -65,6 +65,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Source\NeuStructClass.cs.source" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Source\NeuRecordClass.cs.source" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Source\INeu.cs.source" />
   </ItemGroup>
 

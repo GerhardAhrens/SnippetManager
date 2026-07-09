@@ -123,6 +123,8 @@
                             break;
                     }
                 }
+
+                this.Close();
             }
             catch (Exception ex)
             {

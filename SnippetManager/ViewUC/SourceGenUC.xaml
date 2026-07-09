@@ -195,11 +195,12 @@
                 Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer Static Extension Klasse">
                 <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=ExtensionClassIcon}" Stretch="Uniform" />
+                    <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
                     <TextBlock
                         HorizontalAlignment="Center"
                         FontWeight="Medium"
-                        Text="Extension Klasse" />
+                        Text="Extension Klasse (instance class)"
+                        TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
 
@@ -213,7 +214,7 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         FontWeight="Medium"
-                        Text="Extension Block Klasse"
+                        Text="Extension Block Klasse (static class)"
                         TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
@@ -234,27 +235,33 @@
             </Button>
 
             <Button
-                Width="100"
-                Height="100"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.RecordClass}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer Record Klasse">
-                <Image Source="{StaticResource ResourceKey=RecordIcon}" Stretch="Uniform" />
+                <StackPanel Orientation="Vertical">
+                    <Image Source="{StaticResource ResourceKey=RecordIcon}" Stretch="Uniform" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Text="record Klasse (Value Object)"
+                        TextWrapping="Wrap" />
+                </StackPanel>
             </Button>
 
             <Button
-                Width="100"
-                Height="100"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.StructClass}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer struct Klasse">
-                <Image Source="{StaticResource ResourceKey=StructIcon}" Stretch="Uniform" />
+                <StackPanel Orientation="Vertical">
+                    <Image Source="{StaticResource ResourceKey=StructIcon}" Stretch="Uniform" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Text="struct Klasse"
+                        TextWrapping="Wrap" />
+                </StackPanel>
             </Button>
 
             <Button

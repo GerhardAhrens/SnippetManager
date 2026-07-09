@@ -125,31 +125,31 @@ namespace MinimalWPF.Beispiel
                 }
                 else if (button == SourceTyp.EnumClass)
                 {
-                    this.CreateEnumClass();
+                    this.CreateAnyClass(button);
                 }
                 else if (button == SourceTyp.DefaultClass)
                 {
-                    this.CreateDefaultClass();
+                    this.CreateAnyClass(button);
                 }
                 else if (button == SourceTyp.ExtensionClass)
                 {
-                    this.CreateExtensionClass();
+                    this.CreateAnyClass(button);
                 }
                 else if (button == SourceTyp.ExtensionBlockClass)
                 {
-                    this.CreateExtensionBlockClass();
+                    this.CreateAnyClass(button);
                 }
                 else if (button == SourceTyp.InterfaceClass)
                 {
-                    this.CreateInterfaceClass();
+                    this.CreateAnyClass(button);
                 }
                 else if (button == SourceTyp.RecordClass)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateAnyClass(button);
                 }
                 else if (button == SourceTyp.StructClass)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateAnyClass(button);
                 }
                 else if (button == SourceTyp.CustomDataTypeClass)
                 {
@@ -282,9 +282,38 @@ namespace MinimalWPF.Beispiel
             }
         }
 
-        private async void CreateEnumClass()
+        private async void CreateAnyClass(SourceTyp styp)
         {
-            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuEnum");
+            (string, string) file = (string.Empty, string.Empty);
+            if (styp == SourceTyp.EnumClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuEnum");
+            }
+            else if (styp == SourceTyp.DefaultClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuPublicClass");
+            }
+            else if (styp == SourceTyp.ExtensionClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuStaticExtension");
+            }
+            else if (styp == SourceTyp.ExtensionBlockClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuStaticExtensionBlock");
+            }
+            else if (styp == SourceTyp.InterfaceClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("INeu");
+            }
+            else if (styp == SourceTyp.RecordClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuRecordClass");
+            }
+            else if (styp == SourceTyp.StructClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuStructClass");
+            }
+
             if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
             {
                 StringCollection files = new StringCollection();
@@ -316,146 +345,6 @@ namespace MinimalWPF.Beispiel
             else
             {
                 this.Message.Warnung("Source Generator", "Die Resource 'NeuEnum' wurde nicht gefunden.");
-            }
-        }
-
-        private async void CreateDefaultClass()
-        {
-            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuPublicClass");
-            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
-            {
-                string sourceContent = new ReplaceContent().Replace(file.Item1);
-                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
-                if (pl != null && pl.Count > 0)
-                {
-                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
-                        .WithOwner(Application.Current.MainWindow)
-                        .ShowDialog();
-                    if (response.DialogResult == true)
-                    {
-                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
-                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
-                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
-                        File.WriteAllText(templatePath, snippetContent);
-
-                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
-                        ClipboardHelper.CutFilesToClipboard(templatePath);
-
-                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-                        {
-                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                this.Message.Warnung("Source Generator", "Die Resource 'NeuPublicClass' wurde nicht gefunden.");
-            }
-        }
-
-        private async void CreateExtensionClass()
-        {
-            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuStaticExtension");
-            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
-            {
-                string sourceContent = new ReplaceContent().Replace(file.Item1);
-                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
-                if (pl != null && pl.Count > 0)
-                {
-                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
-                        .WithOwner(Application.Current.MainWindow)
-                        .ShowDialog();
-                    if (response.DialogResult == true)
-                    {
-                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
-                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
-                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
-                        File.WriteAllText(templatePath, snippetContent);
-
-                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
-                        ClipboardHelper.CutFilesToClipboard(templatePath);
-
-                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-                        {
-                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                this.Message.Warnung("Source Generator", "Die Resource 'NeuStaticExtension' wurde nicht gefunden.");
-            }
-        }
-
-        private async void CreateExtensionBlockClass()
-        {
-            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("NeuStaticExtensionBlock");
-            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
-            {
-                string sourceContent = new ReplaceContent().Replace(file.Item1);
-                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
-                if (pl != null && pl.Count > 0)
-                {
-                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
-                        .WithOwner(Application.Current.MainWindow)
-                        .ShowDialog();
-                    if (response.DialogResult == true)
-                    {
-                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
-                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
-                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
-                        File.WriteAllText(templatePath, snippetContent);
-
-                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
-                        ClipboardHelper.CutFilesToClipboard(templatePath);
-
-                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-                        {
-                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                this.Message.Warnung("Source Generator", "Die Resource 'NeuStaticExtensionBlock' wurde nicht gefunden.");
-            }
-        }
-
-        private async void CreateInterfaceClass()
-        {
-            (string, string) file = new UsedEmbeddetSource().GetSourceFromResources("INeu");
-            if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)
-            {
-                string sourceContent = new ReplaceContent().Replace(file.Item1);
-                List<PlaceholderItem> pl = PlaceholderService.Extract(sourceContent);
-                if (pl != null && pl.Count > 0)
-                {
-                    DialogResponse<PlaceholderDlg> response = new DialogService<PlaceholderDlg>(pl)
-                        .WithOwner(Application.Current.MainWindow)
-                        .ShowDialog();
-                    if (response.DialogResult == true)
-                    {
-                        string snippetContent = PlaceholderService.Replace(sourceContent, (List<PlaceholderItem>)response.ResponseObject);
-                        string fileName = ExtractHelper.ExtractClassNames(snippetContent).FirstOrDefault();
-                        string templatePath = Path.Combine(App.TemplatePath, $"{fileName}.cs");
-                        File.WriteAllText(templatePath, snippetContent);
-
-                        /* Datei in Zwischenablage legen, damit sie in einem Explorer-Fenster mit STRG+V eingefügt werden kann. */
-                        ClipboardHelper.CutFilesToClipboard(templatePath);
-
-                        if (App.EventAgg.IsSubscription<StatusEvent>() == true)
-                        {
-                            await App.EventAgg.PublishAsync(new StatusEvent($"Snippet {Path.GetFileName(templatePath)} wurde in die Zwischenablage kopiert"));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                this.Message.Warnung("Source Generator", "Die Resource 'NeuStaticExtensionBlock' wurde nicht gefunden.");
             }
         }
     }
