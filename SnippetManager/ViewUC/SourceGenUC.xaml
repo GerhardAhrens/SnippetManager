@@ -12,14 +12,16 @@
     d:DesignWidth="900"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <system:Double x:Key="ButtonHeight">160</system:Double>
-        <system:Double x:Key="ButtonWidth">120</system:Double>
+        <system:Double x:Key="ButtonHeight">170</system:Double>
+        <system:Double x:Key="ButtonWidth">130</system:Double>
 
         <Style x:Key="ButtonGen" TargetType="Button">
             <Setter Property="Height" Value="{StaticResource ResourceKey=ButtonHeight}" />
             <Setter Property="Width" Value="{StaticResource ResourceKey=ButtonWidth}" />
             <Setter Property="Margin" Value="5,0,0,0" />
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="top" />
         </Style>
 
     </UserControl.Resources>
@@ -75,7 +77,12 @@
                 Margin="5"
                 FontSize="13"
                 TextWrapping="Wrap">
-                <Run FontWeight="Medium" Text="Über diesen Dialog können für verschiedene Zwecke aus vorhandene Templates Klassen erstellt werden. Aus dem Template wird ein Source erzeugt, der als Datei oder als Snippet erstellt und über die Zwischenablage an beliebiger Stelle eingefügt werden." />
+                <Run FontWeight="Medium" Text="Über diesen Dialog können für verschiedene Zwecke aus vorhandene Templates Klassen erstellt werden." />
+                <Run FontWeight="Medium" Text="Aus dem Template wird ein Source erzeugt, der als Datei oder als Snippet erstellt und über die Zwischenablage an beliebiger Stelle eingefügt werden." />
+                <LineBreak />
+                <Run FontWeight="Medium" Text="Die  UserControl und Window Klassen sind auf das" />
+                <Run FontWeight="Bold" Text="MinimalWPF-Template" />
+                <Run Text="ausgelegt." />
             </TextBlock>
         </Border>
 
@@ -120,7 +127,8 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         FontWeight="Medium"
-                        Text="UserControl mit Args" />
+                        Text="UserControl mit Konstruktor Parameter"
+                        TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
 
@@ -134,7 +142,7 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         FontWeight="Medium"
-                        Text="WPF Windows" />
+                        Text="WPF Window" />
                 </StackPanel>
             </Button>
 
@@ -148,7 +156,7 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         FontWeight="Medium"
-                        Text="WPF Windows mit Menübar"
+                        Text="WPF Window mit Menübar"
                         TextWrapping="Wrap" />
                 </StackPanel>
             </Button>
@@ -211,15 +219,18 @@
             </Button>
 
             <Button
-                Width="100"
-                Height="100"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
                 Command="{Binding Path=CreateSourceCommand}"
                 CommandParameter="{x:Static core:SourceTyp.InterfaceClass}"
+                Style="{StaticResource ResourceKey=ButtonGen}"
                 ToolTip="Erstellen einer Interface Klasse">
-                <Image Source="{StaticResource ResourceKey=InterfaceIcon}" Stretch="Uniform" />
+                <StackPanel Orientation="Vertical">
+                    <Image Source="{StaticResource ResourceKey=InterfaceIcon}" Stretch="Uniform" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Text="Interface Klasse"
+                        TextWrapping="Wrap" />
+                </StackPanel>
             </Button>
 
             <Button

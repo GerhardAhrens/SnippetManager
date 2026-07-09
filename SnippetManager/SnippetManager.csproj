@@ -65,6 +65,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Source\INeu.cs.source" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Source\NeuDefaultWindow.xaml.cs.source" />
   </ItemGroup>
 
