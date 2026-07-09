@@ -86,220 +86,227 @@
             </TextBlock>
         </Border>
 
-        <WrapPanel Grid.Row="2" Grid.Column="0">
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.UserControlDefault}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen eines WPF UserControl">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="UserControl (Standard)"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+        <ScrollViewer
+            x:Name="MyScrollViewer"
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <WrapPanel>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.UserControlDefault}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen eines WPF UserControl">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="UserControl (Standard)"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.UserControlWithoutArgs}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen eines WPF UserControl">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="UserControl (mit Buttonleiste)"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.UserControlWithoutArgs}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen eines WPF UserControl">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=UserControlIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="UserControl (mit Buttonleiste)"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.UserControlWithArgs}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen eines WPF UserControl mit Konstruktor Parameter">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=ParameterizedUserControlIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="UserControl mit Konstruktor Parameter"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.UserControlWithArgs}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen eines WPF UserControl mit Konstruktor Parameter">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=ParameterizedUserControlIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="UserControl mit Konstruktor Parameter"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.Window}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen eines WPF Window">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=WindowIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="WPF Window" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.Window}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen eines WPF Window">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=WindowIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="WPF Window" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.DialogWindow}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen eines Dialog Window">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=DialogIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="WPF Window mit Menübar"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.DialogWindow}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen eines Dialog Window">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=DialogIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="WPF Window mit Menübar"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.EnumClass}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen einer Enum-Klasse">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=EnumIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="Enum Klasse" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.EnumClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer Enum-Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=EnumIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Enum Klasse" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.DefaultClass}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen einer Standard C# Klasse">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=ClassIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="Standard Klasse" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.DefaultClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer Standard C# Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=ClassIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Standard Klasse" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.ExtensionClass}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen einer Static Extension Klasse">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="Extension Klasse (instance class)"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.ExtensionClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer Static Extension Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Extension Klasse (instance class)"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.ExtensionBlockClass}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen einer Static Extension Klasse">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="Extension Block Klasse (static class)"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.ExtensionBlockClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer Static Extension Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=ExtensionBlockIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Extension Block Klasse (static class)"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.InterfaceClass}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen einer Interface Klasse">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=InterfaceIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="Interface Klasse"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.InterfaceClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer Interface Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=InterfaceIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Interface Klasse"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.RecordClass}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen einer Record Klasse">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=RecordIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="record Klasse (Value Object)"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.RecordClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer Record Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=RecordIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="record Klasse (Value Object)"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.StructClass}"
-                Style="{StaticResource ResourceKey=ButtonGen}"
-                ToolTip="Erstellen einer struct Klasse">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="{StaticResource ResourceKey=StructIcon}" Stretch="Uniform" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontWeight="Medium"
-                        Text="struct Klasse"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.StructClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer struct Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=StructIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="struct Klasse"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
 
-            <Button
-                Width="100"
-                Height="100"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.CustomDataTypeClass}"
-                ToolTip="Erstellen einer Custom Data Type Klasse">
-                <Image Source="{StaticResource ResourceKey=CustomDataTypeIcon}" Stretch="Uniform" />
-            </Button>
+                <Button
+                    Width="100"
+                    Height="100"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.CustomDataTypeClass}"
+                    ToolTip="Erstellen einer Custom Data Type Klasse">
+                    <Image Source="{StaticResource ResourceKey=CustomDataTypeIcon}" Stretch="Uniform" />
+                </Button>
 
-            <Button
-                Width="100"
-                Height="100"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.DependencyProperty}"
-                ToolTip="Erstellen einer Dependency Property">
-                <Image Source="{StaticResource ResourceKey=DependencyPropertyIcon}" Stretch="Uniform" />
-            </Button>
+                <Button
+                    Width="100"
+                    Height="100"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.DependencyProperty}"
+                    ToolTip="Erstellen einer Dependency Property">
+                    <Image Source="{StaticResource ResourceKey=DependencyPropertyIcon}" Stretch="Uniform" />
+                </Button>
 
-            <Button
-                Width="100"
-                Height="100"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
-                Command="{Binding Path=CreateSourceCommand}"
-                CommandParameter="{x:Static core:SourceTyp.DependencyPropertyCallback}"
-                ToolTip="Erstellen einer Dependency Property mit Callback-Methode">
-                <Image Source="{StaticResource ResourceKey=DependencyPropertyCallbackIcon}" Stretch="Uniform" />
-            </Button>
-        </WrapPanel>
+                <Button
+                    Width="100"
+                    Height="100"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.DependencyPropertyCallback}"
+                    ToolTip="Erstellen einer Dependency Property mit Callback-Methode">
+                    <Image Source="{StaticResource ResourceKey=DependencyPropertyCallbackIcon}" Stretch="Uniform" />
+                </Button>
+            </WrapPanel>
+        </ScrollViewer>
 
     </Grid>
 </base:UserControlBase>
