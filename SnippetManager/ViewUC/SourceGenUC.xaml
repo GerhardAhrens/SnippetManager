@@ -278,8 +278,8 @@
                     Background="Transparent"
                     Command="{Binding Path=CreateSourceCommand}"
                     CommandParameter="{x:Static core:SourceTyp.CustomDataTypeClass}"
-                    ToolTip="Erstellen einer Custom Data Type Klasse">
-                    <Image Source="{StaticResource ResourceKey=CustomDataTypeIcon}" Stretch="Uniform" />
+                    ToolTip="Erstellen einer MS Test Klasse">
+                    <Image Source="{StaticResource ResourceKey=MsTestIcon}" Stretch="Uniform" />
                 </Button>
 
                 <Button
@@ -290,20 +290,8 @@
                     Background="Transparent"
                     Command="{Binding Path=CreateSourceCommand}"
                     CommandParameter="{x:Static core:SourceTyp.DependencyProperty}"
-                    ToolTip="Erstellen einer Dependency Property">
-                    <Image Source="{StaticResource ResourceKey=DependencyPropertyIcon}" Stretch="Uniform" />
-                </Button>
-
-                <Button
-                    Width="100"
-                    Height="100"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
-                    Command="{Binding Path=CreateSourceCommand}"
-                    CommandParameter="{x:Static core:SourceTyp.DependencyPropertyCallback}"
-                    ToolTip="Erstellen einer Dependency Property mit Callback-Methode">
-                    <Image Source="{StaticResource ResourceKey=DependencyPropertyCallbackIcon}" Stretch="Uniform" />
+                    ToolTip="Erstellen einer für einen Validator">
+                    <Image Source="{StaticResource ResourceKey=InputValidatorIcon}" Stretch="Uniform" />
                 </Button>
             </WrapPanel>
         </ScrollViewer>
