@@ -26,6 +26,11 @@
             Command="{Binding Path=DeleteEntryCommand}"
             CommandParameter="{x:Static core:CommandButtons.DeleteEntry}"
             Modifiers="Ctrl" />
+        <KeyBinding
+            Key="C"
+            Command="{Binding Path=CopyAsSnippetCommand}"
+            CommandParameter="{x:Static core:CommandButtons.CopyAsSnippet}"
+            Modifiers="Ctrl" />
     </UserControl.InputBindings>
 
     <Grid
@@ -157,7 +162,8 @@
             </Grid>
         </GroupBox>
 
-        <ListBox x:Name="SnippetListBox"
+        <ListBox
+            x:Name="SnippetListBox"
             Grid.Row="2"
             Grid.Column="0"
             Margin="5"

@@ -1,0 +1,102 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neue C# Standard-Klasse
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace [[RootNamespace]]
+{
+    using System.Globalization;
+    using System.Windows;
+
+    [TestClass]
+    public sealed class [[ClassName]]
+    {
+        [TestInitialize]
+        public void Initialize()
+        {
+            CultureInfo culture = new CultureInfo("de-DE");
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+        }
+
+        [TestMethod]
+        public void Default_True()
+        {
+        }
+
+        [TestMethod]
+        public void Default_False()
+        {
+        }
+
+        [DataRow("", "")]
+        [TestMethod]
+        public void DataRow_Input(string input, string expected)
+        {
+            /* Erster Parameter input, zweiter Parameter expected */
+        }
+
+        [TestMethod]
+        public void TryCatchExceptionThrow_Test()
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.GetType() == typeof(Exception));
+            }
+        }
+
+        [TestMethod]
+        public void AssertThrow_ByThrowDivideByZeroException()
+        {
+            // Arrange
+            var calculator = new Calculator();
+
+            // Act + Assert
+            Assert.Throws<DivideByZeroException>(() =>
+            {
+                calculator.Divide(10, 0);
+            });
+        }
+
+        [TestMethod]
+        public void DivideByZero_ShouldThrowArgumtException()
+        {
+            // Arrange
+            var calculator = new Calculator();
+
+            // Act + Assert
+            var ex = Assert.Throws<ArgumentException>(() =>
+            {
+                calculator.Divide(10, 0);
+            });
+
+            Assert.AreEqual("args2", ex.ParamName);
+        }
+    }
+
+    public class Calculator
+    {
+        public double Divide(double args1, double args2) 
+        {
+            if (args2 == 0)
+            {
+                throw new ArgumentException("Divisor darf nicht 0 sein.", "args2");
+            }
+
+            return args1 / args2;
+        }
+    }
+}

@@ -36,5 +36,9 @@
         DependencyProperty = 13,
         [Description("Dependency Property with Callback")]
         DependencyPropertyCallback = 14,
+        [Description("Valdator Klasse")]
+        ValidatorClass = 15,
+        [Description("MS Test Klasse")]
+        MSTestClass = 16,
     }
 }

@@ -59,13 +59,9 @@
         {
             foreach (var placeholder in placeholders)
             {
-                string pattern =
-                    $@"\[\[{Regex.Escape(placeholder.Name)}(?:=.*?)?\]\]";
+                string pattern = $@"\[\[{Regex.Escape(placeholder.Name)}(?:=.*?)?\]\]";
 
-                template = Regex.Replace(
-                    template,
-                    pattern,
-                    (string)(placeholder.Value ?? ""));
+                template = Regex.Replace(template, pattern, (string)(placeholder.Value ?? ""));
             }
 
             return template;

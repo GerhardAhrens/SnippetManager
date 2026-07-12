@@ -151,17 +151,13 @@ namespace MinimalWPF.Beispiel
                 {
                     this.CreateAnyClass(button);
                 }
-                else if (button == SourceTyp.CustomDataTypeClass)
+                else if (button == SourceTyp.ValidatorClass)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateAnyClass(button);
                 }
-                else if (button == SourceTyp.DependencyProperty)
+                else if (button == SourceTyp.MSTestClass)
                 {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
-                }
-                else if (button == SourceTyp.DependencyPropertyCallback)
-                {
-                    this.Message.Warnung("Source Generator", "Die Funktion wurde noch nicht implementiert.");
+                    this.CreateAnyClass(button);
                 }
             }
         }
@@ -312,6 +308,14 @@ namespace MinimalWPF.Beispiel
             else if (styp == SourceTyp.StructClass)
             {
                 file = new UsedEmbeddetSource().GetSourceFromResources("NeuStructClass");
+            }
+            else if (styp == SourceTyp.ValidatorClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuValidator");
+            }
+            else if (styp == SourceTyp.MSTestClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuTestClass");
             }
 
             if (string.IsNullOrEmpty(file.Item1) == false || string.IsNullOrEmpty(file.Item2) == false)

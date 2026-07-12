@@ -1,0 +1,41 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="[[ClassName]].cs" company="$Firma$">
+//     Class: [[ClassName]]
+//     Copyright © $Firma$ $year$
+// </copyright>
+//
+// <author>$Name$ - $Firma$</author>
+// <email>$email$</email>
+// <date>$date$</date>
+//
+// <summary>
+// Template für eine neue Validierungs-Klasse für ...
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace [[RootNamespace]]
+{
+    using System;
+    using System.Windows;
+
+    public class [[ClassName]] : IValidator<[[DataTyp=string]]>
+    {
+        public ValidationResult Validate([[DataTyp]] value)
+        {
+            var result = new ValidationResult();
+
+            /*
+            Logik für String, bei anderen Typen entsprechend anpassen
+            if (string.IsNullOrWhiteSpace(value) == true)
+            {
+                result.AddError("Eingabe darf nicht leer sein.");
+                return result;
+            }
+            */
+
+            /* weitere Validierungslogik */
+
+            return result;
+        }
+    }
+}

@@ -74,13 +74,18 @@
             BorderBrush="Gray"
             BorderThickness="0,0,0,2">
             <TextBlock
-                Margin="5"
+                Margin="5,3,0,3"
                 FontSize="13"
                 TextWrapping="Wrap">
                 <Run FontWeight="Medium" Text="Über diesen Dialog können für verschiedene Zwecke aus vorhandene Templates Klassen erstellt werden." />
                 <Run FontWeight="Medium" Text="Aus dem Template wird ein Source erzeugt, der als Datei oder als Snippet erstellt und über die Zwischenablage an beliebiger Stelle eingefügt werden." />
                 <LineBreak />
-                <Run FontWeight="Medium" Text="Die  UserControl und Window Klassen sind auf das" />
+                <Run FontWeight="Medium" Text="Die Templates für" />
+                <Run
+                    FontWeight="Medium"
+                    Foreground="Red"
+                    Text="UserControl, Window Klassen und Validator" />
+                <Run FontWeight="Medium" Text="für sind für das" />
                 <Run FontWeight="Bold" Text="MinimalWPF-Template" />
                 <Run Text="ausgelegt." />
             </TextBlock>
@@ -271,27 +276,33 @@
                 </Button>
 
                 <Button
-                    Width="100"
-                    Height="100"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
                     Command="{Binding Path=CreateSourceCommand}"
-                    CommandParameter="{x:Static core:SourceTyp.CustomDataTypeClass}"
+                    CommandParameter="{x:Static core:SourceTyp.MSTestClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
                     ToolTip="Erstellen einer MS Test Klasse">
-                    <Image Source="{StaticResource ResourceKey=MsTestIcon}" Stretch="Uniform" />
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=MsTestIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Klasse für MS Test"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
                 </Button>
 
                 <Button
-                    Width="100"
-                    Height="100"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
                     Command="{Binding Path=CreateSourceCommand}"
-                    CommandParameter="{x:Static core:SourceTyp.DependencyProperty}"
+                    CommandParameter="{x:Static core:SourceTyp.ValidatorClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
                     ToolTip="Erstellen einer für einen Validator">
-                    <Image Source="{StaticResource ResourceKey=InputValidatorIcon}" Stretch="Uniform" />
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=InputValidatorIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Klasse für Validator"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
                 </Button>
             </WrapPanel>
         </ScrollViewer>
