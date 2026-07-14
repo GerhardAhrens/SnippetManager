@@ -15,7 +15,7 @@
             List<string> ergebnisse = new List<string>();
 
             var regex = new Regex(
-                @"(?:public|private|internal|protected)?\s*(?:static\s+)?(class|enum|struct)\s+([A-Za-z_][A-Za-z0-9_]*)",
+                @"(?:public|private|internal|protected)?\s*(?:static\s+)?(class|enum|struct|record)\s+([A-Za-z_][A-Za-z0-9_]*)",
                 RegexOptions.Multiline);
 
             MatchCollection matches = regex.Matches(input);

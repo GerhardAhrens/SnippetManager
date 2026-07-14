@@ -16,6 +16,7 @@
 namespace [[RootNamespace]]
 {
     using System;
+    using System.Windows.Controls;
     using System.Collections.Generic;
 
     public class [[ClassName]]
@@ -37,6 +38,7 @@ namespace [[RootNamespace]]
             catch (Exception ex)
             {
                 string errorText = ex.Message;
+                App.ErrorMessage(ex, $"Fehler in {this.GetType().Name}");
             }
         }
         #endregion Class Methodes

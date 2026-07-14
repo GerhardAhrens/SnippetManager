@@ -188,6 +188,21 @@
 
                 <Button
                     Command="{Binding Path=CreateSourceCommand}"
+                    CommandParameter="{x:Static core:SourceTyp.DefaultWPFClass}"
+                    Style="{StaticResource ResourceKey=ButtonGen}"
+                    ToolTip="Erstellen einer Standard C# Klasse">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{StaticResource ResourceKey=ClassIcon}" Stretch="Uniform" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="Standard Klasse für WPF"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Button>
+
+                <Button
+                    Command="{Binding Path=CreateSourceCommand}"
                     CommandParameter="{x:Static core:SourceTyp.DefaultClass}"
                     Style="{StaticResource ResourceKey=ButtonGen}"
                     ToolTip="Erstellen einer Standard C# Klasse">
@@ -196,7 +211,8 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             FontWeight="Medium"
-                            Text="Standard Klasse" />
+                            Text="Standard Klasse für allgemeine Verwendung"
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
 

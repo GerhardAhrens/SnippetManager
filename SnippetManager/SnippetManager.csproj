@@ -67,6 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Source\NeuPublicWPFClass.cs.source" />
     <Resource Include="Resources\Source\NeuStructClass.cs.source" />
   </ItemGroup>
 

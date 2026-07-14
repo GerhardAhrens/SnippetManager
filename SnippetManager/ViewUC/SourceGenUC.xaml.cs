@@ -289,6 +289,10 @@ namespace MinimalWPF.Beispiel
             {
                 file = new UsedEmbeddetSource().GetSourceFromResources("NeuPublicClass");
             }
+            else if (styp == SourceTyp.DefaultWPFClass)
+            {
+                file = new UsedEmbeddetSource().GetSourceFromResources("NeuPublicWPFClass");
+            }
             else if (styp == SourceTyp.ExtensionClass)
             {
                 file = new UsedEmbeddetSource().GetSourceFromResources("NeuStaticExtension");

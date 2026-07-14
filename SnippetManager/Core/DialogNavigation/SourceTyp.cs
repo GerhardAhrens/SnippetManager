@@ -20,6 +20,8 @@
         EnumClass = 5,
         [Description("Default Klasse")]
         DefaultClass = 6,
+        [Description("Default WPF Klasse")]
+        DefaultWPFClass = 61,
         [Description("Static Extension Klasse")]
         ExtensionClass = 7,
         [Description("Static ExtensionBlock Klasse")]
