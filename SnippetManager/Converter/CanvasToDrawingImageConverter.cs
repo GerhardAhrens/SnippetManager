@@ -9,7 +9,10 @@
 // <date>15.07.2026</date>
 //
 // <summary>
-// Template für eine neue C# Standard-Klasse
+// Die Klasse konvertiert ein Canvas-basiertes Icon-XAML in ein DrawingImage-XAML,
+// um die Performance zu verbessern und die Skalierung zu optimieren. Sie extrahiert die Pfaddaten aus den
+// Path-Elementen und erstellt daraus GeometryDrawings, die in einem DrawingGroup mit einem ScaleTransform
+// eingebettet werden. Das Ergebnis ist ein XAML-String, der direkt als ResourceDictionary-Eintrag verwendet werden kann.
 // </summary>
 //-----------------------------------------------------------------------
 

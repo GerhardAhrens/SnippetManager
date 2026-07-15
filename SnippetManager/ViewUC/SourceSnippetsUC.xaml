@@ -173,9 +173,9 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border
+                    <Border Margin="0,0,0,2"
                         BorderBrush="Gray"
-                        BorderThickness="0,0,0,1"
+                        BorderThickness="0,0,0,2"
                         CornerRadius="0">
                         <Grid ColumnDefinitions="100,250,80,100,50,*" RowDefinitions="Auto,Auto,Auto">
                             <Grid.InputBindings>
@@ -189,14 +189,15 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 FontSize="14"
-                                FontWeight="Medium"
+                                FontWeight="Bold"
                                 Text="Titel" />
+                            
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="6"
                                 FontSize="14"
-                                FontWeight="Medium"
+                                FontWeight="Bold"
                                 Foreground="Blue"
                                 Text="{Binding Path=[Titel]}"
                                 TextWrapping="Wrap" />
@@ -208,7 +209,7 @@
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Foreground="Blue"
+                                Foreground="Black"
                                 Text="{Binding Path=[Gruppe]}" />
 
                             <TextBlock
@@ -220,7 +221,7 @@
                                 Grid.Row="1"
                                 Grid.Column="3"
                                 HorizontalAlignment="Left"
-                                Foreground="Blue"
+                                Foreground="Black"
                                 Text="{Binding Path=[SnippetTyp]}" />
 
                             <TextBlock
@@ -233,7 +234,7 @@
                                 Grid.Row="1"
                                 Grid.Column="5"
                                 HorizontalAlignment="Left"
-                                Foreground="Blue"
+                                Foreground="Black"
                                 Text="{Binding Path=[Projekt]}" />
 
                             <TextBlock
@@ -245,7 +246,7 @@
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="6"
-                                Foreground="Blue"
+                                Foreground="Black"
                                 Text="{Binding Path=[Beschreibung]}"
                                 TextWrapping="Wrap" />
                         </Grid>
