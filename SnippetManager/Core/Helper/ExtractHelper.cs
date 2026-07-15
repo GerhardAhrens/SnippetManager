@@ -5,7 +5,7 @@
 
     public static class ExtractHelper
     {
-        private const string PATTERN = @"(?:public|private|internal|protected)?\\s*(?:static\\s+)?(class|enum|struct|record|interface)\\s+([A-Za-z_][A-Za-z0-9_]*)";
+        private const string PATTERN = @"(?:public|private|internal|protected)?\s*(?:static\s+)?(class|enum|struct|record|interface)\s+([A-Za-z_][A-Za-z0-9_]*)";
         public static List<string> ExtractClassNames(string input)
         {
             if (string.IsNullOrEmpty(input))

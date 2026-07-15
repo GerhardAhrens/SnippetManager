@@ -131,6 +131,10 @@ namespace MinimalWPF.Beispiel
                 {
                     this.CreateAnyClass(button);
                 }
+                else if (button == SourceTyp.DefaultWPFClass)
+                {
+                    this.CreateAnyClass(button);
+                }
                 else if (button == SourceTyp.ExtensionClass)
                 {
                     this.CreateAnyClass(button);
