@@ -5,6 +5,7 @@
 
     public static class ExtractHelper
     {
+        private const string PATTERN = @"(?:public|private|internal|protected)?\\s*(?:static\\s+)?(class|enum|struct|record|interface)\\s+([A-Za-z_][A-Za-z0-9_]*)";
         public static List<string> ExtractClassNames(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -14,24 +15,17 @@
 
             List<string> ergebnisse = new List<string>();
 
-            var regex = new Regex(
-                @"(?:public|private|internal|protected)?\s*(?:static\s+)?(class|enum|struct|record)\s+([A-Za-z_][A-Za-z0-9_]*)",
-                RegexOptions.Multiline);
+            var regex = new Regex(PATTERN, RegexOptions.Multiline);
 
             MatchCollection matches = regex.Matches(input);
 
             foreach (Match match in matches)
             {
-                // Gruppe 2 enthält den Namen (Gruppe 1 ist 'class' oder 'enum')
+                // Gruppe 2 enthält den Namen (Gruppe 1 ist 'class', 'enum', 'struct', usw.)
                 ergebnisse.Add(match.Groups[2].Value);
             }
 
             return ergebnisse;
         }
-    }
-
-    public class Test()
-    {
-
     }
 }
