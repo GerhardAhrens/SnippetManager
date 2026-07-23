@@ -12,6 +12,349 @@
 
     <PathGeometry x:Key="CtxSearch" Figures="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
 
+    <DrawingImage x:Key="PdfPrintIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  =========================  -->
+                <!--  PDF-Dokument  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M7,2 L15,2 L17,4 L17,11 L7,11 Z M15,2 L15,4 L17,4</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  PDF-Balken  -->
+                <GeometryDrawing Brush="#D32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="7,2,10,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  Drucker  -->
+                <!--  =========================  -->
+
+                <!--  Gehäuse  -->
+                <GeometryDrawing Brush="#ECECEC">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="4,10,16,8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Papierausgabe  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,16,12,6" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Oberer Einzug  -->
+                <GeometryDrawing Brush="#F7F7F7">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,8,12,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Papierlinien  -->
+                <GeometryDrawing Brush="#B0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="8,18,8,0.8" />
+                            <RectangleGeometry Rect="8,20,6,0.8" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Status-LED  -->
+                <GeometryDrawing Brush="#3CB371">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="17.2,13"
+                            RadiusX="0.7"
+                            RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="PdfMergeIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Linkes Dokument  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M2,5 L8,5 L10,7 L10,21 L2,21 Z M8,5 L8,7 L10,7</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Mittleres Dokument  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M8,2 L15,2 L17,4 L17,22 L8,22 Z M15,2 L15,4 L17,4</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Rechtes Dokument  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M16,5 L22,5 L24,7 L24,21 L16,21 Z M22,5 L22,7 L24,7</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  PDF Balken  -->
+                <GeometryDrawing Brush="#D32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,5,8,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#D32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="8,2,9,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#D32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="16,5,8,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Linker Pfeil  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M6,14 L10,14 L8.5,12.5 L12,16 L8.5,19.5 L10,18 L6,18 Z</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Rechter Pfeil  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M20,14 L16,14 L17.5,12.5 L14,16 L17.5,19.5 L16,18 L20,18 Z</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="PdfSplitIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Linkes Dokument  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M2,5 L8,5 L10,7 L10,21 L2,21 Z M8,5 L8,7 L10,7</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Mittleres Dokument  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M8,2
+                            L15,2
+                            L17,4
+                            L17,22
+                            L8,22 Z
+                            M15,2
+                            L15,4
+                            L17,4
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Rechtes Dokument  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M16,5
+                            L22,5
+                            L24,7
+                            L24,21
+                            L16,21 Z
+                            M22,5
+                            L22,7
+                            L24,7
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  PDF Balken  -->
+                <GeometryDrawing Brush="#D32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,5,8,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#D32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="8,2,9,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#D32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="16,5,8,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Linker Pfeil  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M12,14
+                            L8,14
+                            L9.5,12.5
+                            L6,16
+                            L9.5,19.5
+                            L8,18
+                            L12,18 Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Rechter Pfeil  -->
+                <GeometryDrawing Brush="#1976D2">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M14,14
+                            L18,14
+                            L16.5,12.5
+                            L20,16
+                            L16.5,19.5
+                            L18,18
+                            L14,18 Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="PdfScanIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  =========================  -->
+                <!--  PDF-Dokument  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>M7,2 L15,2 L17,4 L17,11 L7,11 ZM15,2 L15,4 L17,4</Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  PDF-Kopf  -->
+                <GeometryDrawing Brush="#FFD32F2F">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="7,2,10,3" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Scan-Linie  -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen
+                            Brush="#FF00A8FF"
+                            EndLineCap="Round"
+                            StartLineCap="Round"
+                            Thickness="1.5" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="5,12" EndPoint="19,12" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  Scanner  -->
+                <!--  =========================  -->
+
+                <!--  Unterteil  -->
+                <GeometryDrawing Brush="#FFECECEC">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="4,13,16,7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Scannerdeckel  -->
+                <GeometryDrawing Brush="#FFF7F7F7">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF606060" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M5,13 L8,9 L19,9 L20,13 Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Glasfläche  -->
+                <GeometryDrawing Brush="#FFD9F1FF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,10,12,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Status-LED  -->
+                <GeometryDrawing Brush="#FF3CB371">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="18,17"
+                            RadiusX="0.7"
+                            RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!--#region Icons für Source Generator-->
     <DrawingImage x:Key="EmptyIcon">
         <DrawingImage.Drawing>
