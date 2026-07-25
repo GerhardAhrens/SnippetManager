@@ -169,6 +169,30 @@ namespace SnippetManager.View
                 }
             }
 
+            const string AVMDICTIONARYNAME = "Resources\\Style\\FritzAktorIcon.xaml";
+            this.ResourcesDic = Application.Current.Resources.MergedDictionaries.Where(md => md.Source.OriginalString.EndsWith(AVMDICTIONARYNAME, StringComparison.CurrentCulture)).FirstOrDefault();
+            valueList.Clear();
+            valueList = GetResourceKeys(this.ResourcesDic).OrderBy(k => k).ToList();
+            foreach (string key in valueList)
+            {
+                var value = this.ResourcesDic.Cast<DictionaryEntry>().FirstOrDefault(f => f.Key.ToString().Equals(key, StringComparison.OrdinalIgnoreCase)).Value;
+                if (value is DrawingImage drawingImage)
+                {
+                    this.XamlItemAlleSource.Add(new XamlTileItem() { Key = key, Title = $"{key}", ImageContent = drawingImage, XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})", Quelle = "Resources\\Style\\XamlIcon.xaml" });
+                }
+                else if (value is Viewbox viewBox)
+                {
+                    if (double.IsNaN(viewBox.Width) == false && double.IsNaN(viewBox.Height) == false)
+                    {
+                        DrawingImage img = ConvertViewboxToDrawingImage(viewBox);
+                        if (img.Height > 0 && img.Width > 0)
+                        {
+                            this.XamlItemAlleSource.Add(new XamlTileItem() { Key = key, Title = $"{key}", ImageContent = img, XamlTyp = value.GetType().Name, Tooltip = $"{key} ({value.GetType().Name})", Quelle = "Resources\\Style\\XamlIcon.xaml" });
+                        }
+                    }
+                }
+            }
+
             /* Weitere XAML-Icons aus anderen Quellen können hier geladen und der XamlItemAlleSource hinzugefügt werden */
             string sql = "SELECT Id, Gruppe, Titel, XamlContent FROM TAB_Xaml";
             using (DatabaseService ds = new DatabaseService(App.DatabasePath))

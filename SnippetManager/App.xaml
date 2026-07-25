@@ -12,6 +12,7 @@
                 <!--  Lokale Styles  -->
                 <ResourceDictionary Source="Resources\Style\Pictures.xaml" />
                 <ResourceDictionary Source="Resources\Style\XamlIcon.xaml" />
+                <ResourceDictionary Source="Resources\Style\FritzAktorIcon.xaml" />
                 <ResourceDictionary Source="Resources\Style\ApplicationResources.xaml" />
                 <ResourceDictionary Source="Resources\Localization\Localization.xaml" />
                 <ResourceDictionary Source="TemplateCore\Themes\Generic.xaml" />

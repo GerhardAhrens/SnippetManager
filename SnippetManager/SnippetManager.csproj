@@ -141,7 +141,6 @@
   <ItemGroup>
     <Folder Include="Core\Message\" />
     <Folder Include="Core\Settings\" />
-    <Folder Include="Resources\Style\" />
     <Folder Include="Resources\Localization\" />
     <Folder Include="TemplateCore\EventAggregator\" />
     <Folder Include="TemplateCore\Services\" />
