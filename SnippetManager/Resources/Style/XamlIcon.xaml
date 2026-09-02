@@ -5902,4 +5902,164 @@
         </DrawingImage.Drawing>
     </DrawingImage>
     <!--#endregion Application Logo Icon-->
+
+    <!--AVM Icons-->
+    <Color x:Key="IconForegroundColor">#FF202020</Color>
+    <SolidColorBrush x:Key="IconActorBrush" Color="{DynamicResource IconForegroundColor}" />
+
+    <Pen
+        x:Key="IconActorPen"
+        Brush="{StaticResource IconActorBrush}"
+        EndLineCap="Round"
+        LineJoin="Round"
+        StartLineCap="Round"
+        Thickness="2" />
+
+    <Pen
+        x:Key="IconActor210Pen"
+        Brush="Red"
+        EndLineCap="Round"
+        LineJoin="Round"
+        StartLineCap="Round"
+        Thickness="2" />
+
+    <DrawingImage x:Key="IconDect200">
+
+        <DrawingImage.Drawing>
+
+            <DrawingGroup>
+
+                <!--  Gehäuse  -->
+                <GeometryDrawing Pen="{StaticResource IconActorPen}">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2.5"
+                            RadiusY="2.5"
+                            Rect="5,2.5,14,19" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Steckdosenöffnung  -->
+                <GeometryDrawing Pen="{StaticResource IconActorPen}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="12,10.5"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kontakte  -->
+                <GeometryDrawing Brush="{StaticResource IconActorBrush}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="10.5,10.5"
+                            RadiusX="0.7"
+                            RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="{StaticResource IconActorBrush}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="13.5,10.5"
+                            RadiusX="0.7"
+                            RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Schutzkontakt  -->
+                <GeometryDrawing Pen="{StaticResource IconActorPen}">
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="12,13.2" EndPoint="12,14.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Status-LED  -->
+                <GeometryDrawing Brush="Green">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="12,18.2"
+                            RadiusX="0.8"
+                            RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="IconDect210">
+        <DrawingImage.Drawing>
+
+            <DrawingGroup>
+
+                <!--  Wetterschutzhaube  -->
+                <GeometryDrawing Pen="{StaticResource IconActor210Pen}">
+                    <GeometryDrawing.Geometry>
+                        <PathGeometry Figures="M7,2 Q12,0.5 17,2" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Gehäuse  -->
+                <GeometryDrawing Pen="{StaticResource IconActorPen}">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2.5"
+                            RadiusY="2.5"
+                            Rect="5,3.5,14,18" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Steckdoseneinsatz  -->
+                <GeometryDrawing Pen="{StaticResource IconActorPen}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="12,11"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kontakte  -->
+                <GeometryDrawing Brush="{DynamicResource IconActorBrush}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="10.5,11"
+                            RadiusX="0.7"
+                            RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="{DynamicResource IconActorBrush}">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="13.5,11"
+                            RadiusX="0.7"
+                            RadiusY="0.7" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Schutzkontakt  -->
+                <GeometryDrawing Pen="{StaticResource IconActorPen}">
+                    <GeometryDrawing.Geometry>
+                        <LineGeometry StartPoint="12,13.6" EndPoint="12,15" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Status-LED  -->
+                <GeometryDrawing Brush="Green">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="12,19"
+                            RadiusX="0.8"
+                            RadiusY="0.8" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
 </ResourceDictionary>
