@@ -12,6 +12,140 @@
 
     <PathGeometry x:Key="CtxSearch" Figures="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
 
+    <DrawingImage x:Key="WhiteboardIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  =========================  -->
+                <!--  Whiteboard  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="2"
+                            RadiusY="2"
+                            Rect="2,3,24,18" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  Kopfzeile / Board-Leiste  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="#FF1F5AA6">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,3,24,4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  Notiz links  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="#FFFFF4B0">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FFB0A060" Thickness="0.7" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="5,10,7,6" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Notizlinien links  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="6,12,5,0.7" />
+                            <RectangleGeometry Rect="6,14,4,0.7" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  Notiz rechts  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="#FFE0F2E9">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF80A890" Thickness="0.7" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="0.5"
+                            RadiusY="0.5"
+                            Rect="14,10,7,6" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Notizlinien rechts  -->
+                <GeometryDrawing Brush="#FFB0B0B0">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="15,12,5,0.7" />
+                            <RectangleGeometry Rect="15,14,4,0.7" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  Whiteboard-Stift  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing Brush="#FF606060">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF505050" Thickness="0.6" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M19,17
+                            L23,21
+                            L21.5,22.5
+                            L17.5,18.5
+                            Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Stiftspitze  -->
+                <GeometryDrawing Brush="#FF404040">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M19,20
+                            L21.5,22.5
+                            L18.5,21
+                            Z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  =========================  -->
+                <!--  Board-Füße  -->
+                <!--  =========================  -->
+
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF707070" Thickness="1" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <LineGeometry StartPoint="7,21" EndPoint="7,24" />
+
+                            <LineGeometry StartPoint="21,21" EndPoint="21,24" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="PdfPrintIcon">
         <DrawingImage.Drawing>
             <DrawingGroup>
@@ -5903,7 +6037,7 @@
     </DrawingImage>
     <!--#endregion Application Logo Icon-->
 
-    <!--AVM Icons-->
+    <!--  AVM Icons  -->
     <Color x:Key="IconForegroundColor">#FF202020</Color>
     <SolidColorBrush x:Key="IconActorBrush" Color="{DynamicResource IconForegroundColor}" />
 
